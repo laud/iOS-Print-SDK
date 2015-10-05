@@ -13,6 +13,7 @@
 
 @interface OL3DCaseViewController ()
 @property (weak, nonatomic) IBOutlet SCNView *scene;
+@property (strong, nonatomic) SCNNode *cameraNode;
 
 @end
 
@@ -35,19 +36,34 @@
     // Create a new scene
     SCNScene *scene = [SCNScene sceneNamed:@"case_ip5.dae"];
     
+    [[scene rootNode] enumerateChildNodesUsingBlock:^(SCNNode *node, BOOL *stop){
+//        SCNMaterial *material = [[SCNMaterial alloc] init];
+//        material.litPerPixel = NO;
+//        material.diffuse.wrapS = SCNWrapModeRepeat;
+//        material.diffuse.wrapT = SCNWrapModeRepeat;
+//        NSLog(@"%@", [node.geometry geometrySourcesForSemantic:SCNGeometrySourceSemanticTexcoord]);
+//        material.diffuse.contents = [UIImage imageNamed:@"quality"];
+//        node.geometry.materials = @[material];
+    }];
+    
     // create and add a camera to the scene
-    SCNNode *cameraNode = [SCNNode node];
-    cameraNode.camera = [SCNCamera camera];
-    [scene.rootNode addChildNode:cameraNode];
+    self.cameraNode = [SCNNode node];
+    self.cameraNode.camera = [SCNCamera camera];
+    self.cameraNode.camera.zFar = 300;
+    
+    [scene.rootNode addChildNode:self.cameraNode];
     
     // place the camera
-    cameraNode.position = SCNVector3Make(0, 0, 100);
+    self.cameraNode.position = SCNVector3Make(0,0,120);
+//    self.cameraNode.position = SCNVector3Make(43.628616,71.896751,42.655663);
+//    self.cameraNode.rotation = SCNVector4Make(0,-0.7,0,1.616743);
+//    self.cameraNode.eulerAngles = SCNVector3Make(-1.61009312,0.0242882688,-0.191921934);
     
     // create and add a light to the scene
     SCNNode *lightNode = [SCNNode node];
     lightNode.light = [SCNLight light];
     lightNode.light.type = SCNLightTypeOmni;
-    lightNode.position = SCNVector3Make(0, 10, 10);
+    lightNode.position = SCNVector3Make(0, -10, 10);
     [scene.rootNode addChildNode:lightNode];
     
     // create and add an ambient light to the scene
@@ -56,9 +72,6 @@
     ambientLightNode.light.type = SCNLightTypeAmbient;
     ambientLightNode.light.color = [UIColor darkGrayColor];
     [scene.rootNode addChildNode:ambientLightNode];
-    
-    // Add our cube to the scene
-//    [scene.rootNode addChildNode:phone];
     
     SCNView *scnView = self.scene;
     
@@ -75,6 +88,11 @@
     
     // configure the view
     scnView.backgroundColor = [UIColor clearColor];
+}
+
+- (void)touchesMoved:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    [super touchesMoved:touches withEvent:event];
+    
 }
 
 
