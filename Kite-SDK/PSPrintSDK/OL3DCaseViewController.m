@@ -8,8 +8,10 @@
 
 #import "OL3DCaseViewController.h"
 #import "OLKiteUtils.h"
+#import "OLPrintPhoto.h"
 
 @import SceneKit;
+@import SpriteKit;
 
 @interface OL3DCaseViewController ()
 @property (weak, nonatomic) IBOutlet SCNView *scene;
@@ -34,16 +36,21 @@
 //    }] firstObject];
     
     // Create a new scene
-    SCNScene *scene = [SCNScene sceneNamed:@"case_ip5.dae"];
+    SCNScene *scene = [SCNScene sceneNamed:@"case.dae"];
     
     [[scene rootNode] enumerateChildNodesUsingBlock:^(SCNNode *node, BOOL *stop){
-//        SCNMaterial *material = [[SCNMaterial alloc] init];
-//        material.litPerPixel = NO;
+        OLPrintPhoto *printPhoto = [[OLPrintPhoto alloc] init];//[self.userSelectedPhotos firstObject];
+        printPhoto.asset = [OLAsset assetWithImageAsPNG:[UIImage imageNamed:@"image"]];
+        [printPhoto getImageWithProgress:NULL completion:^(UIImage *image){
+        SCNMaterial *material = [SCNMaterial material];
+        material.litPerPixel = NO;
 //        material.diffuse.wrapS = SCNWrapModeRepeat;
 //        material.diffuse.wrapT = SCNWrapModeRepeat;
 //        NSLog(@"%@", [node.geometry geometrySourcesForSemantic:SCNGeometrySourceSemanticTexcoord]);
-//        material.diffuse.contents = [UIImage imageNamed:@"quality"];
-//        node.geometry.materials = @[material];
+            material.diffuse.contents = image;
+        material.shininess = 1.0;
+        node.geometry.materials = @[material];
+        }];
     }];
     
     // create and add a camera to the scene
@@ -59,11 +66,11 @@
 //    self.cameraNode.rotation = SCNVector4Make(0,-0.7,0,1.616743);
 //    self.cameraNode.eulerAngles = SCNVector3Make(-1.61009312,0.0242882688,-0.191921934);
     
-    // create and add a light to the scene
+//    // create and add a light to the scene
     SCNNode *lightNode = [SCNNode node];
     lightNode.light = [SCNLight light];
     lightNode.light.type = SCNLightTypeOmni;
-    lightNode.position = SCNVector3Make(0, -10, 10);
+    lightNode.position = SCNVector3Make(0, 0, 120);
     [scene.rootNode addChildNode:lightNode];
     
     // create and add an ambient light to the scene
@@ -80,14 +87,16 @@
     
     // allows the user to manipulate the camera
     scnView.allowsCameraControl = YES;
+//    scnView.autoenablesDefaultLighting = YES;
     
-#ifdef DEBUG
-    // show statistics such as fps and timing information
-    scnView.showsStatistics = YES;
-#endif
+//#ifdef DEBUG
+//    // show statistics such as fps and timing information
+//    scnView.showsStatistics = YES;
+//#endif
     
     // configure the view
     scnView.backgroundColor = [UIColor clearColor];
+    
 }
 
 - (void)touchesMoved:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
