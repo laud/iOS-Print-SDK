@@ -125,10 +125,10 @@
     [super viewDidLoad];
     
     if ([self isPushed]){
-        self.parentViewController.title = NSLocalizedString(self.templateClass, @"");
+        self.parentViewController.title = NSLocalizedString(self.templateClassCopy, @"");
     }
     else{
-        self.title = NSLocalizedString(self.templateClass, @"");
+        self.title = NSLocalizedString(self.templateClassCopy, @"");
     }
     
     self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Back", @"")

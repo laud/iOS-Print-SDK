@@ -580,6 +580,7 @@
     [vc safePerformSelector:@selector(setDelegate:) withObject:self.delegate];
     [vc safePerformSelector:@selector(setFilterProducts:) withObject:self.filterProducts];
     [vc safePerformSelector:@selector(setTemplateClass:) withObject:product.productTemplate.templateClass];
+    [vc safePerformSelector:@selector(setTemplateClassCopy:) withObject:[product.productTemplate templateClassCopy]];
     [vc safePerformSelector:@selector(setProduct:) withObject:product];
     
     return vc;
@@ -668,7 +669,7 @@
     
     UILabel *productTypeLabel = (UILabel *)[cell.contentView viewWithTag:300];
     
-    productTypeLabel.text = product.productTemplate.templateClass;
+    productTypeLabel.text = [product.productTemplate templateClassCopy];
     
     UIActivityIndicatorView *activityIndicator = (id)[cell.contentView viewWithTag:41];
     [activityIndicator startAnimating];

@@ -61,6 +61,9 @@ static NSString *const kKeyGridCountY = @"co.oceanlabs.pssdk.kKeyGridCountY";
 static NSString *const kKeySupportedOptions = @"co.oceanlabs.pssdk.kKeySupportedOptions";
 static NSString *const kKeyUpsellOffers = @"co.oceanlabs.pssdk.kKeyUpsellOffers";
 
+static NSString * const kPhoneCase = @"Phone Cases";
+static NSString * const kSnapCase = @"Snap Cases";
+
 static NSMutableArray *templates;
 static NSDate *lastSyncDate;
 static OLProductTemplateSyncRequest *inProgressSyncRequest = nil;
@@ -358,6 +361,13 @@ static OLProductTemplateSyncRequest *inProgressSyncRequest = nil;
             return @"";
             break;
     }
+}
+
+- (NSString *)templateClassCopy {
+    if ([self.templateClass isEqualToString:kSnapCase]) {
+        return kPhoneCase;
+    }
+    return self.templateClass;
 }
 
 - (NSString *)description {
