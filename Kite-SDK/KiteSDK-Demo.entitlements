@@ -4,7 +4,7 @@
 <dict>
 	<key>com.apple.developer.in-app-payments</key>
 	<array>
-		<string>merchant.ly.kite.sdk</string>
+		<string>merchant.com.laubrothersllc.BabyArt</string>
 	</array>
 </dict>
 </plist>
