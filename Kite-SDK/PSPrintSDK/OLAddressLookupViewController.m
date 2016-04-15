@@ -48,7 +48,10 @@
     UINavigationControllerDelegate, OLAddressSearchRequestDelegate, UISearchDisplayDelegate, UIGestureRecognizerDelegate, UISearchBarDelegate>
 @property (nonatomic, strong) OLCountry *country;
 @property (nonatomic, strong) UILabel *labelCountry;
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
 @property (nonatomic, strong) UISearchDisplayController *searchController;
+#pragma GCC diagnostic pop
 @property (nonatomic, strong) UISearchBar *searchBar;
 @property (nonatomic, strong) NSArray/*<OLAddress>*/ *searchResults;
 
@@ -92,7 +95,10 @@
     self.searchBar = [[UISearchBar alloc]initWithFrame:CGRectMake(0, 0, 320, 44)];
     self.searchBar.delegate = self;
     self.tableView.tableHeaderView = self.searchBar;
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
     self.searchController = [[UISearchDisplayController alloc] initWithSearchBar:self.searchBar contentsController:self];
+#pragma GCC diagnostic pop
     self.searchController.searchResultsDataSource = self;
     self.searchController.searchResultsDelegate = self;
     self.searchController.delegate = self;
@@ -314,7 +320,8 @@
 }
 
 #pragma mark - UISearchDisplayControllerDelegate methods
-
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
 - (void)searchDisplayController:(UISearchDisplayController *)controller willShowSearchResultsTableView:(UITableView *)tableView {
     self.showSectionHeader = NO;
 }
@@ -323,6 +330,7 @@
     self.showSectionHeader = YES;
     [self.tableView reloadData]; // ensure section header is reloaded appropriately
 }
+#pragma GCC diagnostic pop
 
 #pragma mark - Autorotate and Orientation Methods
 // Currently here to disable landscape orientations and rotation on iOS 7. When support is dropped, these can be deleted.

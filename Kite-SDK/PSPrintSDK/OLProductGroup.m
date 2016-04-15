@@ -30,6 +30,7 @@
 #import "OLProductGroup.h"
 #import "OLProduct.h"
 
+NSInteger const kDefaultGroupOrder = NSIntegerMax;
 
 static OLProductGroup *findGroupWithTemplateClass(NSArray *groups, NSString *templateClass) {
     for (OLProductGroup *group in groups) {
@@ -75,7 +76,29 @@ static OLProductGroup *findGroupWithTemplateClass(NSArray *groups, NSString *tem
         [group.products addObject:product];
     }
     
-    return groups;
+    return [self sortGroupArray:groups];
+}
+
++ (NSArray *)sortGroupArray:(NSArray *)groups {
+    static NSDictionary *customOrdering = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        customOrdering = @{
+                           @"Snap Cases"     : @(3),
+                           @"Frames"          : @(5),
+                           @"Stickers"        : @(1),
+                           @"Prints"          : @(2),
+                           @"Posters"         : @(4),
+                           @"Magnets"         : @(0)
+                           };
+    });
+    
+    NSArray *sortedArray = [groups sortedArrayUsingComparator:^NSComparisonResult(OLProductGroup *group1, OLProductGroup *group2) {
+        NSInteger groupOneOrdering = [customOrdering objectForKey:group1.templateClass] ? [[customOrdering objectForKey:group1.templateClass] integerValue] : kDefaultGroupOrder;
+        NSInteger groupTwoOrdering = [customOrdering objectForKey:group2.templateClass] ? [[customOrdering objectForKey:group2.templateClass] integerValue] : kDefaultGroupOrder;
+        return groupOneOrdering - groupTwoOrdering;
+    }];
+    return sortedArray;
 }
 
 @end
