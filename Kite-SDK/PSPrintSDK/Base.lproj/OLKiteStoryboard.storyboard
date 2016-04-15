@@ -1188,6 +1188,7 @@ to rearrange the photos</string>
                         <outlet property="poweredByKiteLabelBottomCon" destination="AiS-MT-eCO" id="dcd-KC-Jnu"/>
                         <outlet property="promoBox" destination="HkN-AG-Mcs" id="bRa-Y3-GG0"/>
                         <outlet property="promoBoxBottomCon" destination="1Vk-xK-T9q" id="R2Z-j9-kyq"/>
+                        <outlet property="promoBoxHeightCon" destination="iwj-sn-Jrb" id="fBY-UV-mDy"/>
                         <outlet property="promoBoxTopCon" destination="wAm-dR-bEi" id="jX1-9G-bvs"/>
                         <outlet property="promoCodeCostLabel" destination="zUB-Xd-gmr" id="rAu-pX-kPm"/>
                         <outlet property="promoCodeTextField" destination="ohh-Wa-CWn" id="8ZG-ez-I31"/>

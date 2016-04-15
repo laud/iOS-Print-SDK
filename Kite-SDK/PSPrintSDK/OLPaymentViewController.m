@@ -79,6 +79,9 @@
 #import "OLAddress+AddressBook.h"
 #import "NSObject+Utils.h"
 
+#import <MessageUI/MessageUI.h>
+#import <MessageUI/MFMessageComposeViewController.h>
+
 #ifdef OL_KITE_OFFER_PAYPAL
 #import "PayPalMobile.h"
 #endif
@@ -182,6 +185,7 @@ static BOOL haveLoadedAtLeastOnce = NO;
 #ifdef OL_KITE_OFFER_PAYPAL
 PayPalPaymentDelegate,
 #endif
+MFMessageComposeViewControllerDelegate,
 UIActionSheetDelegate, UITextFieldDelegate, OLCreditCardCaptureDelegate, UINavigationControllerDelegate, UITableViewDelegate, UIScrollViewDelegate, UIViewControllerPreviewingDelegate>
 
 @property (strong, nonatomic) OLPrintOrder *printOrder;
@@ -203,6 +207,7 @@ UIActionSheetDelegate, UITextFieldDelegate, OLCreditCardCaptureDelegate, UINavig
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *promoBoxBottomCon;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *promoBoxTopCon;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *promoBoxHeightCon;
 @property (weak, nonatomic) IBOutlet UIView *promoBox;
 @property (weak, nonatomic) IBOutlet UILabel *poweredByKiteLabel;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *poweredByKiteLabelBottomCon;
@@ -216,6 +221,8 @@ UIActionSheetDelegate, UITextFieldDelegate, OLCreditCardCaptureDelegate, UINavig
 @property (assign, nonatomic) CGFloat keyboardAnimationPercent;
 @property (assign, nonatomic) BOOL authorizedApplePay;
 @property (assign, nonatomic) BOOL usedContinueShoppingButton;
+
+@property (strong, nonatomic) MFMessageComposeViewController *composeVC;
 
 @end
 
@@ -300,10 +307,19 @@ UIActionSheetDelegate, UITextFieldDelegate, OLCreditCardCaptureDelegate, UINavig
         self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(dismiss)];
     }
     
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Questions?" style:UIBarButtonItemStylePlain target:self action:@selector(askQuestion)];
+    
     [self sanitizeBasket];
     
     self.shippingCostLabel.text = @"";
     self.promoCodeCostLabel.text = @"";
+    
+    // Hide promo code box indefinitely
+    self.promoBox.hidden = YES;
+    self.promoBoxHeightCon.constant = 0;
+    
+    // Preload compose view controller
+    self.composeVC = [[MFMessageComposeViewController alloc] init];
     
     NSString *applePayAvailableStr = @"N/A";
 #ifdef OL_KITE_OFFER_APPLE_PAY
@@ -420,6 +436,24 @@ UIActionSheetDelegate, UITextFieldDelegate, OLCreditCardCaptureDelegate, UINavig
         [OLAnalytics trackBasketScreenHitBackForOrder:self.printOrder applePayIsAvailable:[self isApplePayAvailable] ? @"Yes" : @"No"];
     }
 #endif
+}
+
+- (void)askQuestion{
+    self.composeVC.messageComposeDelegate = self;
+    
+    // Configure the fields of the interface.
+    self.composeVC.recipients = @[@"14153236885"];
+    self.composeVC.body = @"Hi Baby Art team! I have a question about my order. ";
+    
+    // Present the view controller modally.
+    [self presentViewController:self.composeVC animated:YES completion:nil];
+}
+
+- (void)messageComposeViewController:(MFMessageComposeViewController *)controller
+                 didFinishWithResult:(MessageComposeResult)result {
+    // Check the result or perform other tasks.
+    // Dismiss the mail compose view controller.
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (IBAction)onButtonMoreOptionsClicked:(id)sender{
