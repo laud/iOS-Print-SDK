@@ -497,7 +497,7 @@
     NSInteger numberOfCells = [self collectionView:collectionView numberOfItemsInSection:indexPath.section];
     CGFloat halfScreenHeight = (size.height - [[UIApplication sharedApplication] statusBarFrame].size.height - self.navigationController.navigationBar.frame.size.height)/2;
     
-    CGFloat height = 233;
+    CGFloat height = 243;
     if ([[OLKiteABTesting sharedInstance].productTileStyle isEqualToString:@"Dark"]){
         height = 200;
     }
@@ -669,13 +669,13 @@
     
     UILabel *productTypeLabel = (UILabel *)[cell.contentView viewWithTag:300];
     
-    productTypeLabel.text = [product.productTemplate templateClassCopy];
+    productTypeLabel.text = [[product.productTemplate templateClassCopy] uppercaseString];
     
     UIActivityIndicatorView *activityIndicator = (id)[cell.contentView viewWithTag:41];
     [activityIndicator startAnimating];
     
     if ([[OLKiteABTesting sharedInstance].productTileStyle isEqualToString:@"Classic"]){
-        productTypeLabel.backgroundColor = [product labelColor];
+//        productTypeLabel.backgroundColor = [product labelColor];
     }
     else if([[OLKiteABTesting sharedInstance].productTileStyle isEqualToString:@"Dark"]){
         UIButton *button = (UIButton *)[cell.contentView viewWithTag:390];

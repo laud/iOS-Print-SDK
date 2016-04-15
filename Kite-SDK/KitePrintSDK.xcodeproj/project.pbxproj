@@ -2509,7 +2509,7 @@
 						CreatedOnToolsVersion = 7.0.1;
 					};
 					2EADD7E31BE79D6D0051CD31 = {
-						DevelopmentTeam = L78L4U72YJ;
+						DevelopmentTeam = 3AH85W6652;
 						SystemCapabilities = {
 							com.apple.OMC = {
 								enabled = 1;
@@ -3547,7 +3547,7 @@
 					"\"UIKit\"",
 					"-all_load",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = ly.kite.sdk;
+				PRODUCT_BUNDLE_IDENTIFIER = ly.kite.sampleapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -3663,7 +3663,7 @@
 					"\"UIKit\"",
 					"-all_load",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = ly.kite.sdk;
+				PRODUCT_BUNDLE_IDENTIFIER = ly.kite.sampleapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
