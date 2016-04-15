@@ -309,9 +309,10 @@
     else{
         textView.text = product.productTemplate.templateType;
     }
+    textView.text = [textView.text uppercaseString];
     
     if ([[OLKiteABTesting sharedInstance].productTileStyle isEqualToString:@"Classic"]){
-        textView.backgroundColor = [product labelColor];
+//        textView.backgroundColor = [product labelColor];
     }
     else if([[OLKiteABTesting sharedInstance].productTileStyle isEqualToString:@"Dark"]){
         UIButton *button = (UIButton *)[cell.contentView viewWithTag:390];
@@ -357,7 +358,7 @@
     NSInteger numberOfCells = [self collectionView:collectionView numberOfItemsInSection:indexPath.section];
     CGFloat halfScreenHeight = (size.height - [[UIApplication sharedApplication] statusBarFrame].size.height - self.navigationController.navigationBar.frame.size.height)/2;
     
-    CGFloat height = 233;
+    CGFloat height = 243;
     if ([[OLKiteABTesting sharedInstance].productTileStyle isEqualToString:@"Dark"]){
         height = 200;
     }

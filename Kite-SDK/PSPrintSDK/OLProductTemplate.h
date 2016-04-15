@@ -98,6 +98,6 @@ typedef enum {
 + (void) resetTemplates;
 + (void) deleteCachedTemplates;
 
-- (NSString *)templateClassCopy;
+- (NSString *_Nullable)templateClassCopy;
 
 @end

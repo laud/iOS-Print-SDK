@@ -62,8 +62,8 @@
 /* Class = "UILabel"; text = "Medium Square Prints"; ObjectID = "IvX-J5-xgp"; */
 "IvX-J5-xgp.text" = "Medium Square Prints";
 
-/* Class = "UIButton"; normalTitle = "Start Creating"; ObjectID = "JzC-Vn-8gQ"; */
-"JzC-Vn-8gQ.normalTitle" = "Start Creating";
+/* Class = "UIButton"; normalTitle = "Finish Creating"; ObjectID = "JzC-Vn-8gQ"; */
+"JzC-Vn-8gQ.normalTitle" = "Finish Creating";
 
 /* Class = "UILabel"; text = "Powered by Kite.ly"; ObjectID = "MDv-31-HTi"; */
 "MDv-31-HTi.text" = "Powered by Kite.ly";
