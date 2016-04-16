@@ -116,9 +116,10 @@
     [OLAnalytics trackProductSelectionScreenViewed];
 #endif
 
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Questions?" style:UIBarButtonItemStylePlain target:self action:@selector(askQuestion)];
     // Preload compose view controller
-    self.composeVC = [[MFMessageComposeViewController alloc] init];
+    if ([MFMessageComposeViewController canSendText]) {
+        self.composeVC = [[MFMessageComposeViewController alloc] init];
+    }
     
     NSURL *url = [NSURL URLWithString:[OLKiteABTesting sharedInstance].headerLogoURL];
     if (url && [[SDWebImageManager sharedManager] cachedImageExistsForURL:url] && [self isMemberOfClass:[OLProductHomeViewController class]]){
@@ -407,6 +408,16 @@
         self.collectionView.contentInset = UIEdgeInsetsMake([[UIApplication sharedApplication] statusBarFrame].size.height + self.navigationController.navigationBar.frame.size.height, self.collectionView.contentInset.left, self.collectionView.contentInset.bottom, self.collectionView.contentInset.right);
     }
     [self addBasketIconToTopRight];
+    
+    UIBarButtonItem *questionBarItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamedInKiteBundle:[NSString stringWithFormat:@"question"]]
+                                                                        style:UIBarButtonItemStyleDone
+                                                                       target:self
+                                                                       action:@selector(askQuestion)];
+    if (self.isPushed) {
+        self.parentViewController.navigationItem.leftBarButtonItem = questionBarItem;
+    } else {
+        self.navigationItem.leftBarButtonItem = questionBarItem;
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated{
@@ -685,7 +696,7 @@
             [view.superview addConstraints:con];
             
             UIImageView *cellImageView = (UIImageView *)[cell.contentView viewWithTag:40];
-            cellImageView.image = [UIImage imageNamed:@"stamps_store_placeholder"];
+            cellImageView.image = [UIImage imageNamedInKiteBundle:[NSString stringWithFormat:@"stamps_store_placeholder"]];
             
             UILabel *productTypeLabel = (UILabel *)[cell.contentView viewWithTag:300];
             productTypeLabel.text = @"STAMPS";
@@ -786,21 +797,26 @@
 #pragma mark - Baby Art Personal Methods
 
 - (void)askQuestion{
-    self.composeVC.messageComposeDelegate = self;
-    
-    // Configure the fields of the interface.
-    self.composeVC.recipients = @[@"14153236885"];
-    self.composeVC.body = @"Hi Baby Art team! I have a question about your print shop. ";
-    
-    // Present the view controller modally.
-    [self presentViewController:self.composeVC animated:YES completion:nil];
+    if ([MFMessageComposeViewController canSendText]) {
+        self.composeVC = [[MFMessageComposeViewController alloc] init];
+        self.composeVC.messageComposeDelegate = self;
+        
+        // Configure the fields of the interface.
+        self.composeVC.recipients = @[@"14153236885"];
+        self.composeVC.body = @"Hi Baby Art team! I have a question about your print shop. ";
+        
+        // Present the view controller modally.
+        [self presentViewController:self.composeVC animated:YES completion:nil];
+    }
 }
 
 - (void)messageComposeViewController:(MFMessageComposeViewController *)controller
                  didFinishWithResult:(MessageComposeResult)result {
     // Check the result or perform other tasks.
     // Dismiss the mail compose view controller.
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self dismissViewControllerAnimated:YES completion:^{
+        self.composeVC = nil;
+    }];
 }
 
 // http://stackoverflow.com/questions/3139619/check-that-an-email-address-is-valid-on-ios

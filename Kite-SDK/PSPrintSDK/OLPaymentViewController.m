@@ -307,7 +307,15 @@ UIActionSheetDelegate, UITextFieldDelegate, OLCreditCardCaptureDelegate, UINavig
         self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(dismiss)];
     }
     
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Questions?" style:UIBarButtonItemStylePlain target:self action:@selector(askQuestion)];
+    UIBarButtonItem *questionBarItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamedInKiteBundle:[NSString stringWithFormat:@"question"]]
+                                                                        style:UIBarButtonItemStyleDone
+                                                                       target:self
+                                                                       action:@selector(askQuestion)];
+    if (self.isPushed) {
+        self.parentViewController.navigationItem.leftBarButtonItem = questionBarItem;
+    } else {
+        self.navigationItem.rightBarButtonItem = questionBarItem;
+    }
     
     [self sanitizeBasket];
     
@@ -319,7 +327,9 @@ UIActionSheetDelegate, UITextFieldDelegate, OLCreditCardCaptureDelegate, UINavig
     self.promoBoxHeightCon.constant = 0;
     
     // Preload compose view controller
-    self.composeVC = [[MFMessageComposeViewController alloc] init];
+    if ([MFMessageComposeViewController canSendText]) {
+        self.composeVC = [[MFMessageComposeViewController alloc] init];
+    }
     
     NSString *applePayAvailableStr = @"N/A";
 #ifdef OL_KITE_OFFER_APPLE_PAY
@@ -438,22 +448,27 @@ UIActionSheetDelegate, UITextFieldDelegate, OLCreditCardCaptureDelegate, UINavig
 #endif
 }
 
-- (void)askQuestion{
-    self.composeVC.messageComposeDelegate = self;
-    
-    // Configure the fields of the interface.
-    self.composeVC.recipients = @[@"14153236885"];
-    self.composeVC.body = @"Hi Baby Art team! I have a question about my order. ";
-    
-    // Present the view controller modally.
-    [self presentViewController:self.composeVC animated:YES completion:nil];
+- (void)askQuestion {
+    if ([MFMessageComposeViewController canSendText]) {
+        self.composeVC = [[MFMessageComposeViewController alloc] init];
+        self.composeVC.messageComposeDelegate = self;
+        
+        // Configure the fields of the interface.
+        self.composeVC.recipients = @[@"14153236885"];
+        self.composeVC.body = @"Hi Baby Art team! I have a question about my order. ";
+        
+        // Present the view controller modally.
+        [self presentViewController:self.composeVC animated:YES completion:nil];
+    }
 }
 
 - (void)messageComposeViewController:(MFMessageComposeViewController *)controller
                  didFinishWithResult:(MessageComposeResult)result {
     // Check the result or perform other tasks.
     // Dismiss the mail compose view controller.
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self dismissViewControllerAnimated:YES completion:^{
+        self.composeVC = nil;
+    }];
 }
 
 - (IBAction)onButtonMoreOptionsClicked:(id)sender{
