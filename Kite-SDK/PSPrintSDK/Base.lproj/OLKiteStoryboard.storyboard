@@ -1058,7 +1058,7 @@ to rearrange the photos</string>
                                     <label hidden="YES" opaque="NO" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Powered by Kite.ly" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MDv-31-HTi">
                                         <rect key="frame" x="244" y="89" width="112" height="16"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="16" id="Wbc-qM-ap2"/>
+                                            <constraint firstAttribute="height" constant="10" id="Wbc-qM-ap2"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                         <color key="textColor" red="0.48627450979999998" green="0.48627450979999998" blue="0.48627450979999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

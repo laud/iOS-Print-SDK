@@ -63,6 +63,9 @@
 #import "UIViewController+OLMethods.h"
 #import "UIViewController+TraitCollectionCompatibility.h"
 
+#import <MessageUI/MessageUI.h>
+#import <MessageUI/MFMessageComposeViewController.h>
+
 #define SYSTEM_VERSION_LESS_THAN(v)                 ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedAscending)
 
 @interface OLProduct (Private)
@@ -82,7 +85,7 @@
 
 @end
 
-@interface OLProductHomeViewController () <UICollectionViewDelegateFlowLayout, UIViewControllerPreviewingDelegate>
+@interface OLProductHomeViewController () <UICollectionViewDelegateFlowLayout, UIViewControllerPreviewingDelegate, MFMessageComposeViewControllerDelegate>
 @property (nonatomic, strong) NSArray *productGroups;
 @property (nonatomic, strong) UIImageView *topSurpriseImageView;
 @property (assign, nonatomic) BOOL fromRotation;
@@ -91,6 +94,9 @@
 @property (strong, nonatomic) UIView *headerView;
 @property (strong, nonatomic) NSString *bannerString;
 @property (strong, nonatomic) NSDate *countdownDate;
+
+@property (strong, nonatomic) MFMessageComposeViewController *composeVC;
+
 @end
 
 @implementation OLProductHomeViewController
@@ -110,10 +116,10 @@
     [OLAnalytics trackProductSelectionScreenViewed];
 #endif
 
-    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Back", @"")
-                                                                             style:UIBarButtonItemStylePlain
-                                                                            target:nil
-                                                                            action:nil];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Questions?" style:UIBarButtonItemStylePlain target:self action:@selector(askQuestion)];
+    // Preload compose view controller
+    self.composeVC = [[MFMessageComposeViewController alloc] init];
+    
     NSURL *url = [NSURL URLWithString:[OLKiteABTesting sharedInstance].headerLogoURL];
     if (url && [[SDWebImageManager sharedManager] cachedImageExistsForURL:url] && [self isMemberOfClass:[OLProductHomeViewController class]]){
         [[SDWebImageManager sharedManager] downloadImageWithURL:url options:0 progress:NULL completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL){
@@ -778,6 +784,24 @@
 //}
 
 #pragma mark - Baby Art Personal Methods
+
+- (void)askQuestion{
+    self.composeVC.messageComposeDelegate = self;
+    
+    // Configure the fields of the interface.
+    self.composeVC.recipients = @[@"14153236885"];
+    self.composeVC.body = @"Hi Baby Art team! I have a question about your print shop. ";
+    
+    // Present the view controller modally.
+    [self presentViewController:self.composeVC animated:YES completion:nil];
+}
+
+- (void)messageComposeViewController:(MFMessageComposeViewController *)controller
+                 didFinishWithResult:(MessageComposeResult)result {
+    // Check the result or perform other tasks.
+    // Dismiss the mail compose view controller.
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
 
 // http://stackoverflow.com/questions/3139619/check-that-an-email-address-is-valid-on-ios
 - (BOOL)stringIsValidEmail:(NSString *)checkString
