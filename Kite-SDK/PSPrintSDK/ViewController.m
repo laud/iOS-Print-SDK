@@ -79,6 +79,9 @@ UINavigationControllerDelegate, OLKiteDelegate>
     [OLKitePrintSDK setApplePayMerchantID:kApplePayMerchantIDKey];
     [OLKitePrintSDK setApplePayPayToString:kApplePayBusinessName];
 #endif
+    
+    // Just short circuit testing
+    [self onButtonPrintLocalPhotos:nil];
 }
 
 - (BOOL)shouldAutorotate {
