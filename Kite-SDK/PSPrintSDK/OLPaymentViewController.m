@@ -312,7 +312,7 @@ UIActionSheetDelegate, UITextFieldDelegate, OLCreditCardCaptureDelegate, UINavig
                                                                        target:self
                                                                        action:@selector(askQuestion)];
     if (self.isPushed) {
-        self.parentViewController.navigationItem.leftBarButtonItem = questionBarItem;
+        self.parentViewController.navigationItem.rightBarButtonItem = questionBarItem;
     } else {
         self.navigationItem.rightBarButtonItem = questionBarItem;
     }
