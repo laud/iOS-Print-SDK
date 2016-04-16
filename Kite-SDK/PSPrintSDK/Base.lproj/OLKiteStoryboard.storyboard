@@ -1055,7 +1055,7 @@ to rearrange the photos</string>
                                             <action selector="onButtonPayWithApplePayClicked" destination="awx-dV-KVo" eventType="touchUpInside" id="gfh-Fq-u8w"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Powered by Kite.ly" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MDv-31-HTi">
+                                    <label hidden="YES" opaque="NO" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Powered by Kite.ly" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MDv-31-HTi">
                                         <rect key="frame" x="244" y="89" width="112" height="16"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="16" id="Wbc-qM-ap2"/>
@@ -1086,13 +1086,13 @@ to rearrange the photos</string>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qkd-Y5-UGT">
                                         <rect key="frame" x="304" y="40" width="288" height="44"/>
-                                        <color key="backgroundColor" red="1" green="0.89411764709999997" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="backgroundColor" red="0.92156862745098034" green="0.92156862745098034" blue="0.92156862745098034" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="44" id="eQG-4E-Q3k"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <state key="normal" title="More Options">
-                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleColor" red="0.31372549019607843" green="0.31372549019607843" blue="0.31372549019607843" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                         <connections>
                                             <action selector="onButtonMoreOptionsClicked:" destination="awx-dV-KVo" eventType="touchUpInside" id="Xm5-5A-GYq"/>

@@ -86,6 +86,7 @@
 @property (nonatomic, strong) NSArray *productGroups;
 @property (nonatomic, strong) UIImageView *topSurpriseImageView;
 @property (assign, nonatomic) BOOL fromRotation;
+@property (assign, nonatomic) BOOL showFakeStamps;
 @property (strong, nonatomic) UIView *bannerView;
 @property (strong, nonatomic) UIView *headerView;
 @property (strong, nonatomic) NSString *bannerString;
@@ -563,6 +564,30 @@
         return nil;
     }
     if (indexPath.item >= self.productGroups.count){
+        if (indexPath.item == self.productGroups.count && self.showFakeStamps) {
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Stamps are coming soon!"
+                                                                           message:@"Enter your email to be notified when stamps become available."
+                                                                    preferredStyle:UIAlertControllerStyleAlert];
+
+            UIAlertAction *defaultAction = [UIAlertAction actionWithTitle:@"Submit" style:UIAlertActionStyleDefault
+                                                                  handler:^(UIAlertAction * action) {
+                                                                      UITextField *emailField = alert.textFields.firstObject;
+                                                                      if (emailField) {
+                                                                          [self submitEmailToBabyArt:emailField.text];
+                                                                      }
+                                                                  }];
+            UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDefault
+                                                                 handler:^(UIAlertAction * action) {
+                                                                     [alert dismissViewControllerAnimated:YES completion:nil];
+                                                                 }];
+            [alert addAction:cancelAction];
+            [alert addAction:defaultAction];
+            [alert addTextFieldWithConfigurationHandler:^(UITextField *textField) {
+                textField.placeholder = @"Your Email";
+                textField.keyboardType = UIKeyboardTypeEmailAddress;
+            }];
+            [self presentViewController:alert animated:YES completion:nil];
+        }
         return nil;
     }
     
@@ -602,6 +627,11 @@
     NSInteger extras = 0;
     NSInteger numberOfProducts = [self.productGroups count];
     
+    if (numberOfProducts > 0) {
+        self.showFakeStamps = YES;
+        numberOfProducts++;
+    }
+    
     CGSize size = self.view.frame.size;
     if (!(numberOfProducts % 2 == 0) && (!([self isHorizontalSizeClassCompact]) || size.height < size.width)){
         extras = 1;
@@ -628,18 +658,48 @@
     }
     
     if (indexPath.item >= self.productGroups.count){
-        UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"extraCell" forIndexPath:indexPath];
-        [self fixCellFrameOnIOS7:cell];
-        UIImageView *cellImageView = (UIImageView *)[cell.contentView viewWithTag:40];
-        [cellImageView setAndFadeInImageWithURL:[NSURL URLWithString:@"https://s3.amazonaws.com/sdk-static/product_photography/placeholder.png"]];
-        if (self.fromRotation){
-            self.fromRotation = NO;
-            cell.alpha = 0;
-            [UIView animateWithDuration:0.3 animations:^{
-                cell.alpha = 1;
-            }];
+        if (indexPath.item == self.productGroups.count && self.showFakeStamps) {
+            NSString *identifier = [NSString stringWithFormat:@"ProductCell%@", [OLKiteABTesting sharedInstance].productTileStyle];
+            UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
+            [self fixCellFrameOnIOS7:cell];
+            
+            UIView *view = cell.contentView;
+            view.translatesAutoresizingMaskIntoConstraints = NO;
+            NSDictionary *views = NSDictionaryOfVariableBindings(view);
+            NSMutableArray *con = [[NSMutableArray alloc] init];
+            
+            NSArray *visuals = @[@"H:|-0-[view]-0-|",
+                                 @"V:|-0-[view]-0-|"];
+            
+            
+            for (NSString *visual in visuals) {
+                [con addObjectsFromArray: [NSLayoutConstraint constraintsWithVisualFormat:visual options:0 metrics:nil views:views]];
+            }
+            
+            [view.superview addConstraints:con];
+            
+            UIImageView *cellImageView = (UIImageView *)[cell.contentView viewWithTag:40];
+            cellImageView.image = [UIImage imageNamed:@"stamps_store_placeholder"];
+            
+            UILabel *productTypeLabel = (UILabel *)[cell.contentView viewWithTag:300];
+            productTypeLabel.text = @"STAMPS";
+            
+            return cell;
+            
+        } else {
+            UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"extraCell" forIndexPath:indexPath];
+            [self fixCellFrameOnIOS7:cell];
+            UIImageView *cellImageView = (UIImageView *)[cell.contentView viewWithTag:40];
+            [cellImageView setAndFadeInImageWithURL:[NSURL URLWithString:@"https://s3.amazonaws.com/sdk-static/product_photography/placeholder.png"]];
+            if (self.fromRotation){
+                self.fromRotation = NO;
+                cell.alpha = 0;
+                [UIView animateWithDuration:0.3 animations:^{
+                    cell.alpha = 1;
+                }];
+            }
+            return cell;
         }
-        return cell;
     }
     
     NSString *identifier = [NSString stringWithFormat:@"ProductCell%@", [OLKiteABTesting sharedInstance].productTileStyle];
@@ -716,6 +776,46 @@
 //    [super recreateTornDownLargeObjectsToMemory];
 //    [self.collectionView reloadData];
 //}
+
+#pragma mark - Baby Art Personal Methods
+
+// http://stackoverflow.com/questions/3139619/check-that-an-email-address-is-valid-on-ios
+- (BOOL)stringIsValidEmail:(NSString *)checkString
+{
+    BOOL stricterFilter = NO; // Discussion http://blog.logichigh.com/2010/09/02/validating-an-e-mail-address/
+    NSString *stricterFilterString = @"^[A-Z0-9a-z\\._%+-]+@([A-Za-z0-9-]+\\.)+[A-Za-z]{2,4}$";
+    NSString *laxString = @"^.+@([A-Za-z0-9-]+\\.)+[A-Za-z]{2}[A-Za-z]*$";
+    NSString *emailRegex = stricterFilter ? stricterFilterString : laxString;
+    NSPredicate *emailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegex];
+    return [emailTest evaluateWithObject:checkString];
+}
+
+- (void)submitEmailToBabyArt:(NSString *)email {
+    if ([self stringIsValidEmail:email]) {
+        NSString *post = [NSString stringWithFormat:@"entry.875561197=%@", email];
+        NSData *postData = [NSData dataWithBytes:post.UTF8String length:post.length];
+        
+        NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
+        [request setURL:[NSURL URLWithString:@"https://docs.google.com/forms/d/1KaQv6HFTciNE8ZSyzOH8ZCt8kLvEoWyuJfH61pjjFXU/formResponse"]];
+        [request setHTTPMethod:@"POST"];
+        [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"content-type"];
+        [request setHTTPBody:postData];
+        
+        NSURLConnection *conn = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+        [conn start];
+    }
+
+    // Show Thank You Alert
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Thanks"
+                                                                   message:@"We'll get back to you shortly 🙂👍"
+                                                            preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction *defaultAction = [UIAlertAction actionWithTitle:@"Okay" style:UIAlertActionStyleDefault
+                                                          handler:^(UIAlertAction * action) {
+                                                          }];
+    [alert addAction:defaultAction];
+    [self presentViewController:alert animated:YES completion:nil];
+}
 
 #pragma mark - Autorotate and Orientation Methods
 // Currently here to disable landscape orientations and rotation on iOS 7. When support is dropped, these can be deleted.
