@@ -64,6 +64,7 @@
 #import "UIViewController+OLMethods.h"
 #import "UIViewController+TraitCollectionCompatibility.h"
 
+#include <sys/time.h>
 #import <MessageUI/MessageUI.h>
 #import <MessageUI/MFMessageComposeViewController.h>
 
@@ -108,6 +109,10 @@
     }
     
     return _productGroups;
+}
+
+- (void)didReceiveMemoryWarning {
+    [[OLPersonalizedProductPhotos sharedManager] clearCachedImages];
 }
 
 - (void)viewDidLoad {
@@ -697,7 +702,7 @@
             [view.superview addConstraints:con];
             
             UIImageView *cellImageView = (UIImageView *)[cell.contentView viewWithTag:40];
-            cellImageView.image = [UIImage imageNamedInKiteBundle:[NSString stringWithFormat:@"stamps_store_placeholder"]];
+            cellImageView.image = [UIImage imageNamedInKiteBundle:@"stamps_store_placeholder"];
             
             UILabel *productTypeLabel = (UILabel *)[cell.contentView viewWithTag:300];
             productTypeLabel.text = @"STAMPS";
@@ -749,7 +754,7 @@
                                                           withCustomImages:self.userSelectedPhotos
                                                                 completion:^(UIImage *image) {
                                                                     if (image) {
-                                                                        cellImageView.image = image;
+                                                                        [OLPersonalizedProductPhotos setAndFadeImage:image toImageView:cellImageView];
                                                                     } else {
                                                                         [product setClassImageToImageView:cellImageView];
                                                                     }

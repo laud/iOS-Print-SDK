@@ -1,20 +1,37 @@
 {
-    "poster_mask":[
-                   {
-                   "x":174,
-                   "y":56,
-                   "width":261,
-                   "height":373,
-                   "angle":-1.55
-                   }
-                   ],
-    "frame_mask":[
-                  {
-                  "x":170,
-                  "y":117,
-                  "width":202,
-                  "height":199,
-                  "angle":0
-                  }
-                  ]
+  "poster_mask": [{
+    "x": 174,
+    "y": 56,
+    "width": 261,
+    "height": 373,
+    "angle": -1.55
+  }],
+  "frame_mask": [{
+    "x": 170,
+    "y": 117,
+    "width": 202,
+    "height": 199,
+    "angle": 0
+  }],
+  "magnets_mask": [{
+      "x": 179,
+      "y": 195,
+      "width": 112,
+      "height": 112,
+      "angle": -21.5
+    }, {
+      "x": 394,
+      "y": 277,
+      "width": 111,
+      "height": 111,
+      "angle": -29.1
+    }, {
+      "x": 311,
+      "y": 206,
+      "width": 111,
+      "height": 111,
+      "angle": 3.2
+    }
+
+  ]
 }

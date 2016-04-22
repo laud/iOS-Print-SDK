@@ -13,11 +13,10 @@
 @interface OLPersonalizedProductPhotos : NSObject
 
 + (id)sharedManager;
++ (void)setAndFadeImage:(UIImage *)image toImageView:(UIImageView *)imageView;
 
 - (BOOL)hasPersonalizedCoverImageForProductGroup:(NSString *)templateClass;
-
 - (void)coverImageForProductGroup:(NSString *)templateClass withCustomImages:(NSArray *)customImages completion:(void (^)(UIImage *image))completion;
-
 - (void)clearCachedImages;
 
 @end
