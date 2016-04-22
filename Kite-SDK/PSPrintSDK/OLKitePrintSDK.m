@@ -32,7 +32,12 @@
 #import "OLProductTemplate.h"
 #import "OLStripeCard.h"
 #ifdef OL_KITE_OFFER_PAYPAL
+#ifdef COCOAPODS
+#import <PayPal-iOS-SDK/PayPalMobile.h>
+#else
 #import "PayPalMobile.h"
+#endif
+
 #endif
 
 #ifdef OL_OFFER_JUDOPAY
@@ -86,11 +91,9 @@ static BOOL isUnitTesting = NO;
 static BOOL QRCodeUploadEnabled = NO;
 static BOOL isKiosk = NO;
 
-#ifdef OL_KITE_OFFER_INSTAGRAM
 static NSString *instagramClientID = nil;
 static NSString *instagramSecret = nil;
 static NSString *instagramRedirectURI = nil;
-#endif
 
 #ifdef OL_KITE_OFFER_ADOBE
 static NSString* creativeSDKClientId = nil;
@@ -204,13 +207,16 @@ static NSString* creativeSDKClientSecret = nil;
     }
 }
 
-#ifdef OL_KITE_OFFER_APPLE_PAY
 + (void)setApplePayMerchantID:(NSString *_Nonnull)mID{
+#ifdef OL_KITE_OFFER_APPLE_PAY
     applePayMerchantID = mID;
+#endif
 }
 
 + (void)setApplePayPayToString:(NSString *_Nonnull)name{
+#ifdef OL_KITE_OFFER_APPLE_PAY
     applePayPayToString = name;
+#endif
 }
 
 + (NSString *)applePayPayToString{
@@ -233,7 +239,6 @@ static NSString* creativeSDKClientSecret = nil;
 + (NSString *_Nonnull)appleMerchantID {
     return applePayMerchantID;
 }
-#endif
 
 + (NSString *_Nonnull)stripePublishableKey {
     switch (environment) {
@@ -279,24 +284,37 @@ static NSString* creativeSDKClientSecret = nil;
 
 #pragma mark - Internal
 
-#ifdef OL_KITE_OFFER_INSTAGRAM
+
 + (void)setInstagramEnabledWithClientID:(NSString *_Nonnull)clientID secret:(NSString *_Nonnull)secret redirectURI:(NSString *_Nonnull)redirectURI {
+#ifdef OL_KITE_OFFER_INSTAGRAM
     instagramSecret = secret;
     instagramClientID = clientID;
     instagramRedirectURI = redirectURI;
+#endif
 }
 
 + (NSString *)instagramRedirectURI {
+#ifdef OL_KITE_OFFER_INSTAGRAM
     return instagramRedirectURI;
+#else
+    return nil;
+#endif
 }
 
 + (NSString *)instagramSecret{
+#ifdef OL_KITE_OFFER_INSTAGRAM
     return instagramSecret;
+#else
+    return nil;
+#endif
 }
 
 + (NSString *)instagramClientID{
+#ifdef OL_KITE_OFFER_INSTAGRAM
     return instagramClientID;
-}
+#else
+    return nil;
 #endif
+}
 
 @end

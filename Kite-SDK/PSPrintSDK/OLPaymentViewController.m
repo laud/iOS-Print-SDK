@@ -83,7 +83,12 @@
 #import <MessageUI/MFMessageComposeViewController.h>
 
 #ifdef OL_KITE_OFFER_PAYPAL
+#ifdef COCOAPODS
+#import <PayPal-iOS-SDK/PayPalMobile.h>
+#else
 #import "PayPalMobile.h"
+#endif
+
 #endif
 
 #ifdef OL_KITE_OFFER_APPLE_PAY

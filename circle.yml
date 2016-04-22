@@ -1,0 +1,17 @@
+machine:
+  xcode:
+    version: 7.2
+  environment:
+    GYM_CODE_SIGNING_IDENTITY: "iPhone Distribution: Kite Tech LTD (L78L4U72YJ)"
+
+deployment:
+  beta_distribution:
+    branch: beta
+    commands:
+      - gym -w Kite-SDK/KitePrintSDK.xcworkspace -s Kite-CI-Deploy
+      - ipa distribute:crashlytics
+          --crashlytics_path Kite-SDK/Crashlytics.framework
+          --api_token    "$CRASHLYTICS_API_KEY"
+          --build_secret "$CRASHLYTICS_SECRET"
+          --groups "kite-testers"
+          --notifications YES
