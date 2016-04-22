@@ -51,6 +51,7 @@
 #import "OLKitePrintSDK.h"
 #import "OLKiteUtils.h"
 #import "OLKiteViewController.h"
+#import "OLPersonalizedProductPhotos.h"
 #import "OLProduct.h"
 #import "OLProductGroup.h"
 #import "OLProductHomeViewController.h"
@@ -739,11 +740,21 @@
     [view.superview addConstraints:con];
     
     UIImageView *cellImageView = (UIImageView *)[cell.contentView viewWithTag:40];
-    
+    cellImageView.image = nil;
+
     OLProductGroup *group = self.productGroups[indexPath.item];
     OLProduct *product = [group.products firstObject];
-    [product setClassImageToImageView:cellImageView];
     
+    [[OLPersonalizedProductPhotos sharedManager] coverImageForProductGroup:product.productTemplate.templateClass
+                                                          withCustomImages:self.userSelectedPhotos
+                                                                completion:^(UIImage *image) {
+                                                                    if (image) {
+                                                                        cellImageView.image = image;
+                                                                    } else {
+                                                                        [product setClassImageToImageView:cellImageView];
+                                                                    }
+                                                                }];
+
     UILabel *productTypeLabel = (UILabel *)[cell.contentView viewWithTag:300];
     
     productTypeLabel.text = [[product.productTemplate templateClassCopy] uppercaseString];

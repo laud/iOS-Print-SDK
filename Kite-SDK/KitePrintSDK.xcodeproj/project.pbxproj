@@ -321,6 +321,8 @@
 		2EDBFAB01BC698F2007BDB83 /* 1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2EDBFAAF1BC698F2007BDB83 /* 1.jpg */; };
 		2EF4392B1BF4D15E0006C123 /* OLPrintOrderSubmitStatusRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EF4392A1BF4D15E0006C123 /* OLPrintOrderSubmitStatusRequest.m */; };
 		2EF4392C1BF4D15E0006C123 /* OLPrintOrderSubmitStatusRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EF4392A1BF4D15E0006C123 /* OLPrintOrderSubmitStatusRequest.m */; };
+		681EA88A1CC9BF1000508132 /* OLPersonalizedProductPhotos.m in Sources */ = {isa = PBXBuildFile; fileRef = 681EA8891CC9BF1000508132 /* OLPersonalizedProductPhotos.m */; };
+		681EA88C1CC9D29900508132 /* PhotoMaskManifest.json in Resources */ = {isa = PBXBuildFile; fileRef = 681EA88B1CC9D29900508132 /* PhotoMaskManifest.json */; };
 		7D6213DEB708F5F5E6617BF1 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 931ABE3568CB40F8892488E2 /* libPods.a */; };
 		CD73BF8B186215790009DE03 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD73BF8A186215790009DE03 /* XCTest.framework */; };
 		CD73BF8C186215790009DE03 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD73BF6B186215790009DE03 /* Foundation.framework */; };
@@ -888,6 +890,9 @@
 		3DF9D6FC1B0F618000A40C0C /* UIViewController+TraitCollectionCompatibility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIViewController+TraitCollectionCompatibility.m"; path = "PSPrintSDK/Categories/UIViewController+TraitCollectionCompatibility.m"; sourceTree = "<group>"; };
 		3DF9D6FF1B0F65C700A40C0C /* NSObject+Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSObject+Utils.h"; path = "PSPrintSDK/Categories/NSObject+Utils.h"; sourceTree = "<group>"; };
 		3DF9D7001B0F65C700A40C0C /* NSObject+Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSObject+Utils.m"; path = "PSPrintSDK/Categories/NSObject+Utils.m"; sourceTree = "<group>"; };
+		681EA8881CC9BF1000508132 /* OLPersonalizedProductPhotos.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OLPersonalizedProductPhotos.h; sourceTree = "<group>"; };
+		681EA8891CC9BF1000508132 /* OLPersonalizedProductPhotos.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OLPersonalizedProductPhotos.m; sourceTree = "<group>"; };
+		681EA88B1CC9D29900508132 /* PhotoMaskManifest.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = PhotoMaskManifest.json; sourceTree = "<group>"; };
 		931ABE3568CB40F8892488E2 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD382E4818EB7C6300127F95 /* OLJudoPayCard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OLJudoPayCard.m; sourceTree = "<group>"; };
 		CD382E4918EB7C6300127F95 /* OLJudoPayCard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OLJudoPayCard.h; sourceTree = "<group>"; };
@@ -1863,6 +1868,8 @@
 				3D8ECA501AD692FA00CFB2C0 /* OLProductGroup.m */,
 				2E3F96AD1A4967FF005C0EA3 /* OLProduct.h */,
 				2E3F96AE1A4967FF005C0EA3 /* OLProduct.m */,
+				681EA8881CC9BF1000508132 /* OLPersonalizedProductPhotos.h */,
+				681EA8891CC9BF1000508132 /* OLPersonalizedProductPhotos.m */,
 			);
 			name = Print;
 			sourceTree = "<group>";
@@ -2206,6 +2213,7 @@
 				2E39CAA41AB89515008B1EFF /* OLPhotoSelectionButton.xib */,
 				2E6E60681C5038AD00829BB7 /* OLKiteStoryboard.storyboard */,
 				CD93BB471879EA4F00316492 /* KitePrintSDK.xcassets */,
+				681EA88B1CC9D29900508132 /* PhotoMaskManifest.json */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -2609,6 +2617,7 @@
 				2E6E605D1C50384C00829BB7 /* KitePrintSDK.strings in Resources */,
 				2E6E60661C5038AD00829BB7 /* OLKiteStoryboard.storyboard in Resources */,
 				2EADD8571BE79D6D0051CD31 /* PostcardBackView.xib in Resources */,
+				681EA88C1CC9D29900508132 /* PhotoMaskManifest.json in Resources */,
 				2EADD8581BE79D6D0051CD31 /* OLPhotoSelectionButton.xib in Resources */,
 				2EADD85A1BE79D6D0051CD31 /* Images.xcassets in Resources */,
 				2EADD85C1BE79D6D0051CD31 /* KitePrintSDK.xcassets in Resources */,
@@ -2892,6 +2901,7 @@
 				2E7F516D1BF5FBB100A78718 /* OLGreetingCardPrintJob.m in Sources */,
 				2EADD7F91BE79D6D0051CD31 /* OLPhotoSelectionButton.m in Sources */,
 				2EADD7FA1BE79D6D0051CD31 /* OLAddressEditViewController.m in Sources */,
+				681EA88A1CC9BF1000508132 /* OLPersonalizedProductPhotos.m in Sources */,
 				2EADD7FB1BE79D6D0051CD31 /* OLKiteUtils.m in Sources */,
 				2EADD7FC1BE79D6D0051CD31 /* ALAsset+OLIsEqual.m in Sources */,
 				2EADD7FD1BE79D6D0051CD31 /* OLAssetsSupplementaryView.m in Sources */,

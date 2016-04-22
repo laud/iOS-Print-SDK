@@ -1,0 +1,20 @@
+{
+    "poster_mask":[
+                   {
+                   "x":174,
+                   "y":56,
+                   "width":261,
+                   "height":373,
+                   "angle":-1.55
+                   }
+                   ],
+    "frame_mask":[
+                  {
+                  "x":170,
+                  "y":117,
+                  "width":202,
+                  "height":199,
+                  "angle":0
+                  }
+                  ]
+}
