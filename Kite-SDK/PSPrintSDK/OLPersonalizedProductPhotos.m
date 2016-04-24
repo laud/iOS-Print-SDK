@@ -32,39 +32,16 @@ CGFloat DegreesToRadians(CGFloat degrees) {return degrees * M_PI / 180;};
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         sharedManager = [[self alloc] init];
-        sharedManager.templateClassToPhotoMask = @{
-                                                   @"Posters"           : @"posters_class_photo_masked",
-                                                   @"Magnets"           : @"magnets_class_photo_masked",
-                                                   @"Photo Magnets"     : @"magnets_class_photo_masked",
-                                                   @"Stickers"          : @"stickers_class_photo_masked",
-                                                   @"Frames"            : @"frames_class_photo_masked",
-                                                   };
-        sharedManager.productIdentifierToPhotoMask = @{
-                                                       @"stickers_circle"   : @"stickers_circle_cover_photo_masked",
-                                                       @"stickers_square"   : @"stickers_square_cover_photo_masked",
-                                                       @"frames_50cm_2x2"   : @"frames_50cm_2x2_cover_photo_masked",
-                                                       @"frames_50cm"       : @"frames_50cm_cover_photo_masked",
-                                                       @"squares"           : @"squares_cover_photo_masked",
-                                                       @"a3_poster"         : @"a3_poster_cover_photo_masked",
-                                                       };
-        sharedManager.productImageToPhotoMask = @{
-                                                  @"frames_50cm"        : @"frames_50cm_product_shots_1_masked",
-                                                  @"frames_50cm_2x2"    : @"frames_50cm_2x2_product_shots_1_masked",
-                                                  @"s9_magnets"         : @"s9_magnets_product_shots_1_masked",
-                                                  @"a3_poster"          : @"a3_poster_product_shots_1_masked",
-                                                  @"polaroids"          : @"polaroids_product_shots_1_masked",
-                                                  @"squares"            : @"squares_product_shots_1_masked",
-                                                  @"stickers_circle"    : @"stickers_circle_product_shots_1_masked",
-                                                  @"stickers_square"    : @"stickers_square_product_shots_1_masked",
-                                                  @"stickers_square_2"  : @"stickers_square_product_shots_2_masked",
-                                                 };
-        
-        NSString * path = [[NSBundle mainBundle] pathForResource:@"PhotoMaskManifest" ofType:@"json"];
-        NSString* jsonString = [[NSString alloc] initWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
-        NSData* jsonData = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
-        sharedManager.photoMaskManifest = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:nil];
         sharedManager.cachedMaskedImages = [NSMutableDictionary dictionary];
-        
+
+        NSString * path = [[NSBundle mainBundle] pathForResource:@"PhotoMaskManifest" ofType:@"json"];
+        NSString *jsonString = [[NSString alloc] initWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
+        NSData *jsonData = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
+        NSDictionary *json = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:nil];
+        sharedManager.templateClassToPhotoMask = [json objectForKey:@"template_class_photo_mask"];
+        sharedManager.productIdentifierToPhotoMask = [json objectForKey:@"product_identifier_photo_mask"];
+        sharedManager.productImageToPhotoMask = [json objectForKey:@"product_image_photo_mask"];
+        sharedManager.photoMaskManifest = [json objectForKey:@"mask_manifest"];
     });
     return sharedManager;
 }
@@ -94,21 +71,17 @@ CGFloat DegreesToRadians(CGFloat degrees) {return degrees * M_PI / 180;};
 - (void)classImageForProductGroup:(NSString *)templateClass withCustomImages:(NSArray *)customImages completion:(void (^)(UIImage *image))completion {
     NSString *maskId = [self.templateClassToPhotoMask objectForKey:templateClass];
     if (maskId.length == 0) {
-        NSLog(@"\tSkip Mask: Mask ID Missing");
         return completion(nil);
     }
     if (!customImages || customImages.count == 0) {
-        NSLog(@"\tSkip Mask: Not enough custom images");
         return completion(nil);
     }
     NSArray *maskManifest = [self.photoMaskManifest objectForKey:maskId];
     if (maskManifest.count == 0) {
-        NSLog(@"\tSkip Mask: Mask manifest missing for %@", maskId);
         return completion(nil);
     }
     UIImage *cachedImage = [self.cachedMaskedImages objectForKey:maskId];
     if (cachedImage) {
-        NSLog(@"Returning cached image");
         return completion(cachedImage);
     }
     
@@ -120,21 +93,17 @@ CGFloat DegreesToRadians(CGFloat degrees) {return degrees * M_PI / 180;};
 - (void)coverImageForProductIdentifier:(NSString *)identifier withCustomImages:(NSArray *)customImages completion:(void (^)(UIImage *image))completion {
     NSString *maskId = [self.productIdentifierToPhotoMask objectForKey:identifier];
     if (maskId.length == 0) {
-        NSLog(@"\tSkip Mask: Mask ID Missing");
         return completion(nil);
     }
     if (!customImages || customImages.count == 0) {
-        NSLog(@"\tSkip Mask: Not enough custom images");
         return completion(nil);
     }
     NSArray *maskManifest = [self.photoMaskManifest objectForKey:maskId];
     if (maskManifest.count == 0) {
-        NSLog(@"\tSkip Mask: Mask manifest missing for %@", maskId);
         return completion(nil);
     }
     UIImage *cachedImage = [self.cachedMaskedImages objectForKey:maskId];
     if (cachedImage) {
-        NSLog(@"Returning cached image");
         return completion(cachedImage);
     }
     
@@ -147,21 +116,17 @@ CGFloat DegreesToRadians(CGFloat degrees) {return degrees * M_PI / 180;};
     NSString *key = i > 0 ? [NSString stringWithFormat:@"%@_%ld", identifier, i+1] : identifier;
     NSString *maskId = [self.productImageToPhotoMask objectForKey:key];
     if (maskId.length == 0) {
-        NSLog(@"\tSkip Mask: Mask ID Missing");
         return completion(nil);
     }
     if (!customImages || customImages.count == 0) {
-        NSLog(@"\tSkip Mask: Not enough custom images");
         return completion(nil);
     }
     NSArray *maskManifest = [self.photoMaskManifest objectForKey:maskId];
     if (maskManifest.count == 0) {
-        NSLog(@"\tSkip Mask: Mask manifest missing for %@", maskId);
         return completion(nil);
     }
     UIImage *cachedImage = [self.cachedMaskedImages objectForKey:maskId];
     if (cachedImage) {
-        NSLog(@"Returning cached image");
         return completion(cachedImage);
     }
     

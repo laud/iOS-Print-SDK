@@ -307,8 +307,8 @@ UIActionSheetDelegate, UITextFieldDelegate, OLCreditCardCaptureDelegate, UINavig
         self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(dismiss)];
     }
     
-    UIBarButtonItem *questionBarItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamedInKiteBundle:[NSString stringWithFormat:@"question"]]
-                                                                        style:UIBarButtonItemStyleDone
+    UIBarButtonItem *questionBarItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Questions?", nil)
+                                                                        style:UIBarButtonItemStylePlain
                                                                        target:self
                                                                        action:@selector(askQuestion)];
     if (self.isPushed) {
