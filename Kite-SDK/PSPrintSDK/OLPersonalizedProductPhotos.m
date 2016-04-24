@@ -11,6 +11,7 @@
 #import "OLPersonalizedProductPhotos.h"
 #import "OLPrintPhoto.h"
 #import "UIImage+ImageNamedInKiteBundle.h"
+#import "OLKiteUtils.h"
 
 @interface OLPersonalizedProductPhotos ()
 
@@ -37,8 +38,13 @@ CGFloat DegreesToRadians(CGFloat degrees) {return degrees * M_PI / 180;};
 
         NSString * path = [[NSBundle mainBundle] pathForResource:@"ProductPhotoMaskManifest" ofType:@"json"];
         NSString *jsonString = [[NSString alloc] initWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
+        if (!jsonString) {
+            path = [[OLKiteUtils kiteBundle] pathForResource:@"ProductPhotoMaskManifest" ofType:@"json"];
+            jsonString = [[NSString alloc] initWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
+        }
         NSData *jsonData = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
         NSDictionary *json = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:nil];
+        
         sharedManager.templateClassToPhotoMask = [json objectForKey:@"template_class_photo_mask"];
         sharedManager.productIdentifierToPhotoMask = [json objectForKey:@"product_identifier_photo_mask"];
         sharedManager.productImageToPhotoMask = [json objectForKey:@"product_image_photo_mask"];
