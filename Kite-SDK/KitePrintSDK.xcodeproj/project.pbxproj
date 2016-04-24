@@ -478,6 +478,7 @@
 		2EF4392C1BF4D15E0006C123 /* OLPrintOrderSubmitStatusRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EF4392A1BF4D15E0006C123 /* OLPrintOrderSubmitStatusRequest.m */; };
 		681EA88A1CC9BF1000508132 /* OLPersonalizedProductPhotos.m in Sources */ = {isa = PBXBuildFile; fileRef = 681EA8891CC9BF1000508132 /* OLPersonalizedProductPhotos.m */; };
 		681EA8901CCD826F00508132 /* PhotoMaskManifest.json in Resources */ = {isa = PBXBuildFile; fileRef = 681EA88F1CCD826F00508132 /* PhotoMaskManifest.json */; };
+		681EA8951CCD885400508132 /* PhotoMaskManifest.json in Resources */ = {isa = PBXBuildFile; fileRef = 681EA88F1CCD826F00508132 /* PhotoMaskManifest.json */; };
 		7D6213DEB708F5F5E6617BF1 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 931ABE3568CB40F8892488E2 /* libPods.a */; };
 		CD73BF8B186215790009DE03 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD73BF8A186215790009DE03 /* XCTest.framework */; };
 		CD73BF8C186215790009DE03 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD73BF6B186215790009DE03 /* Foundation.framework */; };
@@ -2863,6 +2864,7 @@
 				2E898CDD1CC518180041CCD8 /* KitePrintSDK.strings in Resources */,
 				2E898CDE1CC518180041CCD8 /* OLKiteStoryboard.storyboard in Resources */,
 				2E898CDF1CC518180041CCD8 /* PostcardBackView.xib in Resources */,
+				681EA8951CCD885400508132 /* PhotoMaskManifest.json in Resources */,
 				2E898CE01CC518180041CCD8 /* OLPhotoSelectionButton.xib in Resources */,
 				2E898CE11CC518180041CCD8 /* Images.xcassets in Resources */,
 				2E898CE21CC518180041CCD8 /* KitePrintSDK.xcassets in Resources */,
