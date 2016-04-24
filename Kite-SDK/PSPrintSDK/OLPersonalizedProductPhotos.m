@@ -35,7 +35,7 @@ CGFloat DegreesToRadians(CGFloat degrees) {return degrees * M_PI / 180;};
         sharedManager = [[self alloc] init];
         sharedManager.cachedMaskedImages = [NSMutableDictionary dictionary];
 
-        NSString * path = [[NSBundle mainBundle] pathForResource:@"PhotoMaskManifest" ofType:@"json"];
+        NSString * path = [[NSBundle mainBundle] pathForResource:@"ProductPhotoMaskManifest" ofType:@"json"];
         NSString *jsonString = [[NSString alloc] initWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
         NSData *jsonData = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
         NSDictionary *json = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:nil];
