@@ -15,6 +15,9 @@
 @interface OLPersonalizedProductPhotos ()
 
 @property NSDictionary *templateClassToPhotoMask;
+@property NSDictionary *productIdentifierToPhotoMask;
+@property NSDictionary *productImageToPhotoMask;
+
 @property NSDictionary *photoMaskManifest;
 @property NSMutableDictionary *cachedMaskedImages;
 
@@ -30,10 +33,31 @@ CGFloat DegreesToRadians(CGFloat degrees) {return degrees * M_PI / 180;};
     dispatch_once(&onceToken, ^{
         sharedManager = [[self alloc] init];
         sharedManager.templateClassToPhotoMask = @{
-                                                   @"Posters"           : @"poster_mask",
-                                                   @"Magnets"           : @"magnets_mask",
-                                                   @"Photo Magnets"     : @"magnets_mask",
+                                                   @"Posters"           : @"posters_class_photo_masked",
+                                                   @"Magnets"           : @"magnets_class_photo_masked",
+                                                   @"Photo Magnets"     : @"magnets_class_photo_masked",
+                                                   @"Stickers"          : @"stickers_class_photo_masked",
+                                                   @"Frames"            : @"frames_class_photo_masked",
                                                    };
+        sharedManager.productIdentifierToPhotoMask = @{
+                                                       @"stickers_circle"   : @"stickers_circle_cover_photo_masked",
+                                                       @"stickers_square"   : @"stickers_square_cover_photo_masked",
+                                                       @"frames_50cm_2x2"   : @"frames_50cm_2x2_cover_photo_masked",
+                                                       @"frames_50cm"       : @"frames_50cm_cover_photo_masked",
+                                                       @"squares"           : @"squares_cover_photo_masked",
+                                                       @"a3_poster"         : @"a3_poster_cover_photo_masked",
+                                                       };
+        sharedManager.productImageToPhotoMask = @{
+                                                  @"frames_50cm"        : @"frames_50cm_product_shots_1_masked",
+                                                  @"frames_50cm_2x2"    : @"frames_50cm_2x2_product_shots_1_masked",
+                                                  @"s9_magnets"         : @"s9_magnets_product_shots_1_masked",
+                                                  @"a3_poster"          : @"a3_poster_product_shots_1_masked",
+                                                  @"polaroids"          : @"polaroids_product_shots_1_masked",
+                                                  @"squares"            : @"squares_product_shots_1_masked",
+                                                  @"stickers_circle"    : @"stickers_circle_product_shots_1_masked",
+                                                  @"stickers_square"    : @"stickers_square_product_shots_1_masked",
+                                                  @"stickers_square_2"  : @"stickers_square_product_shots_2_masked",
+                                                 };
         
         NSString * path = [[NSBundle mainBundle] pathForResource:@"PhotoMaskManifest" ofType:@"json"];
         NSString* jsonString = [[NSString alloc] initWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
@@ -67,8 +91,61 @@ CGFloat DegreesToRadians(CGFloat degrees) {return degrees * M_PI / 180;};
     return YES;
 }
 
-- (void)coverImageForProductGroup:(NSString *)templateClass withCustomImages:(NSArray *)customImages completion:(void (^)(UIImage *image))completion {
+- (void)classImageForProductGroup:(NSString *)templateClass withCustomImages:(NSArray *)customImages completion:(void (^)(UIImage *image))completion {
     NSString *maskId = [self.templateClassToPhotoMask objectForKey:templateClass];
+    if (maskId.length == 0) {
+        NSLog(@"\tSkip Mask: Mask ID Missing");
+        return completion(nil);
+    }
+    if (!customImages || customImages.count == 0) {
+        NSLog(@"\tSkip Mask: Not enough custom images");
+        return completion(nil);
+    }
+    NSArray *maskManifest = [self.photoMaskManifest objectForKey:maskId];
+    if (maskManifest.count == 0) {
+        NSLog(@"\tSkip Mask: Mask manifest missing for %@", maskId);
+        return completion(nil);
+    }
+    UIImage *cachedImage = [self.cachedMaskedImages objectForKey:maskId];
+    if (cachedImage) {
+        NSLog(@"Returning cached image");
+        return completion(cachedImage);
+    }
+    
+    [self buildCompositeImageWithMask:maskId maskManifest:maskManifest customImages:customImages completion:^(UIImage *image) {
+        completion(image);
+    }];
+}
+
+- (void)coverImageForProductIdentifier:(NSString *)identifier withCustomImages:(NSArray *)customImages completion:(void (^)(UIImage *image))completion {
+    NSString *maskId = [self.productIdentifierToPhotoMask objectForKey:identifier];
+    if (maskId.length == 0) {
+        NSLog(@"\tSkip Mask: Mask ID Missing");
+        return completion(nil);
+    }
+    if (!customImages || customImages.count == 0) {
+        NSLog(@"\tSkip Mask: Not enough custom images");
+        return completion(nil);
+    }
+    NSArray *maskManifest = [self.photoMaskManifest objectForKey:maskId];
+    if (maskManifest.count == 0) {
+        NSLog(@"\tSkip Mask: Mask manifest missing for %@", maskId);
+        return completion(nil);
+    }
+    UIImage *cachedImage = [self.cachedMaskedImages objectForKey:maskId];
+    if (cachedImage) {
+        NSLog(@"Returning cached image");
+        return completion(cachedImage);
+    }
+    
+    [self buildCompositeImageWithMask:maskId maskManifest:maskManifest customImages:customImages completion:^(UIImage *image) {
+        completion(image);
+    }];
+}
+
+- (void)productImageForProductIdentifier:(NSString *)identifier index:(NSUInteger)i  withCustomImages:(NSArray *)customImages completion:(void (^)(UIImage *image))completion {
+    NSString *key = i > 0 ? [NSString stringWithFormat:@"%@_%ld", identifier, i+1] : identifier;
+    NSString *maskId = [self.productImageToPhotoMask objectForKey:key];
     if (maskId.length == 0) {
         NSLog(@"\tSkip Mask: Mask ID Missing");
         return completion(nil);
@@ -104,10 +181,10 @@ CGFloat DegreesToRadians(CGFloat degrees) {return degrees * M_PI / 180;};
         
         // Add customer photos into context
         for (NSDictionary *maskInfo in maskManifest) {
-            CGFloat x = [maskInfo[@"x"] floatValue];
-            CGFloat y = [maskInfo[@"y"] floatValue];
-            CGFloat width = [maskInfo[@"width"] floatValue];
-            CGFloat height = [maskInfo[@"height"] floatValue];
+            CGFloat x = [maskInfo[@"x"] floatValue] * mask.size.width;
+            CGFloat y = [maskInfo[@"y"] floatValue] * mask.size.height;
+            CGFloat width = [maskInfo[@"width"] floatValue] * mask.size.width;
+            CGFloat height = [maskInfo[@"height"] floatValue] * mask.size.height;
             CGFloat rotate = [maskInfo[@"angle"] floatValue];
             
             // We do this process manually because we need a much smaller targetSize than that fetched from KiteSDK

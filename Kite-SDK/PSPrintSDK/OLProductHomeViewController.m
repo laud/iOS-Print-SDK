@@ -750,7 +750,7 @@
     OLProductGroup *group = self.productGroups[indexPath.item];
     OLProduct *product = [group.products firstObject];
     
-    [[OLPersonalizedProductPhotos sharedManager] coverImageForProductGroup:product.productTemplate.templateClass
+    [[OLPersonalizedProductPhotos sharedManager] classImageForProductGroup:product.productTemplate.templateClass
                                                           withCustomImages:self.userSelectedPhotos
                                                                 completion:^(UIImage *image) {
                                                                     if (image) {

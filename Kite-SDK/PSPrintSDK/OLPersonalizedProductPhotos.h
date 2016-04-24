@@ -16,7 +16,11 @@
 + (void)setAndFadeImage:(UIImage *)image toImageView:(UIImageView *)imageView;
 
 - (BOOL)hasPersonalizedCoverImageForProductGroup:(NSString *)templateClass;
-- (void)coverImageForProductGroup:(NSString *)templateClass withCustomImages:(NSArray *)customImages completion:(void (^)(UIImage *image))completion;
+
+- (void)classImageForProductGroup:(NSString *)templateClass withCustomImages:(NSArray *)customImages completion:(void (^)(UIImage *image))completion;
+- (void)coverImageForProductIdentifier:(NSString *)identifier withCustomImages:(NSArray *)customImages completion:(void (^)(UIImage *image))completion;
+- (void)productImageForProductIdentifier:(NSString *)identifier index:(NSUInteger)i  withCustomImages:(NSArray *)customImages completion:(void (^)(UIImage *image))completion;
+
 - (void)clearCachedImages;
 
 @end

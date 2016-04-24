@@ -31,6 +31,7 @@
 #import "OLProductTemplate.h"
 #import "OLProduct.h"
 #import "OLProductOverviewViewController.h"
+#import "OLPersonalizedProductPhotos.h"
 
 @interface OLProduct (Private)
 
@@ -51,10 +52,23 @@
 
 @implementation OLProductOverviewPageContentViewController
 
+- (void)didReceiveMemoryWarning {
+    [[OLPersonalizedProductPhotos sharedManager] clearCachedImages];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self.product setProductPhotography:self.pageIndex toImageView:self.imageView];
+    [[OLPersonalizedProductPhotos sharedManager] productImageForProductIdentifier:self.product.productTemplate.identifier
+                                                                            index:self.pageIndex
+                                                                 withCustomImages:self.userSelectedPhotos
+                                                                     completion:^(UIImage *image) {
+                                                                         if (image) {
+                                                                             [OLPersonalizedProductPhotos setAndFadeImage:image toImageView:self.imageView];
+                                                                         } else {
+                                                                             [self.product setProductPhotography:self.pageIndex toImageView:self.imageView];
+                                                                         }
+                                                                     }];
+    
 }
 
 - (IBAction)userDidTapOnImage:(UITapGestureRecognizer *)sender {

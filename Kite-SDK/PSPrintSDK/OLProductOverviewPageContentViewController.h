@@ -40,5 +40,6 @@
 @interface OLProductOverviewPageContentViewController : UIViewController
 @property (assign, nonatomic) NSUInteger pageIndex;
 @property (strong, nonatomic) OLProduct *product;
+@property (strong, nonatomic) NSMutableArray *userSelectedPhotos;
 @property (weak, nonatomic) id<OLProductOverviewPageContentViewControllerDelegate> delegate;
 @end

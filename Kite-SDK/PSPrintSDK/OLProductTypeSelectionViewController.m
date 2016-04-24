@@ -40,6 +40,7 @@
 #import "OLKiteUtils.h"
 #import "UIViewController+OLMethods.h"
 #import "NSObject+Utils.h"
+#import "OLPersonalizedProductPhotos.h"
 
 #define SYSTEM_VERSION_LESS_THAN(v)                 ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedAscending)
 
@@ -100,6 +101,10 @@
         return [self products];
     }
     return _products;
+}
+
+- (void)didReceiveMemoryWarning {
+    [[OLPersonalizedProductPhotos sharedManager] clearCachedImages];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -294,7 +299,15 @@
     OLProduct *product = (OLProduct *)self.products[indexPath.item];
     
     UIImageView *imageView = (UIImageView *)[cell.contentView viewWithTag:40];
-    [product setCoverImageToImageView:imageView];
+    [[OLPersonalizedProductPhotos sharedManager] coverImageForProductIdentifier:product.productTemplate.identifier
+                                                          withCustomImages:self.userSelectedPhotos
+                                                                completion:^(UIImage *image) {
+                                                                    if (image) {
+                                                                        [OLPersonalizedProductPhotos setAndFadeImage:image toImageView:imageView];
+                                                                    } else {
+                                                                        [product setCoverImageToImageView:imageView];
+                                                                    }
+                                                                }];
     
     UILabel *textView = (UILabel *)[cell.contentView viewWithTag:300];
     
