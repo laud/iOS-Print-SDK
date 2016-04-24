@@ -58,14 +58,16 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [[OLPersonalizedProductPhotos sharedManager] productImageForProductIdentifier:self.product.productTemplate.identifier
+    NSString *identifer = self.product.productTemplate.identifier;
+    [[OLPersonalizedProductPhotos sharedManager] productImageForProductIdentifier:identifer
                                                                             index:self.pageIndex
                                                                  withCustomImages:self.userSelectedPhotos
                                                                      completion:^(UIImage *image) {
                                                                          if (image) {
                                                                              [OLPersonalizedProductPhotos setAndFadeImage:image toImageView:self.imageView];
                                                                          } else {
-                                                                             [self.product setProductPhotography:self.pageIndex toImageView:self.imageView];
+                                                                             NSUInteger index = [[OLPersonalizedProductPhotos sharedManager] remappedIndexForProductIdentifier:identifer originalIndex:self.pageIndex];
+                                                                             [self.product setProductPhotography:index toImageView:self.imageView];
                                                                          }
                                                                      }];
     

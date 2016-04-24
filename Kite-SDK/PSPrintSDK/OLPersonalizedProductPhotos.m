@@ -17,6 +17,7 @@
 @property NSDictionary *templateClassToPhotoMask;
 @property NSDictionary *productIdentifierToPhotoMask;
 @property NSDictionary *productImageToPhotoMask;
+@property NSDictionary *productImageToRemappedIndex;
 
 @property NSDictionary *photoMaskManifest;
 @property NSMutableDictionary *cachedMaskedImages;
@@ -41,6 +42,7 @@ CGFloat DegreesToRadians(CGFloat degrees) {return degrees * M_PI / 180;};
         sharedManager.templateClassToPhotoMask = [json objectForKey:@"template_class_photo_mask"];
         sharedManager.productIdentifierToPhotoMask = [json objectForKey:@"product_identifier_photo_mask"];
         sharedManager.productImageToPhotoMask = [json objectForKey:@"product_image_photo_mask"];
+        sharedManager.productImageToRemappedIndex = [json objectForKey:@"product_image_remapped_index"];
         sharedManager.photoMaskManifest = [json objectForKey:@"mask_manifest"];
     });
     return sharedManager;
@@ -112,7 +114,7 @@ CGFloat DegreesToRadians(CGFloat degrees) {return degrees * M_PI / 180;};
     }];
 }
 
-- (void)productImageForProductIdentifier:(NSString *)identifier index:(NSUInteger)i  withCustomImages:(NSArray *)customImages completion:(void (^)(UIImage *image))completion {
+- (void)productImageForProductIdentifier:(NSString *)identifier index:(NSUInteger)i withCustomImages:(NSArray *)customImages completion:(void (^)(UIImage *image))completion {
     NSString *key = i > 0 ? [NSString stringWithFormat:@"%@_%ld", identifier, i+1] : identifier;
     NSString *maskId = [self.productImageToPhotoMask objectForKey:key];
     if (maskId.length == 0) {
@@ -133,6 +135,15 @@ CGFloat DegreesToRadians(CGFloat degrees) {return degrees * M_PI / 180;};
     [self buildCompositeImageWithMask:maskId maskManifest:maskManifest customImages:customImages completion:^(UIImage *image) {
         completion(image);
     }];
+}
+
+- (NSUInteger)remappedIndexForProductIdentifier:(NSString *)identifier originalIndex:(NSUInteger)i {
+    NSString *key = [NSString stringWithFormat:@"%@_%ld", identifier, i];
+    NSNumber *remappedIndex = [self.productImageToRemappedIndex objectForKey:key];
+    if (remappedIndex) {
+        return [remappedIndex unsignedIntegerValue];
+    }
+    return i;
 }
 
 - (void)buildCompositeImageWithMask:(NSString *)maskId maskManifest:(NSArray *)maskManifest customImages:(NSArray *)customImages completion:(void (^)(UIImage *image))completion {

@@ -19,7 +19,8 @@
 
 - (void)classImageForProductGroup:(NSString *)templateClass withCustomImages:(NSArray *)customImages completion:(void (^)(UIImage *image))completion;
 - (void)coverImageForProductIdentifier:(NSString *)identifier withCustomImages:(NSArray *)customImages completion:(void (^)(UIImage *image))completion;
-- (void)productImageForProductIdentifier:(NSString *)identifier index:(NSUInteger)i  withCustomImages:(NSArray *)customImages completion:(void (^)(UIImage *image))completion;
+- (void)productImageForProductIdentifier:(NSString *)identifier index:(NSUInteger)i withCustomImages:(NSArray *)customImages completion:(void (^)(UIImage *image))completion;
+- (NSUInteger)remappedIndexForProductIdentifier:(NSString *)identifier originalIndex:(NSUInteger)i;
 
 - (void)clearCachedImages;
 
