@@ -169,6 +169,8 @@ UINavigationControllerDelegate, OLKiteDelegate>
         [OLKitePrintSDK setAPIKey:[[NSProcessInfo processInfo]environment][@"TEST_API_KEY"] withEnvironment:kOLKitePrintSDKEnvironmentSandbox];
     }
     
+    [OLKitePrintSDK setAPIKey:kAPIKeySandbox withEnvironment:kOLKitePrintSDKEnvironmentSandbox];
+    [OLProductTemplate sync];
     return YES;
 }
 

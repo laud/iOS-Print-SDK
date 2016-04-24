@@ -78,6 +78,7 @@ static OLProductTemplateSyncRequest *inProgressSyncRequest = nil;
 @interface OLProductTemplate ()
 @property (nonatomic, strong) NSDictionary<NSString *, NSDecimalNumber *> *costsByCurrencyCode;
 @property (nonatomic, assign, readwrite) NSUInteger quantityPerSheet;
+@property (nonatomic, copy) NSString *_Nonnull name;
 @property (strong, nonatomic) NSArray *_Nullable supportedOptions;
 @property (strong, nonatomic, readwrite) NSArray <OLProductTemplateOption *>*_Nullable options;
 @end
@@ -179,6 +180,15 @@ static OLProductTemplateSyncRequest *inProgressSyncRequest = nil;
 
 - (NSArray *)currenciesSupported {
     return self.costsByCurrencyCode.allKeys;
+}
+
+- (NSString *)name {
+    if ([_identifier isEqualToString:@"frames_50cm"]) {
+        return @"Frames 20\"";
+    } else if ([_identifier isEqualToString:@"frames_50cm_2x2"]) {
+        return @"Frames 20\" (Collage)";
+    }
+    return _name;
 }
 
 + (void)sync {

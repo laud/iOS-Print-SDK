@@ -84,12 +84,13 @@ static OLProductGroup *findGroupWithTemplateClass(NSArray *groups, NSString *tem
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         customOrdering = @{
-                           @"Snap Cases"     : @(3),
-                           @"Frames"          : @(5),
-                           @"Stickers"        : @(1),
-                           @"Prints"          : @(2),
-                           @"Posters"         : @(4),
-                           @"Magnets"         : @(0)
+                           @"Snap Cases"      : @(4),
+                           @"Frames"          : @(6),
+                           @"Stickers"        : @(2),
+                           @"Prints"          : @(3),
+                           @"Posters"         : @(5),
+                           @"Magnets"         : @(1),
+                           @"Photo Magnets"   : @(0)
                            };
     });
     

@@ -239,6 +239,7 @@
     OLProductOverviewPageContentViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"ProductOverviewPageContentViewController"];
     vc.pageIndex = index;
     vc.product = self.product;
+    vc.userSelectedPhotos = self.userSelectedPhotos;
     vc.delegate = self;
     return vc;
 }
