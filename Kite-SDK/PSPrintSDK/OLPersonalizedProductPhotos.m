@@ -121,7 +121,7 @@ CGFloat DegreesToRadians(CGFloat degrees) {return degrees * M_PI / 180;};
 }
 
 - (void)productImageForProductIdentifier:(NSString *)identifier index:(NSUInteger)i withCustomImages:(NSArray *)customImages completion:(void (^)(UIImage *image))completion {
-    NSString *key = i > 0 ? [NSString stringWithFormat:@"%@_%ld", identifier, i+1] : identifier;
+    NSString *key = i > 0 ? [NSString stringWithFormat:@"%@_%lu", identifier, (unsigned long)(i+1)] : identifier;
     NSString *maskId = [self.productImageToPhotoMask objectForKey:key];
     if (maskId.length == 0) {
         return completion(nil);
@@ -144,7 +144,7 @@ CGFloat DegreesToRadians(CGFloat degrees) {return degrees * M_PI / 180;};
 }
 
 - (NSUInteger)remappedIndexForProductIdentifier:(NSString *)identifier originalIndex:(NSUInteger)i {
-    NSString *key = [NSString stringWithFormat:@"%@_%ld", identifier, i];
+    NSString *key = [NSString stringWithFormat:@"%@_%ld", identifier, (unsigned long)i];
     NSNumber *remappedIndex = [self.productImageToRemappedIndex objectForKey:key];
     if (remappedIndex) {
         return [remappedIndex unsignedIntegerValue];

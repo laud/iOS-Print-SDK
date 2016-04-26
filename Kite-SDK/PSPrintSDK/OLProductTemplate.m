@@ -63,6 +63,9 @@ static NSString *const kKeyUpsellOffers = @"co.oceanlabs.pssdk.kKeyUpsellOffers"
 
 static NSString * const kPhoneCase = @"Phone Cases";
 static NSString * const kSnapCase = @"Snap Cases";
+static NSString * const kMagnets = @"Magnets";
+static NSString * const kPhotoMagnets = @"Photo Magnets";
+
 
 static NSMutableArray *templates;
 static NSDate *lastSyncDate;
@@ -376,6 +379,8 @@ static OLProductTemplateSyncRequest *inProgressSyncRequest = nil;
 - (NSString *)templateClassCopy {
     if ([self.templateClass isEqualToString:kSnapCase]) {
         return kPhoneCase;
+    } else if ([self.templateClass isEqualToString:kPhotoMagnets]) {
+        return kMagnets;
     }
     return self.templateClass;
 }

@@ -1035,7 +1035,7 @@ to rearrange the photos</string>
                                 <rect key="frame" x="0.0" y="490" width="600" height="110"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zg1-ja-X5c">
-                                        <rect key="frame" x="8" y="40" width="288" height="44"/>
+                                        <rect key="frame" x="8" y="46" width="288" height="44"/>
                                         <color key="backgroundColor" red="0.2901960784" green="0.53725490200000003" blue="0.86274509799999999" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <state key="normal" title="PayPal">
@@ -1046,7 +1046,7 @@ to rearrange the photos</string>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8uC-bu-fzK">
-                                        <rect key="frame" x="8" y="40" width="288" height="44"/>
+                                        <rect key="frame" x="8" y="46" width="288" height="44"/>
                                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                         <state key="normal" image="button_apple_pay">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1056,7 +1056,7 @@ to rearrange the photos</string>
                                         </connections>
                                     </button>
                                     <label hidden="YES" opaque="NO" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Powered by Kite.ly" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MDv-31-HTi">
-                                        <rect key="frame" x="244" y="89" width="112" height="16"/>
+                                        <rect key="frame" x="244" y="95" width="112" height="10"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="10" id="Wbc-qM-ap2"/>
                                         </constraints>
@@ -1071,7 +1071,7 @@ to rearrange the photos</string>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fHD-9P-h6H">
-                                        <rect key="frame" x="304" y="40" width="288" height="44"/>
+                                        <rect key="frame" x="304" y="46" width="288" height="44"/>
                                         <color key="backgroundColor" red="0.2274509804" green="0.70588235290000001" blue="0.59999999999999998" alpha="1" colorSpace="deviceRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="44" id="BB6-7F-cph"/>
@@ -1085,7 +1085,7 @@ to rearrange the photos</string>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qkd-Y5-UGT">
-                                        <rect key="frame" x="304" y="40" width="288" height="44"/>
+                                        <rect key="frame" x="304" y="46" width="288" height="44"/>
                                         <color key="backgroundColor" red="0.92156862745098034" green="0.92156862745098034" blue="0.92156862745098034" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="44" id="eQG-4E-Q3k"/>
@@ -1108,7 +1108,7 @@ to rearrange the photos</string>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="70G-qg-h5X">
-                                        <rect key="frame" x="13" y="3" width="82" height="30"/>
+                                        <rect key="frame" x="13" y="9" width="82" height="30"/>
                                         <state key="normal" title="&lt; Apple Pay"/>
                                         <connections>
                                             <action selector="onButtonBackToApplePayClicked:" destination="awx-dV-KVo" eventType="touchUpInside" id="jvR-5N-C7F"/>
