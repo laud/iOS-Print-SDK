@@ -316,7 +316,7 @@
             textView.text = NSLocalizedString(@"Single Photo Poster", @"");
         }
         else{
-            textView.text = [NSString stringWithFormat:@"%ldx%ld Collage", (long)product.productTemplate.gridCountX, (long)product.productTemplate.gridCountY];
+            textView.text = NSLocalizedString(@"Collage", @"");
         }
     }
     else{

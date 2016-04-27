@@ -187,9 +187,13 @@ static OLProductTemplateSyncRequest *inProgressSyncRequest = nil;
 
 - (NSString *)name {
     if ([_identifier isEqualToString:@"frames_50cm"]) {
-        return @"Frames 20\"";
+        return NSLocalizedString(@"Frames 20\"", nil);
     } else if ([_identifier isEqualToString:@"frames_50cm_2x2"]) {
-        return @"Frames 20\" (Collage)";
+        return NSLocalizedString(@"Frames 20\" (Collage)", nil);
+    } else if ([_identifier isEqualToString:@"a2_poster_24"]) {
+        return NSLocalizedString(@"Collage", nil);
+    } else if ([_identifier isEqualToString:@"a3_poster"]) {
+        return NSLocalizedString(@"Collage", nil);
     }
     return _name;
 }
