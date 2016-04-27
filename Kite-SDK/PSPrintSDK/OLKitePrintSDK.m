@@ -90,6 +90,7 @@ static BOOL useStaging = NO;
 static BOOL isUnitTesting = NO;
 static BOOL QRCodeUploadEnabled = NO;
 static BOOL isKiosk = NO;
+static BOOL promoCodeAvaiable = NO;
 
 static NSString *instagramClientID = nil;
 static NSString *instagramSecret = nil;
@@ -272,6 +273,14 @@ static NSString* creativeSDKClientSecret = nil;
 
 + (BOOL)isKiosk{
     return isKiosk;
+}
+
++ (void)setPromoCodeAvailable:(BOOL)enabled{
+    promoCodeAvaiable = enabled;
+}
+
++ (BOOL)promoCodeAvailable{
+    return promoCodeAvaiable;
 }
 
 + (void)setQRCodeUploadEnabled:(BOOL)enabled{

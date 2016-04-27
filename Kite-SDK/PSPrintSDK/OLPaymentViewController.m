@@ -327,9 +327,10 @@ UIActionSheetDelegate, UITextFieldDelegate, OLCreditCardCaptureDelegate, UINavig
     self.shippingCostLabel.text = @"";
     self.promoCodeCostLabel.text = @"";
     
-    // Hide promo code box indefinitely
-    self.promoBox.hidden = YES;
-    self.promoBoxHeightCon.constant = 0;
+    if (![OLKitePrintSDK promoCodeAvailable]){
+        self.promoBox.hidden = YES;
+        self.promoBoxHeightCon.constant = 0;
+    }
     
     // Preload compose view controller
     if ([MFMessageComposeViewController canSendText]) {

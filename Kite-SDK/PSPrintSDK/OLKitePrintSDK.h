@@ -130,4 +130,18 @@
  */
 + (BOOL)isKiosk;
 
+/**
+ *  Indicate that the app will show promo code at checkout
+ *
+ *  @param enabled Indicate promo code available. Default value is NO.
+ */
++ (void)setPromoCodeAvailable:(BOOL)enabled;
+
+/**
+ *  Indicates if the app will show promo code at checkout
+ *
+ *  @return Indicate promo code available
+ */
++ (BOOL)promoCodeAvailable;
+
 @end
