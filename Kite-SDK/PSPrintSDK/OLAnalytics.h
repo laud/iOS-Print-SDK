@@ -111,7 +111,12 @@ static NSString *const kOLAnalyticsError = @"Error";
 + (void)trackBasketIconTappedWithNumberBadged:(NSInteger)number;
 + (void)trackOrderSubmission:(OLPrintOrder *)printOrder;
 + (void)trackQualityInfoScreenViewed;
-
++ (void)trackProductTypeStampsSelection;
++ (void)trackProductTypeStampsEmailSubmitted;
++ (void)trackProductTypeStampsEmailNotSubmitted;
++ (void)trackCheckoutCorrectNumberOfPhotos;
++ (void)trackCheckoutIncorrectNumberOfPhotos:(NSInteger)numberOfPhotos productName:(NSString *)productName;
+    
 + (void)incrementLaunchSDKCount;
 + (void)setExtraInfo:(NSDictionary *)info;
 + (NSString *)userDistinctId;

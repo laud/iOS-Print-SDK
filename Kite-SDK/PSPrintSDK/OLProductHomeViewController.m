@@ -588,6 +588,9 @@
     }
     if (indexPath.item >= self.productGroups.count){
         if (indexPath.item == self.productGroups.count && self.showFakeStamps) {
+#ifndef OL_NO_ANALYTICS
+            [OLAnalytics trackProductTypeStampsSelection];
+#endif
             UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Stamps are coming soon!"
                                                                            message:@"Enter your email to be notified when stamps become available."
                                                                     preferredStyle:UIAlertControllerStyleAlert];
@@ -595,13 +598,23 @@
             UIAlertAction *defaultAction = [UIAlertAction actionWithTitle:@"Submit" style:UIAlertActionStyleDefault
                                                                   handler:^(UIAlertAction * action) {
                                                                       UITextField *emailField = alert.textFields.firstObject;
-                                                                      if (emailField) {
+                                                                      if (emailField && emailField.text.length > 0) {
                                                                           [self submitEmailToBabyArt:emailField.text];
+#ifndef OL_NO_ANALYTICS
+                                                                          [OLAnalytics trackProductTypeStampsEmailSubmitted];
+#endif
+                                                                      } else {
+#ifndef OL_NO_ANALYTICS
+                                                                          [OLAnalytics trackProductTypeStampsEmailNotSubmitted];
+#endif
                                                                       }
                                                                   }];
             UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDefault
                                                                  handler:^(UIAlertAction * action) {
                                                                      [alert dismissViewControllerAnimated:YES completion:nil];
+#ifndef OL_NO_ANALYTICS
+                                                                     [OLAnalytics trackProductTypeStampsEmailNotSubmitted];
+#endif
                                                                  }];
             [alert addAction:cancelAction];
             [alert addAction:defaultAction];

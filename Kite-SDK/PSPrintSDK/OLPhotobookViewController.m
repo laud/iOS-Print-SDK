@@ -889,8 +889,15 @@ UINavigationControllerDelegate, OLUpsellViewControllerDelegate
         av.tag = kTagAlertViewSelectMorePhotos;
         av.delegate = self;
         [av show];
+#ifndef OL_NO_ANALYTICS
+        [OLAnalytics trackCheckoutIncorrectNumberOfPhotos:selectedCount
+                                              productName:self.product.productTemplate.name];
+#endif
         return NO;
     }
+#ifndef OL_NO_ANALYTICS
+    [OLAnalytics trackCheckoutCorrectNumberOfPhotos];
+#endif
     return YES;
 }
 

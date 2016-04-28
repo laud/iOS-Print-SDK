@@ -355,7 +355,7 @@ static __weak id<OLKiteDelegate> kiteDelegate;
 }
 
 + (void)trackProductTypeSelectionScreenViewedWithTemplateClass:(NSString *)templateClassString{
-    NSString *eventName = @"Product Category Screen Viewed";
+    NSString *eventName = @"Product Subcategory Screen Viewed";
     NSDictionary *dict = [OLAnalytics defaultDictionaryForEventName:eventName];
     [dict[@"properties"] setObject:nonNilStr(templateClassString) forKey:@"Product Class"];
     [OLAnalytics sendToMixPanelWithDictionary:dict];
@@ -455,7 +455,7 @@ static __weak id<OLKiteDelegate> kiteDelegate;
 //    [dict[@"properties"] setObject:nonNilStr(templateClassString) forKey:@"Template Class"];
 //    [OLAnalytics sendToMixPanelWithDictionary:dict];
     
-    [OLAnalytics reportAnalyticsEventToDelegate:@"Product Category Screen Hit Back" job:nil printOrder:nil extraInfo:@{kOLAnalyticsProductCategory : templateClassString}];
+    [OLAnalytics reportAnalyticsEventToDelegate:@"Product Subcategory Screen Hit Back" job:nil printOrder:nil extraInfo:@{kOLAnalyticsProductCategory : templateClassString}];
 }
 
 + (void)trackKiteDismissed{
@@ -721,6 +721,27 @@ static __weak id<OLKiteDelegate> kiteDelegate;
 
 + (void)trackBasketIconTappedWithNumberBadged:(NSInteger)number{
     [OLAnalytics reportAnalyticsEventToDelegate:@"Basket Icon Tapped" job:nil printOrder:nil extraInfo:@{kOLAnalyticsNumberOnBadge : [NSNumber numberWithInteger:number]}];
+}
+
++ (void)trackProductTypeStampsSelection{
+    [OLAnalytics reportAnalyticsEventToDelegate:@"Stamps Product Selected" job:nil printOrder:nil extraInfo:nil];
+}
+
++ (void)trackProductTypeStampsEmailSubmitted{
+    [OLAnalytics reportAnalyticsEventToDelegate:@"Stamps Product Email Submitted" job:nil printOrder:nil extraInfo:nil];
+}
+
++ (void)trackProductTypeStampsEmailNotSubmitted{
+    [OLAnalytics reportAnalyticsEventToDelegate:@"Stamps Product Email Not Submitted" job:nil printOrder:nil extraInfo:nil];
+}
+
++ (void)trackCheckoutCorrectNumberOfPhotos{
+    [OLAnalytics reportAnalyticsEventToDelegate:@"Correct Photo Count Checkout" job:nil printOrder:nil extraInfo:nil];
+}
+
++ (void)trackCheckoutIncorrectNumberOfPhotos:(NSInteger)numberOfPhotos productName:(NSString *)productName{
+    NSString *eventName = @"Incorrect Photo Count Checkout";
+    [OLAnalytics reportAnalyticsEventToDelegate:eventName job:nil printOrder:nil extraInfo:@{kOLAnalyticsProductName : productName, kOLAnalyticsNumberOfPhotos : [NSNumber numberWithInteger:numberOfPhotos]}];
 }
 
 + (void)setKiteDelegate:(id<OLKiteDelegate>)kd{
