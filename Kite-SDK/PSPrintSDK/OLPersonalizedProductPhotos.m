@@ -21,7 +21,7 @@
 #import "UIImage+ImageNamedInKiteBundle.h"
 #import "OLKiteUtils.h"
 
-static NSString *const kMaskURLPrefix = @"http://dimbno61n9ae1.cloudfront.net/";
+static NSString *const kMaskURLPrefix = @"https://dimbno61n9ae1.cloudfront.net/";
 
 @interface OLPersonalizedProductPhotos ()
 
