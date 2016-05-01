@@ -25,6 +25,27 @@
         "stickers_square":"stickers_square_product_shots_1_masked",
         "stickers_square_2":"stickers_square_product_shots_2_masked"
     },
+    "image_key_to_path":{
+        "posters_class_photo_masked":"kitely/masks/posters_class_photo_masked.png",
+        "magnets_class_photo_masked":"kitely/masks/magnets_class_photo_masked.png",
+        "stickers_class_photo_masked":"kitely/masks/stickers_class_photo_masked.png",
+        "frames_class_photo_masked":"kitely/masks/frames_class_photo_masked.png",
+        "stickers_circle_cover_photo_masked":"kitely/masks/stickers_circle_cover_photo_masked.png",
+        "stickers_square_cover_photo_masked":"kitely/masks/stickers_square_cover_photo_masked.png",
+        "frames_50cm_2x2_cover_photo_masked":"kitely/masks/frames_50cm_2x2_cover_photo_masked.png",
+        "frames_50cm_cover_photo_masked":"kitely/masks/frames_50cm_cover_photo_masked.png",
+        "squares_cover_photo_masked":"kitely/masks/squares_cover_photo_masked.png",
+        "a3_poster_cover_photo_masked":"kitely/masks/a3_poster_cover_photo_masked.png",
+        "frames_50cm_product_shots_1_masked":"kitely/masks/frames_50cm_product_shots_1_masked.png",
+        "frames_50cm_2x2_product_shots_1_masked":"kitely/masks/frames_50cm_2x2_product_shots_1_masked.png",
+        "s9_magnets_product_shots_1_masked":"kitely/masks/s9_magnets_product_shots_1_masked.png",
+        "a3_poster_product_shots_1_masked":"kitely/masks/a3_poster_product_shots_1_masked.png",
+        "polaroids_product_shots_1_masked":"kitely/masks/polaroids_product_shots_1_masked.png",
+        "squares_product_shots_1_masked":"kitely/masks/squares_product_shots_1_masked.png",
+        "stickers_circle_product_shots_1_masked":"kitely/masks/stickers_circle_product_shots_1_masked.png",
+        "stickers_square_product_shots_1_masked":"kitely/masks/stickers_square_product_shots_1_masked.png",
+        "stickers_square_product_shots_2_masked":"kitely/masks/stickers_square_product_shots_2_masked.png"
+    },
     "product_image_remapped_index":{
         "s9_magnets_1":0,
         "squares_1":0,

@@ -8,14 +8,25 @@
 
 @import Photos;
 
+#ifdef COCOAPODS
+#import <SDWebImage/SDWebImageManager.h>
+#import <SDWebImage/SDWebImagePrefetcher.h>
+#else
+#import "SDWebImageManager.h"
+#import "SDWebImagePrefetcher.h"
+#endif
+
 #import "OLPersonalizedProductPhotos.h"
 #import "OLPrintPhoto.h"
 #import "UIImage+ImageNamedInKiteBundle.h"
 #import "OLKiteUtils.h"
 
+static NSString *const kMaskURLPrefix = @"http://dimbno61n9ae1.cloudfront.net/";
+
 @interface OLPersonalizedProductPhotos ()
 
 @property NSDictionary *templateClassToPhotoMask;
+@property NSDictionary *maskIdToURL;
 @property NSDictionary *productIdentifierToPhotoMask;
 @property NSDictionary *productImageToPhotoMask;
 @property NSDictionary *productImageToRemappedIndex;
@@ -50,6 +61,7 @@ CGFloat DegreesToRadians(CGFloat degrees) {return degrees * M_PI / 180;};
         sharedManager.productImageToPhotoMask = [json objectForKey:@"product_image_photo_mask"];
         sharedManager.productImageToRemappedIndex = [json objectForKey:@"product_image_remapped_index"];
         sharedManager.photoMaskManifest = [json objectForKey:@"mask_manifest"];
+        sharedManager.maskIdToURL = [json objectForKey:@"image_key_to_path"];
     });
     return sharedManager;
 }
@@ -77,68 +89,26 @@ CGFloat DegreesToRadians(CGFloat degrees) {return degrees * M_PI / 180;};
 }
 
 - (void)classImageForProductGroup:(NSString *)templateClass withCustomImages:(NSArray *)customImages completion:(void (^)(UIImage *image))completion {
-    NSString *maskId = [self.templateClassToPhotoMask objectForKey:templateClass];
-    if (maskId.length == 0) {
-        return completion(nil);
-    }
-    if (!customImages || customImages.count == 0) {
-        return completion(nil);
-    }
-    NSArray *maskManifest = [self.photoMaskManifest objectForKey:maskId];
-    if (maskManifest.count == 0) {
-        return completion(nil);
-    }
-    UIImage *cachedImage = [self.cachedMaskedImages objectForKey:maskId];
-    if (cachedImage) {
-        return completion(cachedImage);
-    }
     
-    [self buildCompositeImageWithMask:maskId maskManifest:maskManifest customImages:customImages completion:^(UIImage *image) {
+    NSString *maskId = [self.templateClassToPhotoMask objectForKey:templateClass];
+    [self buildCompositeImageWithMask:maskId customImages:customImages completion:^(UIImage *image) {
         completion(image);
     }];
 }
 
 - (void)coverImageForProductIdentifier:(NSString *)identifier withCustomImages:(NSArray *)customImages completion:(void (^)(UIImage *image))completion {
-    NSString *maskId = [self.productIdentifierToPhotoMask objectForKey:identifier];
-    if (maskId.length == 0) {
-        return completion(nil);
-    }
-    if (!customImages || customImages.count == 0) {
-        return completion(nil);
-    }
-    NSArray *maskManifest = [self.photoMaskManifest objectForKey:maskId];
-    if (maskManifest.count == 0) {
-        return completion(nil);
-    }
-    UIImage *cachedImage = [self.cachedMaskedImages objectForKey:maskId];
-    if (cachedImage) {
-        return completion(cachedImage);
-    }
     
-    [self buildCompositeImageWithMask:maskId maskManifest:maskManifest customImages:customImages completion:^(UIImage *image) {
+    NSString *maskId = [self.productIdentifierToPhotoMask objectForKey:identifier];
+    [self buildCompositeImageWithMask:maskId customImages:customImages completion:^(UIImage *image) {
         completion(image);
     }];
 }
 
 - (void)productImageForProductIdentifier:(NSString *)identifier index:(NSUInteger)i withCustomImages:(NSArray *)customImages completion:(void (^)(UIImage *image))completion {
+    
     NSString *key = i > 0 ? [NSString stringWithFormat:@"%@_%lu", identifier, (unsigned long)(i+1)] : identifier;
     NSString *maskId = [self.productImageToPhotoMask objectForKey:key];
-    if (maskId.length == 0) {
-        return completion(nil);
-    }
-    if (!customImages || customImages.count == 0) {
-        return completion(nil);
-    }
-    NSArray *maskManifest = [self.photoMaskManifest objectForKey:maskId];
-    if (maskManifest.count == 0) {
-        return completion(nil);
-    }
-    UIImage *cachedImage = [self.cachedMaskedImages objectForKey:maskId];
-    if (cachedImage) {
-        return completion(cachedImage);
-    }
-    
-    [self buildCompositeImageWithMask:maskId maskManifest:maskManifest customImages:customImages completion:^(UIImage *image) {
+    [self buildCompositeImageWithMask:maskId customImages:customImages completion:^(UIImage *image) {
         completion(image);
     }];
 }
@@ -152,71 +122,104 @@ CGFloat DegreesToRadians(CGFloat degrees) {return degrees * M_PI / 180;};
     return i;
 }
 
-- (void)buildCompositeImageWithMask:(NSString *)maskId maskManifest:(NSArray *)maskManifest customImages:(NSArray *)customImages completion:(void (^)(UIImage *image))completion {
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
-        UIImage *mask = [UIImage imageNamedInKiteBundle:maskId];
-        UIGraphicsBeginImageContextWithOptions(mask.size, FALSE, 0.0);
-        CGContextRef context = UIGraphicsGetCurrentContext();
-        
-        NSUInteger customImagesStartIndex = arc4random_uniform(42);
-        CGFloat scale = [UIScreen mainScreen].scale;
-        
-        // Add customer photos into context
-        for (NSDictionary *maskInfo in maskManifest) {
-            CGFloat x = [maskInfo[@"x"] floatValue] * mask.size.width;
-            CGFloat y = [maskInfo[@"y"] floatValue] * mask.size.height;
-            CGFloat width = [maskInfo[@"width"] floatValue] * mask.size.width;
-            CGFloat height = [maskInfo[@"height"] floatValue] * mask.size.height;
-            CGFloat rotate = [maskInfo[@"angle"] floatValue];
-            
-            // We do this process manually because we need a much smaller targetSize than that fetched from KiteSDK
-            OLPrintPhoto *printPhoto = [customImages objectAtIndex:customImagesStartIndex % customImages.count];
-            if (printPhoto.type == kPrintPhotoAssetTypeOLAsset) {
-                PHAsset *phAsset = [((OLAsset *)printPhoto.asset) loadPHAsset];
-                if (phAsset) {
-                    PHImageManager *imageManager = [PHImageManager defaultManager];
-                    PHImageRequestOptions *options = [[PHImageRequestOptions alloc] init];
-                    options.synchronous = YES;
-                    options.deliveryMode = PHImageRequestOptionsDeliveryModeHighQualityFormat;
-                    options.resizeMode = PHImageRequestOptionsResizeModeFast;
-                    options.networkAccessAllowed = YES;
-                    [imageManager requestImageForAsset:phAsset targetSize:CGSizeMake(width * scale, height * scale) contentMode:PHImageContentModeDefault options:options resultHandler:^(UIImage *result, NSDictionary *info) {
-                        UIImageView *photoImageView = [[UIImageView alloc] initWithImage:result];
-                        photoImageView.contentMode = UIViewContentModeScaleAspectFill;
-                        photoImageView.frame = CGRectMake(x, y, width, height);
-                        photoImageView.layer.masksToBounds = YES;
+- (NSString *)urlForMask:(NSString *)maskId {
+    NSString *path = [self.maskIdToURL objectForKey:maskId];
+    return path.length > 0 ? [NSString stringWithFormat:@"%@%@", kMaskURLPrefix, path] : nil;
+}
 
-                        // Add photo to context
-                        CGContextSaveGState(context);
-                        CGContextTranslateCTM(context, x, y);
-                        // Only rotate if angle is above epsilon
-                        if (fabs(rotate) > 0.01) {
-                            CGContextRotateCTM(context, DegreesToRadians(rotate));
-                        }
-                        [photoImageView.layer renderInContext:context];
-                        CGContextRestoreGState(context);
-                    }];
-                } else {
-                    NSLog(@"\tSkip Mask: PHAsset not found");
-                    return completion(nil);
-                }
-            } else {
-                NSLog(@"\tSkip Mask: Not OLAsset");
-                return completion(nil);
-            }
-            customImagesStartIndex++;
+- (void)buildCompositeImageWithMask:(NSString *)maskId customImages:(NSArray *)customImages completion:(void (^)(UIImage *image))completion {
+    // Sanity checks and cacheing
+    if (maskId.length == 0) {
+        return completion(nil);
+    }
+    if ([self urlForMask:maskId].length == 0) {
+        return completion(nil);
+    }
+    if (!customImages || customImages.count == 0) {
+        return completion(nil);
+    }
+    NSArray *maskManifest = [self.photoMaskManifest objectForKey:maskId];
+    if (maskManifest.count == 0) {
+        return completion(nil);
+    }
+    UIImage *cachedImage = [self.cachedMaskedImages objectForKey:maskId];
+    if (cachedImage) {
+        return completion(cachedImage);
+    }
+    
+    // The real work
+    NSURL *url = [NSURL URLWithString:[self urlForMask:maskId]];
+    [[SDWebImageManager sharedManager] downloadImageWithURL:url options:0 progress:NULL completed:^(UIImage *mask, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL){
+        if (!mask || error) {
+            return completion(nil);
         }
         
-        // Draw mask above all photos
-        [mask drawAtPoint:CGPointZero blendMode:kCGBlendModeNormal alpha:1.0];
-        UIImage *finalImage = UIGraphicsGetImageFromCurrentImageContext();
-        UIGraphicsEndImageContext();
-        
-        dispatch_async(dispatch_get_main_queue(), ^(void){
-            [self.cachedMaskedImages setObject:finalImage forKey:maskId];
-            completion(finalImage);
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
+            UIGraphicsBeginImageContextWithOptions(mask.size, FALSE, 0.0);
+            CGContextRef context = UIGraphicsGetCurrentContext();
+            
+            NSUInteger customImagesStartIndex = arc4random_uniform(42);
+            CGFloat scale = [UIScreen mainScreen].scale;
+            
+            // Add customer photos into context
+            for (NSDictionary *maskInfo in maskManifest) {
+                CGFloat x = [maskInfo[@"x"] floatValue] * mask.size.width;
+                CGFloat y = [maskInfo[@"y"] floatValue] * mask.size.height;
+                CGFloat width = [maskInfo[@"width"] floatValue] * mask.size.width;
+                CGFloat height = [maskInfo[@"height"] floatValue] * mask.size.height;
+                CGFloat rotate = [maskInfo[@"angle"] floatValue];
+                
+                // We do this process manually because we need a much smaller targetSize than that fetched from KiteSDK
+                OLPrintPhoto *printPhoto = [customImages objectAtIndex:customImagesStartIndex % customImages.count];
+                if (printPhoto.type == kPrintPhotoAssetTypeOLAsset) {
+                    PHAsset *phAsset = [((OLAsset *)printPhoto.asset) loadPHAsset];
+                    if (phAsset) {
+                        PHImageManager *imageManager = [PHImageManager defaultManager];
+                        PHImageRequestOptions *options = [[PHImageRequestOptions alloc] init];
+                        options.synchronous = YES;
+                        options.deliveryMode = PHImageRequestOptionsDeliveryModeHighQualityFormat;
+                        options.resizeMode = PHImageRequestOptionsResizeModeFast;
+                        options.networkAccessAllowed = YES;
+                        [imageManager requestImageForAsset:phAsset targetSize:CGSizeMake(width * scale, height * scale) contentMode:PHImageContentModeDefault options:options resultHandler:^(UIImage *result, NSDictionary *info) {
+                            UIImageView *photoImageView = [[UIImageView alloc] initWithImage:result];
+                            photoImageView.contentMode = UIViewContentModeScaleAspectFill;
+                            photoImageView.frame = CGRectMake(x, y, width, height);
+                            photoImageView.layer.masksToBounds = YES;
+                            
+                            // Add photo to context
+                            CGContextSaveGState(context);
+                            CGContextTranslateCTM(context, x, y);
+                            // Only rotate if angle is above epsilon
+                            if (fabs(rotate) > 0.01) {
+                                CGContextRotateCTM(context, DegreesToRadians(rotate));
+                            }
+                            [photoImageView.layer renderInContext:context];
+                            CGContextRestoreGState(context);
+                        }];
+                    } else {
+                        NSLog(@"\tSkip Mask: PHAsset not found");
+                        return completion(nil);
+                    }
+                } else {
+                    NSLog(@"\tSkip Mask: Not OLAsset");
+                    return completion(nil);
+                }
+                customImagesStartIndex++;
+            }
+            
+            // Draw mask above all photos
+            [mask drawAtPoint:CGPointZero blendMode:kCGBlendModeNormal alpha:1.0];
+            UIImage *finalImage = UIGraphicsGetImageFromCurrentImageContext();
+            UIGraphicsEndImageContext();
+            
+            dispatch_async(dispatch_get_main_queue(), ^(void){
+                if (finalImage) {
+                    [self.cachedMaskedImages setObject:finalImage forKey:maskId];
+                }
+                completion(finalImage);
+            });
         });
-    });
+    }];
 }
 
 - (void)clearCachedImages {
