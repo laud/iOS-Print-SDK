@@ -293,7 +293,7 @@ static const NSUInteger kSectionErrorRetry = 2;
         const float step = (1.0f / totalAssetsToUpload);
         float progress = totalAssetsUploaded * step + (totalAssetBytesWritten / (float) totalAssetBytesExpectedToWrite) * step;
         [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeBlack];
-        [SVProgressHUD showProgress:progress status:[NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"Uploading Images \n%lu / %lu", @"KitePrintSDK", [OLConstants bundle], @""), (unsigned long) totalAssetsUploaded + 1, (unsigned long) totalAssetsToUpload]];
+        [SVProgressHUD showProgress:progress status:[NSString stringWithFormat:NSLocalizedStringFromTableInBundle(@"Uploading Images \n%lu / %lu\n\nPlease do not close app", @"KitePrintSDK", [OLConstants bundle], @""), (unsigned long) totalAssetsUploaded + 1, (unsigned long) totalAssetsToUpload]];
     } completionHandler:^(NSString *orderIdReceipt, NSError *error) {
         [self.printOrder saveToHistory]; // save again as the print order has it's receipt set if it was successful, otherwise last error is set
         [SVProgressHUD dismiss];
