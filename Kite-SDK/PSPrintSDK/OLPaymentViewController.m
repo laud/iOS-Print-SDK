@@ -851,6 +851,7 @@ UIActionSheetDelegate, UITextFieldDelegate, OLCreditCardCaptureDelegate, UINavig
 - (void)submitOrderForPrintingWithProofOfPayment:(NSString *)proofOfPayment paymentMethod:(NSString *)paymentMethod completion:(void (^)(PKPaymentAuthorizationStatus)) handler{
     [self.printOrder cancelSubmissionOrPreemptedAssetUpload];
     
+    [[UIApplication sharedApplication] setIdleTimerDisabled:YES];
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     
     self.printOrder.proofOfPayment = proofOfPayment;
@@ -874,6 +875,7 @@ UIActionSheetDelegate, UITextFieldDelegate, OLCreditCardCaptureDelegate, UINavig
     [self.printOrder submitForPrintingWithProgressHandler:^(NSUInteger totalAssetsUploaded, NSUInteger totalAssetsToUpload,
                                                             long long totalAssetBytesWritten, long long totalAssetBytesExpectedToWrite,
                                                             long long totalBytesWritten, long long totalBytesExpectedToWrite) {
+        [[UIApplication sharedApplication] setIdleTimerDisabled:YES];
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
         if (!handlerUsed) {
             handler(PKPaymentAuthorizationStatusSuccess);
@@ -900,6 +902,7 @@ UIActionSheetDelegate, UITextFieldDelegate, OLCreditCardCaptureDelegate, UINavig
         }
         
         [SVProgressHUD dismiss];
+        [[UIApplication sharedApplication] setIdleTimerDisabled:NO];
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         
         if (error) {

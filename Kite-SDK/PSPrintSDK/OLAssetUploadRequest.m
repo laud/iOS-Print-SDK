@@ -263,6 +263,7 @@ typedef void (^UploadAssetsCompletionHandler)(NSError *error);
         }
     }
     
+    [[UIApplication sharedApplication] setIdleTimerDisabled:YES];
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     __weak OLAssetUploadRequest *zelf = self;
     __block NSUInteger outstandingAsyncOperationsCount = 0;
@@ -275,6 +276,7 @@ typedef void (^UploadAssetsCompletionHandler)(NSError *error);
         
         if (error) {
             notifiedDelegateOfSomeOutcome = YES;
+            [[UIApplication sharedApplication] setIdleTimerDisabled:NO];
             [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
             if ([zelf.delegate respondsToSelector:@selector(assetUploadRequest:didFailWithError:)]){
                 [zelf.delegate assetUploadRequest:zelf didFailWithError:error];
@@ -285,6 +287,7 @@ typedef void (^UploadAssetsCompletionHandler)(NSError *error);
         if (--outstandingAsyncOperationsCount == 0) {
             NSAssert(!error, @"errors should be covered above");
             notifiedDelegateOfSomeOutcome = YES;
+            [[UIApplication sharedApplication] setIdleTimerDisabled:NO];
             [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
             if ([zelf.delegate respondsToSelector:@selector(assetUploadRequest:didSucceedWithAssets:)]){
                 [zelf.delegate assetUploadRequest:zelf didSucceedWithAssets:assets];
@@ -300,6 +303,7 @@ typedef void (^UploadAssetsCompletionHandler)(NSError *error);
             NSAssert([NSThread isMainThread], @"Oops we should be calling back on the main thread");
             if (error && !notifiedDelegateOfSomeOutcome) {
                 notifiedDelegateOfSomeOutcome = YES;
+                [[UIApplication sharedApplication] setIdleTimerDisabled:NO];
                 [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
                 if ([zelf.delegate respondsToSelector:@selector(assetUploadRequest:didFailWithError:)]){
                     [zelf.delegate assetUploadRequest:zelf didFailWithError:error];
