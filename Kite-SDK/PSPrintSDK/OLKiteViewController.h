@@ -140,6 +140,11 @@
 @property (copy, nonatomic, nullable) NSString *userPhone;
 
 /**
+ *  A flag to show the cancel button in the home view controller. If not, it shows the question button
+ */
+@property (assign, nonatomic, nullable) NSNumber *showCancelButton;
+
+/**
  *  A set of product template_id strings which if present will restrict which products ultimate show up in the product selection journey
  */
 @property (copy, nonatomic, nullable) NSArray<NSString *> *filterProducts;

@@ -386,6 +386,7 @@ static CGFloat fadeTime = 0.3;
         [vc safePerformSelector:@selector(setFilterProducts:) withObject:welf.filterProducts];
         [vc safePerformSelector:@selector(setUserSelectedPhotos:) withObject:welf.userSelectedPhotos];
         [vc safePerformSelector:@selector(setTemplateClass:) withObject:product.productTemplate.templateClass];
+        [vc safePerformSelector:@selector(setShowCancelButton:) withObject:welf.showCancelButton];
         if (self.navigationController.viewControllers.count <= 1){
             UINavigationController *nvc = [[OLNavigationController alloc] initWithRootViewController:vc];
             vc.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:welf action:@selector(dismiss)];

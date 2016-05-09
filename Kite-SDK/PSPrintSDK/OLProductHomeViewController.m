@@ -420,10 +420,12 @@
                                                                         style:UIBarButtonItemStyleDone
                                                                        target:self
                                                                        action:@selector(askQuestion)];
-    if (self.isPushed) {
-        self.parentViewController.navigationItem.leftBarButtonItem = questionBarItem;
-    } else {
-        self.navigationItem.leftBarButtonItem = questionBarItem;
+    if (![self.showCancelButton boolValue]) {
+        if (self.isPushed) {
+            self.parentViewController.navigationItem.leftBarButtonItem = questionBarItem;
+        } else {
+            self.navigationItem.leftBarButtonItem = questionBarItem;
+        }
     }
 }
 
