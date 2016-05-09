@@ -96,6 +96,8 @@ static NSString *instagramClientID = nil;
 static NSString *instagramSecret = nil;
 static NSString *instagramRedirectURI = nil;
 
+static NSDictionary *productPhotoMaskManifest = nil;
+
 #ifdef OL_KITE_OFFER_ADOBE
 static NSString* creativeSDKClientId = nil;
 static NSString* creativeSDKClientSecret = nil;
@@ -159,6 +161,14 @@ static NSString* creativeSDKClientSecret = nil;
         [OLJudoPayCard setClientId:kJudoClientId token:kJudoSandboxToken secret:kJudoSandboxSecret withEnvironment:kOLJudoPayEnvironmentSandbox];
 #endif
     }
+}
+
++ (void)setProductPhotoMaskManifest:(NSDictionary *_Nullable)manifest {
+    productPhotoMaskManifest = manifest;
+}
+
++ (NSDictionary *_Nullable)productPhotoMaskManifest {
+    return productPhotoMaskManifest;
 }
 
 + (NSString *_Nullable)apiKey {

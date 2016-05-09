@@ -409,6 +409,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
+    self.tabBarController.tabBar.hidden = NO;
     if ([self isPushed]){
         self.automaticallyAdjustsScrollViewInsets = NO;
         self.collectionView.contentInset = UIEdgeInsetsMake([[UIApplication sharedApplication] statusBarFrame].size.height + self.navigationController.navigationBar.frame.size.height, self.collectionView.contentInset.left, self.collectionView.contentInset.bottom, self.collectionView.contentInset.right);
@@ -564,6 +565,7 @@
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     UIViewController *vc = [self viewControllerForItemAtIndexPath:indexPath];
     if (vc){
+        self.tabBarController.tabBar.hidden = YES;
         [self.navigationController pushViewController:vc animated:YES];
     }
 }
@@ -576,6 +578,7 @@
 }
 
 - (void)previewingContext:(id<UIViewControllerPreviewing>)previewingContext commitViewController:(UIViewController *)viewControllerToCommit{
+    self.tabBarController.tabBar.hidden = YES;
     [self.navigationController pushViewController:viewControllerToCommit animated:YES];
 }
 
@@ -583,6 +586,7 @@
     if (indexPath.section == 0 && ![[OLKiteABTesting sharedInstance].qualityBannerType isEqualToString:@"None"]){
         OLInfoPageViewController *vc = (OLInfoPageViewController *)[self.storyboard instantiateViewControllerWithIdentifier:@"InfoPageViewController"];
         vc.imageName = @"quality";
+        self.tabBarController.tabBar.hidden = YES;
         [self.navigationController pushViewController:vc animated:YES];
         return nil;
     }

@@ -20,6 +20,7 @@
 #import "OLPrintPhoto.h"
 #import "UIImage+ImageNamedInKiteBundle.h"
 #import "OLKiteUtils.h"
+#import "OLKitePrintSDK.h"
 
 static NSString *const kMaskURLPrefix = @"https://dimbno61n9ae1.cloudfront.net/";
 
@@ -46,24 +47,42 @@ CGFloat DegreesToRadians(CGFloat degrees) {return degrees * M_PI / 180;};
     dispatch_once(&onceToken, ^{
         sharedManager = [[self alloc] init];
         sharedManager.cachedMaskedImages = [NSMutableDictionary dictionary];
-
-        NSString * path = [[NSBundle mainBundle] pathForResource:@"ProductPhotoMaskManifest" ofType:@"json"];
-        NSString *jsonString = [[NSString alloc] initWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
-        if (!jsonString) {
-            path = [[OLKiteUtils kiteBundle] pathForResource:@"ProductPhotoMaskManifest" ofType:@"json"];
-            jsonString = [[NSString alloc] initWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
-        }
-        NSData *jsonData = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
-        NSDictionary *json = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:nil];
         
-        sharedManager.templateClassToPhotoMask = [json objectForKey:@"template_class_photo_mask"];
-        sharedManager.productIdentifierToPhotoMask = [json objectForKey:@"product_identifier_photo_mask"];
-        sharedManager.productImageToPhotoMask = [json objectForKey:@"product_image_photo_mask"];
-        sharedManager.productImageToRemappedIndex = [json objectForKey:@"product_image_remapped_index"];
-        sharedManager.photoMaskManifest = [json objectForKey:@"mask_manifest"];
-        sharedManager.maskIdToURL = [json objectForKey:@"image_key_to_path"];
+        BOOL okay = NO;
+        if ([OLKitePrintSDK productPhotoMaskManifest]) {
+            okay = [sharedManager extractAndCheckManifest:[OLKitePrintSDK productPhotoMaskManifest]];
+        }
+        
+        if (!okay) {
+            NSDictionary *json;
+            NSString * path = [[NSBundle mainBundle] pathForResource:@"ProductPhotoMaskManifest" ofType:@"json"];
+            NSString *jsonString = [[NSString alloc] initWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
+            if (!jsonString) {
+                path = [[OLKiteUtils kiteBundle] pathForResource:@"ProductPhotoMaskManifest" ofType:@"json"];
+                jsonString = [[NSString alloc] initWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
+            }
+            NSData *jsonData = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
+            json = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:nil];
+            [sharedManager extractAndCheckManifest:json];
+        }
     });
     return sharedManager;
+}
+
+- (BOOL)extractAndCheckManifest:(NSDictionary *)manifest {
+    self.templateClassToPhotoMask = [manifest objectForKey:@"template_class_photo_mask"];
+    self.productIdentifierToPhotoMask = [manifest objectForKey:@"product_identifier_photo_mask"];
+    self.productImageToPhotoMask = [manifest objectForKey:@"product_image_photo_mask"];
+    self.productImageToRemappedIndex = [manifest objectForKey:@"product_image_remapped_index"];
+    self.photoMaskManifest = [manifest objectForKey:@"mask_manifest"];
+    self.maskIdToURL = [manifest objectForKey:@"image_key_to_path"];
+    
+    if (!self.templateClassToPhotoMask || !self.productIdentifierToPhotoMask || !self.productImageToPhotoMask ||
+        !self.productImageToRemappedIndex || !self.photoMaskManifest || !self.maskIdToURL) {
+        return NO;
+    } else {
+        return YES;
+    }
 }
 
 + (void)setAndFadeImage:(UIImage *)image toImageView:(UIImageView *)imageView {

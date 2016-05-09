@@ -144,4 +144,9 @@
  */
 + (BOOL)promoCodeAvailable;
 
+// Baby Art Additions
++ (void)setProductPhotoMaskManifest:(NSDictionary *_Nullable)manifest;
+
++ (NSDictionary *_Nullable)productPhotoMaskManifest;
+
 @end
