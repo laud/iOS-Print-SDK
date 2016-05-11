@@ -95,6 +95,7 @@ static BOOL promoCodeAvaiable = NO;
 static NSString *instagramClientID = nil;
 static NSString *instagramSecret = nil;
 static NSString *instagramRedirectURI = nil;
+static NSString *printShopTitle = nil;
 
 static NSDictionary *productPhotoMaskManifest = nil;
 
@@ -169,6 +170,14 @@ static NSString* creativeSDKClientSecret = nil;
 
 + (NSDictionary *_Nullable)productPhotoMaskManifest {
     return productPhotoMaskManifest;
+}
+
++ (void)setPrintShopTitle:(NSString *_Nullable)title {
+    printShopTitle = title;
+}
+
++ (NSString *_Nullable)printShopTitle {
+    return printShopTitle;
 }
 
 + (NSString *_Nullable)apiKey {

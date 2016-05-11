@@ -146,7 +146,10 @@
 
 // Baby Art Additions
 + (void)setProductPhotoMaskManifest:(NSDictionary *_Nullable)manifest;
++ (void)setPrintShopTitle:(NSString *_Nullable)title;
 
 + (NSDictionary *_Nullable)productPhotoMaskManifest;
++ (NSString *_Nullable)printShopTitle;
+
 
 @end

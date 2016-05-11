@@ -147,10 +147,18 @@
     }
     else if (!url && [self isMemberOfClass:[OLProductHomeViewController class]]){
         if ([self isPushed]){
-            self.parentViewController.title = NSLocalizedString(@"Print Shop", @"");
+            if ([OLKitePrintSDK printShopTitle].length > 0) {
+                self.parentViewController.title = [OLKitePrintSDK printShopTitle];
+            } else {
+                self.parentViewController.title = NSLocalizedString(@"Print Shop", @"");
+            }
         }
         else{
-            self.title = NSLocalizedString(@"Print Shop", @"");
+            if ([OLKitePrintSDK printShopTitle].length > 0) {
+                self.title = [OLKitePrintSDK printShopTitle];
+            } else {
+                self.title = NSLocalizedString(@"Print Shop", @"");
+            }
         }
     }
     
