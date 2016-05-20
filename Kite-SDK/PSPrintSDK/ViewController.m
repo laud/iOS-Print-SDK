@@ -84,6 +84,9 @@ UINavigationControllerDelegate, OLKiteDelegate>
     [OLKitePrintSDK setApplePayPayToString:kApplePayBusinessName];
 #endif
     
+    [OLKitePrintSDK setTopBannerCopy:@"WELCOME20 promo code to get 20% off your first order!"];
+    [OLKitePrintSDK setPromoCodeAvailable:YES];
+
     // Just short circuit testing
     [self onButtonPrintLocalPhotos:nil];
 }

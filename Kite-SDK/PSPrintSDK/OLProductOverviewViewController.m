@@ -172,7 +172,50 @@
 #endif
     
     self.originalBoxConstraint = self.detailsBoxTopCon.constant;
+    [self setupTopBannerView];
+}
+
+- (void)setupTopBannerView{
+    if ([OLKitePrintSDK topBannerCopy].length == 0) {
+        return;
+    }
     
+    UIView *bannerView = [[UIView alloc] init];
+    bannerView.backgroundColor = [UIColor colorWithRed:249/255.f green:108/255.f blue:247/255.f alpha:1];
+
+    UILabel *label = [[UILabel alloc] init];
+    label.textAlignment = NSTextAlignmentCenter;
+    label.font = [UIFont systemFontOfSize:14];
+    label.adjustsFontSizeToFitWidth = YES;
+    label.minimumScaleFactor = 0.5;
+    label.text = [OLKitePrintSDK topBannerCopy];
+    label.textColor = [UIColor whiteColor];
+
+    [bannerView addSubview:label];
+    [self.view addSubview:bannerView];
+    [self.view bringSubviewToFront:bannerView];
+
+    bannerView.translatesAutoresizingMaskIntoConstraints = NO;
+    label.translatesAutoresizingMaskIntoConstraints = NO;
+    id topGuide = self.topLayoutGuide;
+    NSDictionary *views = NSDictionaryOfVariableBindings(label, bannerView, topGuide);
+   
+    NSMutableArray *con = [[NSMutableArray alloc] init];
+    [con addObjectsFromArray: [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(>=10)-[label]-(>=10)-|" options:0 metrics:nil views:views]];
+    [con addObjectsFromArray: [NSLayoutConstraint constraintsWithVisualFormat:@"V:|[label(40)]|" options:NSLayoutFormatAlignAllFirstBaseline metrics:nil views:views]];
+    [con addObject:[NSLayoutConstraint constraintWithItem:label
+                                                attribute:NSLayoutAttributeCenterX
+                                                relatedBy:NSLayoutRelationEqual
+                                                   toItem:label.superview
+                                                attribute:NSLayoutAttributeCenterX
+                                               multiplier:1.f constant:0.f]];
+    [label.superview addConstraints:con];
+    
+
+    NSMutableArray *bannerCon = [[NSMutableArray alloc] init];
+    [bannerCon addObjectsFromArray: [NSLayoutConstraint constraintsWithVisualFormat:@"H:|[bannerView]|" options:0 metrics:nil views:views]];
+    [bannerCon addObjectsFromArray: [NSLayoutConstraint constraintsWithVisualFormat:@"V:|[topGuide][bannerView(40)]-(>=0)-|" options:0 metrics:nil views:views]];
+    [bannerView.superview addConstraints:bannerCon];
 }
 
 - (void)viewDidDisappear:(BOOL)animated{

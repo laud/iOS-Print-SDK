@@ -78,6 +78,8 @@ extern const NSInteger kOLKiteSDKErrorCodeImagesCorrupt;
 extern const NSInteger kOLKiteSDKErrorCodeURLShorteningFailed;
 extern const NSInteger kOLKiteSDKErrorCodeUnexpectedResponse;
 
+extern const NSInteger kOLKiteSDKBannerHeight;
+
 extern NSString *_Nonnull const kOLKiteSDKErrorMessageUnauthorized;
 extern NSString *_Nonnull const kOLKiteSDKErrorMessageMaintenanceMode;
 extern NSString *_Nonnull const kOLKiteSDKErrorMessageRequestInProgress;

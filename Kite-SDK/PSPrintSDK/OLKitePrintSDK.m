@@ -96,6 +96,7 @@ static NSString *instagramClientID = nil;
 static NSString *instagramSecret = nil;
 static NSString *instagramRedirectURI = nil;
 static NSString *printShopTitle = nil;
+static NSString *topBannerCopy = nil;
 
 static NSDictionary *productPhotoMaskManifest = nil;
 
@@ -178,6 +179,14 @@ static NSString* creativeSDKClientSecret = nil;
 
 + (NSString *_Nullable)printShopTitle {
     return printShopTitle;
+}
+
++ (void)setTopBannerCopy:(NSString *_Nullable)copy {
+    topBannerCopy = copy;
+}
+
++ (NSString *_Nullable)topBannerCopy {
+    return topBannerCopy;
 }
 
 + (NSString *_Nullable)apiKey {

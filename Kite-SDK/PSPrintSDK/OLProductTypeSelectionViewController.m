@@ -145,6 +145,8 @@
         [self registerForPreviewingWithDelegate:self sourceView:self.collectionView];
     }
     
+    [self.collectionView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"headerView"];
+
 #ifndef OL_NO_ANALYTICS
     [OLAnalytics trackProductTypeSelectionScreenViewedWithTemplateClass:self.templateClass];
 #endif
@@ -352,6 +354,51 @@
     }
     NSIndexPath *indexPath = [self.collectionView indexPathForCell:(UICollectionViewCell *)view];
     [self collectionView:self.collectionView didSelectItemAtIndexPath:indexPath];
+}
+
+- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath{
+    UICollectionReusableView *cell = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"headerView" forIndexPath:indexPath];
+    cell.backgroundColor = [UIColor colorWithRed:249/255.f green:108/255.f blue:247/255.f alpha:1];
+    
+    UILabel *label = (UILabel *)[cell viewWithTag:77];
+    if (!label){
+        label = [[UILabel alloc] init];
+        label.tag = 77;
+        label.textAlignment = NSTextAlignmentCenter;
+        label.font = [UIFont systemFontOfSize:14];
+        label.adjustsFontSizeToFitWidth = YES;
+        label.minimumScaleFactor = 0.5;
+        label.text = [OLKitePrintSDK topBannerCopy];
+        label.textColor = [UIColor whiteColor];
+        [cell addSubview:label];
+        
+        label.translatesAutoresizingMaskIntoConstraints = NO;
+        NSDictionary *views = NSDictionaryOfVariableBindings(label);
+        NSMutableArray *con = [[NSMutableArray alloc] init];
+        
+        NSArray *visuals = @[@"H:|-(>=10)-[label]-(>=10)-|",
+                             @"V:|-0-[label]-0-|"];
+        for (NSString *visual in visuals) {
+            [con addObjectsFromArray: [NSLayoutConstraint constraintsWithVisualFormat:visual options:0 metrics:nil views:views]];
+        }
+        [con addObject:[NSLayoutConstraint constraintWithItem:label
+                                                    attribute:NSLayoutAttributeCenterX
+                                                    relatedBy:NSLayoutRelationEqual
+                                                       toItem:label.superview
+                                                    attribute:NSLayoutAttributeCenterX
+                                                   multiplier:1.f constant:0.f]];
+        [label.superview addConstraints:con];
+    }
+    
+    return cell;
+}
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section{
+    if ([OLKitePrintSDK topBannerCopy].length > 0) {
+        return CGSizeMake(self.view.frame.size.width, kOLKiteSDKBannerHeight);
+    } else {
+        return CGSizeZero;
+    }
 }
 
 - (NSInteger) collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{

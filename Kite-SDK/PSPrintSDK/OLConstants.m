@@ -45,6 +45,8 @@ const NSInteger kOLKiteSDKErrorCodeOrderValidationFailed = 701;
 const NSInteger kOLKiteSDKErrorCodeImagesCorrupt = 702;
 const NSInteger kOLKiteSDKErrorCodeURLShorteningFailed = 801;
 
+const NSInteger kOLKiteSDKBannerHeight = 40;
+
 NSString *const kOLKiteSDKErrorMessageUnauthorized = @"Unauthorized Kite Print SDK Request. Did you set your API Key and Environment correctly using [OLKitePrintSDK setAPIKey:withEnvironment:]";
 
 NSString *const kOLKiteSDKErrorMessageMaintenanceMode = @"Our store is currently undergoing maintence so no products are available for purchase at this time. Please try again a little later.";
