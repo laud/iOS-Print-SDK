@@ -308,17 +308,39 @@ UIActionSheetDelegate, OLUpsellViewControllerDelegate>
 - (void)updateTitleBasedOnSelectedPhotoQuanitity {
     NSTimeInterval delay = 0.35;
     NSTimeInterval duration = 0.3;
-    if (self.userSelectedPhotos.count > 0 && self.addPhotosHintView.alpha >= 0.9f) {
-        self.addPhotosHintView.alpha = 1;
-        [UIView animateWithDuration:duration delay:delay options:UIViewAnimationOptionCurveEaseIn animations:^{
-            self.addPhotosHintView.alpha = 0;
-        } completion:^(BOOL finished) {}];
-    }
-    else if (self.userSelectedPhotos.count == 0 && self.addPhotosHintView.alpha <= 0.1f) {
-        self.addPhotosHintView.alpha = 0;
-        [UIView animateWithDuration:duration delay:delay options:UIViewAnimationOptionCurveEaseIn animations:^{
+    
+    if (self.product.quantityToFulfillOrder > 1){
+        NSInteger numOrders = 1 + (MAX(0, (NSInteger)self.userSelectedPhotos.count - 1 + (NSInteger)[self totalNumberOfExtras]) / self.product.quantityToFulfillOrder);
+        NSUInteger quanityToFulfilOrder = numOrders * self.product.quantityToFulfillOrder;
+        NSUInteger numSelected = self.userSelectedPhotos.count - self.userDisabledPhotos.count + [self totalNumberOfExtras];
+        if (self.userDisabledPhotos.count == 0 && numOrders == 1 && numSelected < quanityToFulfilOrder) {
+            if (self.addPhotosHintView.alpha <= 0.1f) {
+                self.addPhotosHintView.alpha = 0;
+                [UIView animateWithDuration:duration delay:delay options:UIViewAnimationOptionCurveEaseIn animations:^{
+                    self.addPhotosHintView.alpha = 1;
+                } completion:^(BOOL finished) {}];
+            }
+        } else {
+            if (self.addPhotosHintView.alpha >= 0.9f) {
+                self.addPhotosHintView.alpha = 1;
+                [UIView animateWithDuration:duration delay:delay options:UIViewAnimationOptionCurveEaseIn animations:^{
+                    self.addPhotosHintView.alpha = 0;
+                } completion:^(BOOL finished) {}];
+            }
+        }
+    } else {
+        if (self.userSelectedPhotos.count > 0 && self.addPhotosHintView.alpha >= 0.9f) {
             self.addPhotosHintView.alpha = 1;
-        } completion:^(BOOL finished) {}];
+            [UIView animateWithDuration:duration delay:delay options:UIViewAnimationOptionCurveEaseIn animations:^{
+                self.addPhotosHintView.alpha = 0;
+            } completion:^(BOOL finished) {}];
+        }
+        else if (self.userSelectedPhotos.count == 0 && self.addPhotosHintView.alpha <= 0.1f) {
+            self.addPhotosHintView.alpha = 0;
+            [UIView animateWithDuration:duration delay:delay options:UIViewAnimationOptionCurveEaseIn animations:^{
+                self.addPhotosHintView.alpha = 1;
+            } completion:^(BOOL finished) {}];
+        }
     }
     
     if (self.userSelectedPhotos.count == 0) {

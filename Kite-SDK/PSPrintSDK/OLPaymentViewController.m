@@ -1193,8 +1193,12 @@ UIActionSheetDelegate, UITextFieldDelegate, OLCreditCardCaptureDelegate, UINavig
             [UIView animateWithDuration:0.25 delay:0 usingSpringWithDamping:0.5 initialSpringVelocity:0 options:0 animations:^{
                 self.shippingDetailsBox.backgroundColor = [UIColor whiteColor];
                 self.shippingDetailsBox.transform = CGAffineTransformIdentity;
-            }completion:NULL];
+            } completion:^(BOOL finished) {
+                // Show shipping screen
+                [self onShippingDetailsGestureRecognized:nil];
+            }];
         }];
+        
         return;
     }
     
@@ -1366,7 +1370,10 @@ UIActionSheetDelegate, UITextFieldDelegate, OLCreditCardCaptureDelegate, UINavig
             [UIView animateWithDuration:0.25 delay:0 usingSpringWithDamping:0.5 initialSpringVelocity:0 options:0 animations:^{
                 self.shippingDetailsBox.backgroundColor = [UIColor whiteColor];
                 self.shippingDetailsBox.transform = CGAffineTransformIdentity;
-            }completion:NULL];
+            } completion:^(BOOL finished) {
+                // Show shipping screen
+                [self onShippingDetailsGestureRecognized:nil];
+            }];
         }];
         return;
     }
