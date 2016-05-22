@@ -740,7 +740,7 @@ UIViewControllerPreviewingDelegate>
         return nil;
     }
     UICollectionReusableView *cell = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"headerView" forIndexPath:indexPath];
-    cell.backgroundColor = [UIColor colorWithRed:249/255.f green:108/255.f blue:247/255.f alpha:1];
+    cell.backgroundColor = [UIColor colorWithRed:227/255.f green:227/255.f blue:250/255.f alpha:1];
     
     UILabel *label = (UILabel *)[cell viewWithTag:77];
     if (!label){
@@ -751,7 +751,7 @@ UIViewControllerPreviewingDelegate>
         label.adjustsFontSizeToFitWidth = YES;
         label.minimumScaleFactor = 0.5;
         label.text = [OLKitePrintSDK topBannerCopy];
-        label.textColor = [UIColor whiteColor];
+        label.textColor = [UIColor colorWithRed:106/255.f green:6/255.f blue:225/255.f alpha:1];
         [cell addSubview:label];
         
         label.translatesAutoresizingMaskIntoConstraints = NO;

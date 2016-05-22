@@ -417,7 +417,7 @@ UIActionSheetDelegate, UITextFieldDelegate, OLCreditCardCaptureDelegate, UINavig
     }
     
     UIView *bannerView = [[UIView alloc] init];
-    bannerView.backgroundColor = [UIColor colorWithRed:249/255.f green:108/255.f blue:247/255.f alpha:1];
+    bannerView.backgroundColor = [UIColor colorWithRed:227/255.f green:227/255.f blue:250/255.f alpha:1];
     bannerView.frame = CGRectMake(0, 0, self.tableView.frame.size.width, kOLKiteSDKBannerHeight);
     
     UILabel *label = [[UILabel alloc] init];
@@ -426,7 +426,7 @@ UIActionSheetDelegate, UITextFieldDelegate, OLCreditCardCaptureDelegate, UINavig
     label.adjustsFontSizeToFitWidth = YES;
     label.minimumScaleFactor = 0.5;
     label.text = [OLKitePrintSDK topBannerCopy];
-    label.textColor = [UIColor whiteColor];
+    label.textColor = [UIColor colorWithRed:106/255.f green:6/255.f blue:225/255.f alpha:1];
     
     [bannerView addSubview:label];
     self.tableView.tableHeaderView = bannerView;
