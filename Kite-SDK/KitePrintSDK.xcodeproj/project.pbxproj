@@ -479,12 +479,14 @@
 		681EA88A1CC9BF1000508132 /* OLPersonalizedProductPhotos.m in Sources */ = {isa = PBXBuildFile; fileRef = 681EA8891CC9BF1000508132 /* OLPersonalizedProductPhotos.m */; };
 		681EA8991CCD897300508132 /* ProductPhotoMaskManifest.json in Resources */ = {isa = PBXBuildFile; fileRef = 681EA8981CCD897300508132 /* ProductPhotoMaskManifest.json */; };
 		681EA89A1CCD897300508132 /* ProductPhotoMaskManifest.json in Resources */ = {isa = PBXBuildFile; fileRef = 681EA8981CCD897300508132 /* ProductPhotoMaskManifest.json */; };
-		68835B2C1CF39FAC00ED5880 /* UIButton+Extended.m in Sources */ = {isa = PBXBuildFile; fileRef = 68835B2B1CF39FAC00ED5880 /* UIButton+Extended.m */; };
-		68835B2D1CF39FAC00ED5880 /* UIButton+Extended.m in Sources */ = {isa = PBXBuildFile; fileRef = 68835B2B1CF39FAC00ED5880 /* UIButton+Extended.m */; };
 		68835B341CF3B58900ED5880 /* OLPromoOfferView.m in Sources */ = {isa = PBXBuildFile; fileRef = 68835B331CF3B58900ED5880 /* OLPromoOfferView.m */; };
 		68835B351CF3B58900ED5880 /* OLPromoOfferView.m in Sources */ = {isa = PBXBuildFile; fileRef = 68835B331CF3B58900ED5880 /* OLPromoOfferView.m */; };
 		68835B361CF3B58900ED5880 /* OLPromoOfferView.m in Sources */ = {isa = PBXBuildFile; fileRef = 68835B331CF3B58900ED5880 /* OLPromoOfferView.m */; };
 		68835B371CF3B58900ED5880 /* OLPromoOfferView.m in Sources */ = {isa = PBXBuildFile; fileRef = 68835B331CF3B58900ED5880 /* OLPromoOfferView.m */; };
+		68835B3A1CF3B65000ED5880 /* UIButton+Extended.m in Sources */ = {isa = PBXBuildFile; fileRef = 68835B391CF3B65000ED5880 /* UIButton+Extended.m */; };
+		68835B3B1CF3B65000ED5880 /* UIButton+Extended.m in Sources */ = {isa = PBXBuildFile; fileRef = 68835B391CF3B65000ED5880 /* UIButton+Extended.m */; };
+		68835B3C1CF3B65000ED5880 /* UIButton+Extended.m in Sources */ = {isa = PBXBuildFile; fileRef = 68835B391CF3B65000ED5880 /* UIButton+Extended.m */; };
+		68835B3D1CF3B65000ED5880 /* UIButton+Extended.m in Sources */ = {isa = PBXBuildFile; fileRef = 68835B391CF3B65000ED5880 /* UIButton+Extended.m */; };
 		7D6213DEB708F5F5E6617BF1 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 931ABE3568CB40F8892488E2 /* libPods.a */; };
 		CD73BF8B186215790009DE03 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD73BF8A186215790009DE03 /* XCTest.framework */; };
 		CD73BF8C186215790009DE03 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD73BF6B186215790009DE03 /* Foundation.framework */; };
@@ -1065,10 +1067,10 @@
 		681EA8881CC9BF1000508132 /* OLPersonalizedProductPhotos.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OLPersonalizedProductPhotos.h; sourceTree = "<group>"; };
 		681EA8891CC9BF1000508132 /* OLPersonalizedProductPhotos.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OLPersonalizedProductPhotos.m; sourceTree = "<group>"; };
 		681EA8981CCD897300508132 /* ProductPhotoMaskManifest.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ProductPhotoMaskManifest.json; sourceTree = "<group>"; };
-		68835B2A1CF39FAC00ED5880 /* UIButton+Extended.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+Extended.h"; sourceTree = "<group>"; };
-		68835B2B1CF39FAC00ED5880 /* UIButton+Extended.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+Extended.m"; sourceTree = "<group>"; };
 		68835B321CF3B58900ED5880 /* OLPromoOfferView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OLPromoOfferView.h; sourceTree = "<group>"; };
 		68835B331CF3B58900ED5880 /* OLPromoOfferView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OLPromoOfferView.m; sourceTree = "<group>"; };
+		68835B381CF3B65000ED5880 /* UIButton+Extended.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIButton+Extended.h"; path = "PSPrintSDK/Categories/UIButton+Extended.h"; sourceTree = "<group>"; };
+		68835B391CF3B65000ED5880 /* UIButton+Extended.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIButton+Extended.m"; path = "PSPrintSDK/Categories/UIButton+Extended.m"; sourceTree = "<group>"; };
 		931ABE3568CB40F8892488E2 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD382E4818EB7C6300127F95 /* OLJudoPayCard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OLJudoPayCard.m; sourceTree = "<group>"; };
 		CD382E4918EB7C6300127F95 /* OLJudoPayCard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OLJudoPayCard.h; sourceTree = "<group>"; };
@@ -1773,8 +1775,8 @@
 		2EA8BEC11A48509E008A9248 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
-				68835B2A1CF39FAC00ED5880 /* UIButton+Extended.h */,
-				68835B2B1CF39FAC00ED5880 /* UIButton+Extended.m */,
+				68835B381CF3B65000ED5880 /* UIButton+Extended.h */,
+				68835B391CF3B65000ED5880 /* UIButton+Extended.m */,
 				2E53E0CB1C1AEAAD00BF7887 /* UIViewController+OLMethods.h */,
 				2E53E0CC1C1AEAAD00BF7887 /* UIViewController+OLMethods.m */,
 				3DF9D6FF1B0F65C700A40C0C /* NSObject+Utils.h */,
@@ -3193,6 +3195,7 @@
 				2E898CA21CC518180041CCD8 /* OLImageCachingManager.m in Sources */,
 				2E898CA31CC518180041CCD8 /* AssetDataSource.m in Sources */,
 				2E898CA41CC518180041CCD8 /* UIView+RoundRect.m in Sources */,
+				68835B3B1CF3B65000ED5880 /* UIButton+Extended.m in Sources */,
 				2E898CA51CC518180041CCD8 /* OLCountry.m in Sources */,
 				2E898CA61CC518180041CCD8 /* OLAssetScrollView.m in Sources */,
 				2E898CA71CC518180041CCD8 /* ALAssetsLibrary+Singleton.m in Sources */,
@@ -3244,6 +3247,7 @@
 				2EA3D3601C9C04B500B99BCD /* OLInfoPageViewController.m in Sources */,
 				2EA3D3611C9C04B500B99BCD /* OLIntegratedCheckoutViewController.m in Sources */,
 				2EA3D3621C9C04B500B99BCD /* OLProductGroup.m in Sources */,
+				68835B3D1CF3B65000ED5880 /* UIButton+Extended.m in Sources */,
 				2EA3D3631C9C04B500B99BCD /* UIImage+ColorAtPixel.m in Sources */,
 				2EA3D3641C9C04B500B99BCD /* OLCheckoutViewController.m in Sources */,
 				2EA3D3651C9C04B500B99BCD /* OLPhotobookViewController.m in Sources */,
@@ -3384,6 +3388,7 @@
 				2EADD7F91BE79D6D0051CD31 /* OLPhotoSelectionButton.m in Sources */,
 				2EADD7FA1BE79D6D0051CD31 /* OLAddressEditViewController.m in Sources */,
 				681EA88A1CC9BF1000508132 /* OLPersonalizedProductPhotos.m in Sources */,
+				68835B3A1CF3B65000ED5880 /* UIButton+Extended.m in Sources */,
 				2EADD7FB1BE79D6D0051CD31 /* OLKiteUtils.m in Sources */,
 				2EADD7FC1BE79D6D0051CD31 /* ALAsset+OLIsEqual.m in Sources */,
 				2EADD7FD1BE79D6D0051CD31 /* OLAssetsSupplementaryView.m in Sources */,
@@ -3445,7 +3450,6 @@
 				2EADD82D1BE79D6D0051CD31 /* OLImageCachingManager.m in Sources */,
 				2E0804BF1C0DF70200F50D42 /* AssetDataSource.m in Sources */,
 				2EADD82E1BE79D6D0051CD31 /* UIView+RoundRect.m in Sources */,
-				68835B2C1CF39FAC00ED5880 /* UIButton+Extended.m in Sources */,
 				2EADD82F1BE79D6D0051CD31 /* OLCountry.m in Sources */,
 				2EADD8301BE79D6D0051CD31 /* OLAssetScrollView.m in Sources */,
 				2EADD8311BE79D6D0051CD31 /* ALAssetsLibrary+Singleton.m in Sources */,
@@ -3720,7 +3724,6 @@
 				E29C85E21BE3B5C50041D4CF /* ALAssetsGroup+OLIsEqual.m in Sources */,
 				E29C85E31BE3B5C50041D4CF /* OLAssetsViewCell.m in Sources */,
 				E29C85E41BE3B5C50041D4CF /* OLProductTypeSelectionViewController.m in Sources */,
-				68835B2D1CF39FAC00ED5880 /* UIButton+Extended.m in Sources */,
 				E29C85E51BE3B5C50041D4CF /* OLPrintOrderRequest.m in Sources */,
 				E29C85E61BE3B5C50041D4CF /* OLRemoteImageCropper.m in Sources */,
 				E29C85E71BE3B5C50041D4CF /* OLAssetsGroupViewController.m in Sources */,
@@ -3763,6 +3766,7 @@
 				E29C86121BE3B5C50041D4CF /* OLCountryPickerController.m in Sources */,
 				2E4FC90F1C04A4F4000143F5 /* OLOrdersViewController.m in Sources */,
 				E29C86141BE3B5C50041D4CF /* OLBaseRequest.m in Sources */,
+				68835B3C1CF3B65000ED5880 /* UIButton+Extended.m in Sources */,
 				E29C86161BE3B5C50041D4CF /* OLPhotobookPrintJob.m in Sources */,
 				E29C86171BE3B5C50041D4CF /* OLPaymentLineItem.m in Sources */,
 				E29C86181BE3B5C50041D4CF /* OLPrintJob.m in Sources */,
