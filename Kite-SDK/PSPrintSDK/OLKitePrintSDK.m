@@ -91,12 +91,15 @@ static BOOL isUnitTesting = NO;
 static BOOL QRCodeUploadEnabled = NO;
 static BOOL isKiosk = NO;
 static BOOL promoCodeAvaiable = NO;
+static BOOL promoOfferUnlocked = NO;
 
 static NSString *instagramClientID = nil;
 static NSString *instagramSecret = nil;
 static NSString *instagramRedirectURI = nil;
 static NSString *printShopTitle = nil;
-static NSString *topBannerCopy = nil;
+static NSString *topBannerUnlockedCopy = nil;
+static NSString *topBannerLockedCopy = nil;
+static NSString *topBannerLockedButtonCopy = nil;
 
 static NSDictionary *productPhotoMaskManifest = nil;
 
@@ -181,12 +184,36 @@ static NSString* creativeSDKClientSecret = nil;
     return printShopTitle;
 }
 
-+ (void)setTopBannerCopy:(NSString *_Nullable)copy {
-    topBannerCopy = copy;
++ (void)setTopBannerUnlockedCopy:(NSString *_Nullable)copy {
+    topBannerUnlockedCopy = copy;
 }
 
-+ (NSString *_Nullable)topBannerCopy {
-    return topBannerCopy;
++ (NSString *_Nullable)topBannerUnlockedCopy {
+    return topBannerUnlockedCopy;
+}
+
++ (void)setTopBannerLockedCopy:(NSString *_Nullable)copy {
+    topBannerLockedCopy = copy;
+}
+
++ (NSString *_Nullable)topBannerLockedCopy {
+    return topBannerLockedCopy;
+}
+
++ (void)setTopBannerLockedButtonCopy:(NSString *_Nullable)copy {
+    topBannerLockedButtonCopy = copy;
+}
+
++ (NSString *_Nullable)topBannerLockedButtonCopy {
+    return topBannerLockedButtonCopy;
+}
+
++ (void)setPromoOfferUnlocked:(BOOL)unlocked {
+//    promoOfferUnlocked = unlocked;
+}
+
++ (BOOL)promoOfferUnlocked {
+    return promoOfferUnlocked;
 }
 
 + (NSString *_Nullable)apiKey {

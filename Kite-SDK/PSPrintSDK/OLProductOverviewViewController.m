@@ -46,6 +46,7 @@
 #import "UIViewController+OLMethods.h"
 #import "OLPaymentViewController.h"
 #import "OLUpsellViewController.h"
+#import "PromoOfferView.h"
 
 @interface OLKiteViewController ()
 
@@ -176,46 +177,47 @@
 }
 
 - (void)setupTopBannerView{
-    if ([OLKitePrintSDK topBannerCopy].length == 0) {
+    if ([OLKitePrintSDK topBannerUnlockedCopy].length == 0) {
         return;
     }
     
     UIView *bannerView = [[UIView alloc] init];
     bannerView.backgroundColor = [UIColor colorWithRed:227/255.f green:227/255.f blue:250/255.f alpha:1];
-
-    UILabel *label = [[UILabel alloc] init];
-    label.textAlignment = NSTextAlignmentCenter;
-    label.font = [UIFont systemFontOfSize:14];
-    label.adjustsFontSizeToFitWidth = YES;
-    label.minimumScaleFactor = 0.5;
-    label.text = [OLKitePrintSDK topBannerCopy];
-    label.textColor = [UIColor colorWithRed:106/255.f green:6/255.f blue:225/255.f alpha:1];
-
-    [bannerView addSubview:label];
     [self.view addSubview:bannerView];
     [self.view bringSubviewToFront:bannerView];
-
-    bannerView.translatesAutoresizingMaskIntoConstraints = NO;
-    label.translatesAutoresizingMaskIntoConstraints = NO;
-    id topGuide = self.topLayoutGuide;
-    NSDictionary *views = NSDictionaryOfVariableBindings(label, bannerView, topGuide);
-   
-    NSMutableArray *con = [[NSMutableArray alloc] init];
-    [con addObjectsFromArray: [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(>=10)-[label]-(>=10)-|" options:0 metrics:nil views:views]];
-    [con addObjectsFromArray: [NSLayoutConstraint constraintsWithVisualFormat:@"V:|[label(40)]|" options:NSLayoutFormatAlignAllFirstBaseline metrics:nil views:views]];
-    [con addObject:[NSLayoutConstraint constraintWithItem:label
-                                                attribute:NSLayoutAttributeCenterX
-                                                relatedBy:NSLayoutRelationEqual
-                                                   toItem:label.superview
-                                                attribute:NSLayoutAttributeCenterX
-                                               multiplier:1.f constant:0.f]];
-    [label.superview addConstraints:con];
     
-
+    bannerView.translatesAutoresizingMaskIntoConstraints = NO;
+    id topGuide = self.topLayoutGuide;
+    NSDictionary *views = NSDictionaryOfVariableBindings(topGuide, bannerView);
     NSMutableArray *bannerCon = [[NSMutableArray alloc] init];
     [bannerCon addObjectsFromArray: [NSLayoutConstraint constraintsWithVisualFormat:@"H:|[bannerView]|" options:0 metrics:nil views:views]];
     [bannerCon addObjectsFromArray: [NSLayoutConstraint constraintsWithVisualFormat:@"V:|[topGuide][bannerView(40)]-(>=0)-|" options:0 metrics:nil views:views]];
     [bannerView.superview addConstraints:bannerCon];
+    
+    [PromoOfferView constructPromoOfferViewOnSuperview:bannerView withTarget:self];
+    [PromoOfferView resetPromoOfferSubviewVisilibity:bannerView];
+}
+
+- (void)unlockOfferTap:(UITapGestureRecognizer *)recognizer {
+    [self unlockOffer:recognizer.view.superview];
+}
+
+- (void)unlockOfferPressed:(UIButton *)button {
+    [self unlockOffer:button.superview];
+}
+
+- (void)unlockOffer:(UIView *)superview {
+    UILabel *unlockedLabel = (UILabel *)[superview viewWithTag:kOLKiteSDKPromoOfferUnlockedLabelTag];
+    UILabel *lockedLabel = (UILabel *)[superview viewWithTag:kOLKiteSDKPromoOfferLockedLabelTag];
+    UIButton *lockedButton = (UIButton *)[superview viewWithTag:kOLKiteSDKPromoOfferLockedButtonTag];
+    unlockedLabel.hidden = NO;
+    lockedLabel.hidden = YES;
+    lockedButton.hidden = YES;
+    
+    [OLKitePrintSDK setPromoOfferUnlocked:YES];
+    if ([self.delegate respondsToSelector:@selector(kiteControllerDidUnlockStoreOffer:)]) {
+        return [self.delegate kiteControllerDidUnlockStoreOffer:@{}];
+    }
 }
 
 - (void)viewDidDisappear:(BOOL)animated{

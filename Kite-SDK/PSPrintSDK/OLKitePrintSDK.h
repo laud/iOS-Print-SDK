@@ -147,11 +147,16 @@
 // Baby Art Additions
 + (void)setProductPhotoMaskManifest:(NSDictionary *_Nullable)manifest;
 + (void)setPrintShopTitle:(NSString *_Nullable)title;
-+ (void)setTopBannerCopy:(NSString *_Nullable)copy;
++ (void)setTopBannerUnlockedCopy:(NSString *_Nullable)copy;
++ (void)setTopBannerLockedCopy:(NSString *_Nullable)copy;
++ (void)setTopBannerLockedButtonCopy:(NSString *_Nullable)copy;
++ (void)setPromoOfferUnlocked:(BOOL)unlocked;
 
 + (NSDictionary *_Nullable)productPhotoMaskManifest;
 + (NSString *_Nullable)printShopTitle;
-+ (NSString *_Nullable)topBannerCopy;
-
++ (NSString *_Nullable)topBannerUnlockedCopy;
++ (NSString *_Nullable)topBannerLockedCopy;
++ (NSString *_Nullable)topBannerLockedButtonCopy;
++ (BOOL)promoOfferUnlocked;
 
 @end

@@ -63,6 +63,7 @@
 #import "UIImageView+FadeIn.h"
 #import "UIViewController+OLMethods.h"
 #import "UIViewController+TraitCollectionCompatibility.h"
+#import "PromoOfferView.h"
 
 #include <sys/time.h>
 #import <MessageUI/MessageUI.h>
@@ -830,41 +831,39 @@
     UICollectionReusableView *cell = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"headerView" forIndexPath:indexPath];
     cell.backgroundColor = [UIColor colorWithRed:227/255.f green:227/255.f blue:250/255.f alpha:1];
     
-    UILabel *label = (UILabel *)[cell viewWithTag:77];
-    if (!label){
-        label = [[UILabel alloc] init];
-        label.tag = 77;
-        label.textAlignment = NSTextAlignmentCenter;
-        label.font = [UIFont systemFontOfSize:14];
-        label.adjustsFontSizeToFitWidth = YES;
-        label.minimumScaleFactor = 0.5;
-        label.text = [OLKitePrintSDK topBannerCopy];
-        label.textColor = [UIColor colorWithRed:106/255.f green:6/255.f blue:225/255.f alpha:1];;
-        [cell addSubview:label];
-        
-        label.translatesAutoresizingMaskIntoConstraints = NO;
-        NSDictionary *views = NSDictionaryOfVariableBindings(label);
-        NSMutableArray *con = [[NSMutableArray alloc] init];
-        
-        NSArray *visuals = @[@"H:|-(>=10)-[label]-(>=10)-|",
-                             @"V:|-0-[label]-0-|"];
-        for (NSString *visual in visuals) {
-            [con addObjectsFromArray: [NSLayoutConstraint constraintsWithVisualFormat:visual options:0 metrics:nil views:views]];
-        }
-        [con addObject:[NSLayoutConstraint constraintWithItem:label
-                                                    attribute:NSLayoutAttributeCenterX
-                                                    relatedBy:NSLayoutRelationEqual
-                                                       toItem:label.superview
-                                                    attribute:NSLayoutAttributeCenterX
-                                                    multiplier:1.f constant:0.f]];
-        [label.superview addConstraints:con];
+    if (![cell viewWithTag:kOLKiteSDKPromoOfferUnlockedLabelTag]){
+        [PromoOfferView constructPromoOfferViewOnSuperview:cell withTarget:self];
     }
+
+    [PromoOfferView resetPromoOfferSubviewVisilibity:cell];
     
     return cell;
 }
 
+- (void)unlockOfferTap:(UITapGestureRecognizer *)recognizer {
+    [self unlockOffer:recognizer.view.superview];
+}
+
+- (void)unlockOfferPressed:(UIButton *)button {
+    [self unlockOffer:button.superview];
+}
+
+- (void)unlockOffer:(UIView *)superview {
+    UILabel *unlockedLabel = (UILabel *)[superview viewWithTag:kOLKiteSDKPromoOfferUnlockedLabelTag];
+    UILabel *lockedLabel = (UILabel *)[superview viewWithTag:kOLKiteSDKPromoOfferLockedLabelTag];
+    UIButton *lockedButton = (UIButton *)[superview viewWithTag:kOLKiteSDKPromoOfferLockedButtonTag];
+    unlockedLabel.hidden = NO;
+    lockedLabel.hidden = YES;
+    lockedButton.hidden = YES;
+    
+    [OLKitePrintSDK setPromoOfferUnlocked:YES];
+    if ([self.delegate respondsToSelector:@selector(kiteControllerDidUnlockStoreOffer:)]) {
+        return [self.delegate kiteControllerDidUnlockStoreOffer:@{}];
+    }
+}
+
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section{
-    if ([OLKitePrintSDK topBannerCopy].length > 0) {
+    if ([OLKitePrintSDK topBannerUnlockedCopy].length > 0) {
         return CGSizeMake(self.view.frame.size.width, kOLKiteSDKBannerHeight);
     } else {
         return CGSizeZero;

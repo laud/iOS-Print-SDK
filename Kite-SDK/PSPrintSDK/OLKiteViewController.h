@@ -116,6 +116,13 @@
  */
 - (void)logKiteAnalyticsEventWithInfo:(NSDictionary *_Nonnull)info;
 
+/**
+ *  Notifies the delegate that store offer was unlocked.
+ *
+ *  @param info The dictionary containing the information about the event
+ */
+- (void)kiteControllerDidUnlockStoreOffer:(NSDictionary *_Nonnull)info;
+
 
 @end
 

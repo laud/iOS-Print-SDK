@@ -479,6 +479,10 @@
 		681EA88A1CC9BF1000508132 /* OLPersonalizedProductPhotos.m in Sources */ = {isa = PBXBuildFile; fileRef = 681EA8891CC9BF1000508132 /* OLPersonalizedProductPhotos.m */; };
 		681EA8991CCD897300508132 /* ProductPhotoMaskManifest.json in Resources */ = {isa = PBXBuildFile; fileRef = 681EA8981CCD897300508132 /* ProductPhotoMaskManifest.json */; };
 		681EA89A1CCD897300508132 /* ProductPhotoMaskManifest.json in Resources */ = {isa = PBXBuildFile; fileRef = 681EA8981CCD897300508132 /* ProductPhotoMaskManifest.json */; };
+		68835B2C1CF39FAC00ED5880 /* UIButton+Extended.m in Sources */ = {isa = PBXBuildFile; fileRef = 68835B2B1CF39FAC00ED5880 /* UIButton+Extended.m */; };
+		68835B2D1CF39FAC00ED5880 /* UIButton+Extended.m in Sources */ = {isa = PBXBuildFile; fileRef = 68835B2B1CF39FAC00ED5880 /* UIButton+Extended.m */; };
+		68835B301CF3A56200ED5880 /* PromoOfferView.m in Sources */ = {isa = PBXBuildFile; fileRef = 68835B2F1CF3A56200ED5880 /* PromoOfferView.m */; };
+		68835B311CF3A56200ED5880 /* PromoOfferView.m in Sources */ = {isa = PBXBuildFile; fileRef = 68835B2F1CF3A56200ED5880 /* PromoOfferView.m */; };
 		7D6213DEB708F5F5E6617BF1 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 931ABE3568CB40F8892488E2 /* libPods.a */; };
 		CD73BF8B186215790009DE03 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD73BF8A186215790009DE03 /* XCTest.framework */; };
 		CD73BF8C186215790009DE03 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD73BF6B186215790009DE03 /* Foundation.framework */; };
@@ -1059,6 +1063,10 @@
 		681EA8881CC9BF1000508132 /* OLPersonalizedProductPhotos.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OLPersonalizedProductPhotos.h; sourceTree = "<group>"; };
 		681EA8891CC9BF1000508132 /* OLPersonalizedProductPhotos.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OLPersonalizedProductPhotos.m; sourceTree = "<group>"; };
 		681EA8981CCD897300508132 /* ProductPhotoMaskManifest.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ProductPhotoMaskManifest.json; sourceTree = "<group>"; };
+		68835B2A1CF39FAC00ED5880 /* UIButton+Extended.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+Extended.h"; sourceTree = "<group>"; };
+		68835B2B1CF39FAC00ED5880 /* UIButton+Extended.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+Extended.m"; sourceTree = "<group>"; };
+		68835B2E1CF3A56200ED5880 /* PromoOfferView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PromoOfferView.h; sourceTree = "<group>"; };
+		68835B2F1CF3A56200ED5880 /* PromoOfferView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PromoOfferView.m; sourceTree = "<group>"; };
 		931ABE3568CB40F8892488E2 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD382E4818EB7C6300127F95 /* OLJudoPayCard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OLJudoPayCard.m; sourceTree = "<group>"; };
 		CD382E4918EB7C6300127F95 /* OLJudoPayCard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OLJudoPayCard.h; sourceTree = "<group>"; };
@@ -1548,6 +1556,8 @@
 				2ED3EBB91B996ED3005C1E9F /* OLRemoteImageView.m */,
 				2EAC21521B9EDDC000C41BD4 /* OLRemoteImageCropper.h */,
 				2EAC21531B9EDDC000C41BD4 /* OLRemoteImageCropper.m */,
+				68835B2E1CF3A56200ED5880 /* PromoOfferView.h */,
+				68835B2F1CF3A56200ED5880 /* PromoOfferView.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -1761,6 +1771,8 @@
 		2EA8BEC11A48509E008A9248 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				68835B2A1CF39FAC00ED5880 /* UIButton+Extended.h */,
+				68835B2B1CF39FAC00ED5880 /* UIButton+Extended.m */,
 				2E53E0CB1C1AEAAD00BF7887 /* UIViewController+OLMethods.h */,
 				2E53E0CC1C1AEAAD00BF7887 /* UIViewController+OLMethods.m */,
 				3DF9D6FF1B0F65C700A40C0C /* NSObject+Utils.h */,
@@ -3429,9 +3441,11 @@
 				2EADD82D1BE79D6D0051CD31 /* OLImageCachingManager.m in Sources */,
 				2E0804BF1C0DF70200F50D42 /* AssetDataSource.m in Sources */,
 				2EADD82E1BE79D6D0051CD31 /* UIView+RoundRect.m in Sources */,
+				68835B2C1CF39FAC00ED5880 /* UIButton+Extended.m in Sources */,
 				2EADD82F1BE79D6D0051CD31 /* OLCountry.m in Sources */,
 				2EADD8301BE79D6D0051CD31 /* OLAssetScrollView.m in Sources */,
 				2EADD8311BE79D6D0051CD31 /* ALAssetsLibrary+Singleton.m in Sources */,
+				68835B301CF3A56200ED5880 /* PromoOfferView.m in Sources */,
 				2E0804B81C0DECE300F50D42 /* OLCustomPhotoProvider.m in Sources */,
 				2EADD8321BE79D6D0051CD31 /* OLConstants.m in Sources */,
 				2EADD8331BE79D6D0051CD31 /* OLProductOverviewPageContentViewController.m in Sources */,
@@ -3701,6 +3715,7 @@
 				E29C85E21BE3B5C50041D4CF /* ALAssetsGroup+OLIsEqual.m in Sources */,
 				E29C85E31BE3B5C50041D4CF /* OLAssetsViewCell.m in Sources */,
 				E29C85E41BE3B5C50041D4CF /* OLProductTypeSelectionViewController.m in Sources */,
+				68835B2D1CF39FAC00ED5880 /* UIButton+Extended.m in Sources */,
 				E29C85E51BE3B5C50041D4CF /* OLPrintOrderRequest.m in Sources */,
 				E29C85E61BE3B5C50041D4CF /* OLRemoteImageCropper.m in Sources */,
 				E29C85E71BE3B5C50041D4CF /* OLAssetsGroupViewController.m in Sources */,
@@ -3732,6 +3747,7 @@
 				E2AABA1A1C6FC6650007C1D7 /* OLURLShortener.m in Sources */,
 				2EF4392C1BF4D15E0006C123 /* OLPrintOrderSubmitStatusRequest.m in Sources */,
 				E29C86091BE3B5C50041D4CF /* OLKiteABTesting.m in Sources */,
+				68835B311CF3A56200ED5880 /* PromoOfferView.m in Sources */,
 				E29C860A1BE3B5C50041D4CF /* OLProductHomeViewController.m in Sources */,
 				E29C860C1BE3B5C50041D4CF /* UIImage+OLAssetsPickerController.m in Sources */,
 				2E837D491C3C1FBB004DA682 /* OLViewController.m in Sources */,

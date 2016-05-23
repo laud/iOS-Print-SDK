@@ -84,7 +84,9 @@ UINavigationControllerDelegate, OLKiteDelegate>
     [OLKitePrintSDK setApplePayPayToString:kApplePayBusinessName];
 #endif
     
-    [OLKitePrintSDK setTopBannerCopy:@"WELCOME20 promo code to get 20% off your first order!"];
+    [OLKitePrintSDK setTopBannerUnlockedCopy:@"WELCOME20 promo code to get 20% off your first order!"];
+    [OLKitePrintSDK setTopBannerLockedCopy:@"Tap to unlock 20% OFF! :D"];
+    [OLKitePrintSDK setTopBannerLockedButtonCopy:@"Unlock"];
     [OLKitePrintSDK setPromoCodeAvailable:YES];
 
     // Just short circuit testing
@@ -326,6 +328,10 @@ UINavigationControllerDelegate, OLKiteDelegate>
 
 - (void)logKiteAnalyticsEventWithInfo:(NSDictionary *)info{
     NSLog(@"%@", info);
+}
+
+- (void)kiteControllerDidUnlockStoreOffer:(NSDictionary *_Nonnull)info {
+    NSLog(@"unlock delegate received");
 }
 
 #pragma mark Internal
