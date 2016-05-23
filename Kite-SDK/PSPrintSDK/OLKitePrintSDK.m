@@ -209,7 +209,7 @@ static NSString* creativeSDKClientSecret = nil;
 }
 
 + (void)setPromoOfferUnlocked:(BOOL)unlocked {
-//    promoOfferUnlocked = unlocked;
+    promoOfferUnlocked = unlocked;
 }
 
 + (BOOL)promoOfferUnlocked {
