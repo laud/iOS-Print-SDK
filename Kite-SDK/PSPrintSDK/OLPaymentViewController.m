@@ -78,7 +78,7 @@
 #import "UIViewController+OLMethods.h"
 #import "OLAddress+AddressBook.h"
 #import "NSObject+Utils.h"
-#import "PromoOfferView.h"
+#import "OLPromoOfferView.h"
 
 #import <MessageUI/MessageUI.h>
 #import <MessageUI/MFMessageComposeViewController.h>
@@ -422,8 +422,8 @@ UIActionSheetDelegate, UITextFieldDelegate, OLCreditCardCaptureDelegate, UINavig
     bannerView.frame = CGRectMake(0, 0, self.tableView.frame.size.width, kOLKiteSDKBannerHeight);
     self.tableView.tableHeaderView = bannerView;
     
-    [PromoOfferView constructPromoOfferViewOnSuperview:bannerView withTarget:self];
-    [PromoOfferView resetPromoOfferSubviewVisilibity:bannerView];
+    [OLPromoOfferView constructPromoOfferViewOnSuperview:bannerView withTarget:self];
+    [OLPromoOfferView resetPromoOfferSubviewVisilibity:bannerView];
 }
 
 - (void)unlockOfferTap:(UITapGestureRecognizer *)recognizer {

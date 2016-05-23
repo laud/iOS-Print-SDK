@@ -41,7 +41,7 @@
 #import "UIViewController+OLMethods.h"
 #import "NSObject+Utils.h"
 #import "OLPersonalizedProductPhotos.h"
-#import "PromoOfferView.h"
+#import "OLPromoOfferView.h"
 
 #define SYSTEM_VERSION_LESS_THAN(v)                 ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedAscending)
 
@@ -362,10 +362,10 @@
     cell.backgroundColor = [UIColor colorWithRed:227/255.f green:227/255.f blue:250/255.f alpha:1];
     
     if (![cell viewWithTag:kOLKiteSDKPromoOfferUnlockedLabelTag]){
-        [PromoOfferView constructPromoOfferViewOnSuperview:cell withTarget:self];
+        [OLPromoOfferView constructPromoOfferViewOnSuperview:cell withTarget:self];
     }
     
-    [PromoOfferView resetPromoOfferSubviewVisilibity:cell];
+    [OLPromoOfferView resetPromoOfferSubviewVisilibity:cell];
     
     return cell;
 }

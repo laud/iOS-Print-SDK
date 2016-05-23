@@ -12,7 +12,7 @@ extern const NSInteger kOLKiteSDKPromoOfferUnlockedLabelTag;
 extern const NSInteger kOLKiteSDKPromoOfferLockedLabelTag;
 extern const NSInteger kOLKiteSDKPromoOfferLockedButtonTag;
 
-@interface PromoOfferView : NSObject
+@interface OLPromoOfferView : NSObject
 
 + (void)constructPromoOfferViewOnSuperview:(nullable UIView *)superview withTarget:(nullable id)target;
 

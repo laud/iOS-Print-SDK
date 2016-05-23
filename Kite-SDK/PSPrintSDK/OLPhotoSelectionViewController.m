@@ -91,7 +91,7 @@
 #import "OLURLDataSource.h"
 #import "OLNavigationController.h"
 #import "OLUpsellViewController.h"
-#import "PromoOfferView.h"
+#import "OLPromoOfferView.h"
 
 #ifdef OL_KITE_OFFER_ADOBE
 #import <AdobeCreativeSDKImage/AdobeCreativeSDKImage.h>
@@ -239,8 +239,8 @@ UIActionSheetDelegate, OLUpsellViewControllerDelegate>
     [bannerCon addObjectsFromArray: [NSLayoutConstraint constraintsWithVisualFormat:@"V:|[topGuide][bannerView(40)]-(>=0)-|" options:0 metrics:nil views:views]];
     [bannerView.superview addConstraints:bannerCon];
     
-    [PromoOfferView constructPromoOfferViewOnSuperview:bannerView withTarget:self];
-    [PromoOfferView resetPromoOfferSubviewVisilibity:bannerView];
+    [OLPromoOfferView constructPromoOfferViewOnSuperview:bannerView withTarget:self];
+    [OLPromoOfferView resetPromoOfferSubviewVisilibity:bannerView];
 }
 
 - (void)unlockOfferTap:(UITapGestureRecognizer *)recognizer {

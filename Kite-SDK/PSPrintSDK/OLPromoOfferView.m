@@ -6,7 +6,7 @@
 //  Copyright © 2016 Kite.ly. All rights reserved.
 //
 
-#import "PromoOfferView.h"
+#import "OLPromoOfferView.h"
 #import "OLKitePrintSDK.h"
 #import "UIButton+Extended.h"
 
@@ -14,7 +14,7 @@ const NSInteger kOLKiteSDKPromoOfferUnlockedLabelTag = 77;
 const NSInteger kOLKiteSDKPromoOfferLockedLabelTag = 78;
 const NSInteger kOLKiteSDKPromoOfferLockedButtonTag = 79;
 
-@implementation PromoOfferView
+@implementation OLPromoOfferView
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wundeclared-selector"

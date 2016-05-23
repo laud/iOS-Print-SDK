@@ -49,7 +49,7 @@
 #import "OLPaymentViewController.h"
 #import "UIViewController+OLMethods.h"
 #import "OLImagePreviewViewController.h"
-#import "PromoOfferView.h"
+#import "OLPromoOfferView.h"
 
 #ifdef OL_KITE_OFFER_ADOBE
 #import <AdobeCreativeSDKImage/AdobeCreativeSDKImage.h>
@@ -744,10 +744,10 @@ UIViewControllerPreviewingDelegate>
     cell.backgroundColor = [UIColor colorWithRed:227/255.f green:227/255.f blue:250/255.f alpha:1];
     
     if (![cell viewWithTag:kOLKiteSDKPromoOfferUnlockedLabelTag]){
-        [PromoOfferView constructPromoOfferViewOnSuperview:cell withTarget:self];
+        [OLPromoOfferView constructPromoOfferViewOnSuperview:cell withTarget:self];
     }
     
-    [PromoOfferView resetPromoOfferSubviewVisilibity:cell];
+    [OLPromoOfferView resetPromoOfferSubviewVisilibity:cell];
     
     return cell;
 }

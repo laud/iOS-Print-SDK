@@ -46,7 +46,7 @@
 #import "UIViewController+OLMethods.h"
 #import "OLPaymentViewController.h"
 #import "OLUpsellViewController.h"
-#import "PromoOfferView.h"
+#import "OLPromoOfferView.h"
 
 @interface OLKiteViewController ()
 
@@ -194,8 +194,8 @@
     [bannerCon addObjectsFromArray: [NSLayoutConstraint constraintsWithVisualFormat:@"V:|[topGuide][bannerView(40)]-(>=0)-|" options:0 metrics:nil views:views]];
     [bannerView.superview addConstraints:bannerCon];
     
-    [PromoOfferView constructPromoOfferViewOnSuperview:bannerView withTarget:self];
-    [PromoOfferView resetPromoOfferSubviewVisilibity:bannerView];
+    [OLPromoOfferView constructPromoOfferViewOnSuperview:bannerView withTarget:self];
+    [OLPromoOfferView resetPromoOfferSubviewVisilibity:bannerView];
 }
 
 - (void)unlockOfferTap:(UITapGestureRecognizer *)recognizer {

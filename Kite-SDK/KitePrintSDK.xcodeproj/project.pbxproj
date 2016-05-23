@@ -481,8 +481,10 @@
 		681EA89A1CCD897300508132 /* ProductPhotoMaskManifest.json in Resources */ = {isa = PBXBuildFile; fileRef = 681EA8981CCD897300508132 /* ProductPhotoMaskManifest.json */; };
 		68835B2C1CF39FAC00ED5880 /* UIButton+Extended.m in Sources */ = {isa = PBXBuildFile; fileRef = 68835B2B1CF39FAC00ED5880 /* UIButton+Extended.m */; };
 		68835B2D1CF39FAC00ED5880 /* UIButton+Extended.m in Sources */ = {isa = PBXBuildFile; fileRef = 68835B2B1CF39FAC00ED5880 /* UIButton+Extended.m */; };
-		68835B301CF3A56200ED5880 /* PromoOfferView.m in Sources */ = {isa = PBXBuildFile; fileRef = 68835B2F1CF3A56200ED5880 /* PromoOfferView.m */; };
-		68835B311CF3A56200ED5880 /* PromoOfferView.m in Sources */ = {isa = PBXBuildFile; fileRef = 68835B2F1CF3A56200ED5880 /* PromoOfferView.m */; };
+		68835B341CF3B58900ED5880 /* OLPromoOfferView.m in Sources */ = {isa = PBXBuildFile; fileRef = 68835B331CF3B58900ED5880 /* OLPromoOfferView.m */; };
+		68835B351CF3B58900ED5880 /* OLPromoOfferView.m in Sources */ = {isa = PBXBuildFile; fileRef = 68835B331CF3B58900ED5880 /* OLPromoOfferView.m */; };
+		68835B361CF3B58900ED5880 /* OLPromoOfferView.m in Sources */ = {isa = PBXBuildFile; fileRef = 68835B331CF3B58900ED5880 /* OLPromoOfferView.m */; };
+		68835B371CF3B58900ED5880 /* OLPromoOfferView.m in Sources */ = {isa = PBXBuildFile; fileRef = 68835B331CF3B58900ED5880 /* OLPromoOfferView.m */; };
 		7D6213DEB708F5F5E6617BF1 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 931ABE3568CB40F8892488E2 /* libPods.a */; };
 		CD73BF8B186215790009DE03 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD73BF8A186215790009DE03 /* XCTest.framework */; };
 		CD73BF8C186215790009DE03 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD73BF6B186215790009DE03 /* Foundation.framework */; };
@@ -1065,8 +1067,8 @@
 		681EA8981CCD897300508132 /* ProductPhotoMaskManifest.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ProductPhotoMaskManifest.json; sourceTree = "<group>"; };
 		68835B2A1CF39FAC00ED5880 /* UIButton+Extended.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+Extended.h"; sourceTree = "<group>"; };
 		68835B2B1CF39FAC00ED5880 /* UIButton+Extended.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+Extended.m"; sourceTree = "<group>"; };
-		68835B2E1CF3A56200ED5880 /* PromoOfferView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PromoOfferView.h; sourceTree = "<group>"; };
-		68835B2F1CF3A56200ED5880 /* PromoOfferView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PromoOfferView.m; sourceTree = "<group>"; };
+		68835B321CF3B58900ED5880 /* OLPromoOfferView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OLPromoOfferView.h; sourceTree = "<group>"; };
+		68835B331CF3B58900ED5880 /* OLPromoOfferView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OLPromoOfferView.m; sourceTree = "<group>"; };
 		931ABE3568CB40F8892488E2 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD382E4818EB7C6300127F95 /* OLJudoPayCard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OLJudoPayCard.m; sourceTree = "<group>"; };
 		CD382E4918EB7C6300127F95 /* OLJudoPayCard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OLJudoPayCard.h; sourceTree = "<group>"; };
@@ -1556,8 +1558,8 @@
 				2ED3EBB91B996ED3005C1E9F /* OLRemoteImageView.m */,
 				2EAC21521B9EDDC000C41BD4 /* OLRemoteImageCropper.h */,
 				2EAC21531B9EDDC000C41BD4 /* OLRemoteImageCropper.m */,
-				68835B2E1CF3A56200ED5880 /* PromoOfferView.h */,
-				68835B2F1CF3A56200ED5880 /* PromoOfferView.m */,
+				68835B321CF3B58900ED5880 /* OLPromoOfferView.h */,
+				68835B331CF3B58900ED5880 /* OLPromoOfferView.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -3146,6 +3148,7 @@
 				2E898C761CC518180041CCD8 /* UIImageView+FadeIn.m in Sources */,
 				2E898C771CC518180041CCD8 /* OLAddressSearchRequest.m in Sources */,
 				2E898C781CC518180041CCD8 /* OLPayPalCard.m in Sources */,
+				68835B351CF3B58900ED5880 /* OLPromoOfferView.m in Sources */,
 				2E898C791CC518180041CCD8 /* OLProductPrintJob.m in Sources */,
 				2E898C7A1CC518180041CCD8 /* OLSingleImageProductReviewViewController.m in Sources */,
 				2E898C7B1CC518180041CCD8 /* OLPosterViewController.m in Sources */,
@@ -3300,6 +3303,7 @@
 				2EA3D39B1C9C04B500B99BCD /* OLProductTemplateSyncRequest.m in Sources */,
 				2EA3D39C1C9C04B500B99BCD /* OLAssetsPickerController.m in Sources */,
 				2EA3D39D1C9C04B500B99BCD /* ALAssetsGroup+OLIsEqual.m in Sources */,
+				68835B371CF3B58900ED5880 /* OLPromoOfferView.m in Sources */,
 				2EA3D39E1C9C04B500B99BCD /* OLAssetsViewCell.m in Sources */,
 				2EA3D39F1C9C04B500B99BCD /* OLProductTypeSelectionViewController.m in Sources */,
 				2EA3D3A01C9C04B500B99BCD /* OLPrintOrderRequest.m in Sources */,
@@ -3445,7 +3449,6 @@
 				2EADD82F1BE79D6D0051CD31 /* OLCountry.m in Sources */,
 				2EADD8301BE79D6D0051CD31 /* OLAssetScrollView.m in Sources */,
 				2EADD8311BE79D6D0051CD31 /* ALAssetsLibrary+Singleton.m in Sources */,
-				68835B301CF3A56200ED5880 /* PromoOfferView.m in Sources */,
 				2E0804B81C0DECE300F50D42 /* OLCustomPhotoProvider.m in Sources */,
 				2EADD8321BE79D6D0051CD31 /* OLConstants.m in Sources */,
 				2EADD8331BE79D6D0051CD31 /* OLProductOverviewPageContentViewController.m in Sources */,
@@ -3469,6 +3472,7 @@
 				2E8FD2701BF9E73B00F4FC5A /* OLPhotoEdits.m in Sources */,
 				2EADD8431BE79D6D0051CD31 /* UIImage+OLAssetsPickerController.m in Sources */,
 				2EADD8441BE79D6D0051CD31 /* OLAddressSelectionViewController.m in Sources */,
+				68835B341CF3B58900ED5880 /* OLPromoOfferView.m in Sources */,
 				2EADD8451BE79D6D0051CD31 /* ALAsset+OLAssetType.m in Sources */,
 				2E837D4C1C3C221E004DA682 /* OLCollectionViewController.m in Sources */,
 				2EADD8461BE79D6D0051CD31 /* RMImageCropper.m in Sources */,
@@ -3672,6 +3676,7 @@
 				E29C85B31BE3B5C50041D4CF /* OLFrameOrderReviewViewController.m in Sources */,
 				E29C85B41BE3B5C50041D4CF /* OLApparelPrintJob.m in Sources */,
 				E29C85B51BE3B5C50041D4CF /* OLKiteViewController.m in Sources */,
+				68835B361CF3B58900ED5880 /* OLPromoOfferView.m in Sources */,
 				E29C85B71BE3B5C50041D4CF /* OLPostcardViewController.m in Sources */,
 				E29C85B81BE3B5C50041D4CF /* OLPhotobookPageContentViewController.m in Sources */,
 				E29C85B91BE3B5C50041D4CF /* OLAssetsViewControllerTransition.m in Sources */,
@@ -3747,7 +3752,6 @@
 				E2AABA1A1C6FC6650007C1D7 /* OLURLShortener.m in Sources */,
 				2EF4392C1BF4D15E0006C123 /* OLPrintOrderSubmitStatusRequest.m in Sources */,
 				E29C86091BE3B5C50041D4CF /* OLKiteABTesting.m in Sources */,
-				68835B311CF3A56200ED5880 /* PromoOfferView.m in Sources */,
 				E29C860A1BE3B5C50041D4CF /* OLProductHomeViewController.m in Sources */,
 				E29C860C1BE3B5C50041D4CF /* UIImage+OLAssetsPickerController.m in Sources */,
 				2E837D491C3C1FBB004DA682 /* OLViewController.m in Sources */,

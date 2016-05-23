@@ -63,7 +63,7 @@
 #import "UIImageView+FadeIn.h"
 #import "UIViewController+OLMethods.h"
 #import "UIViewController+TraitCollectionCompatibility.h"
-#import "PromoOfferView.h"
+#import "OLPromoOfferView.h"
 
 #include <sys/time.h>
 #import <MessageUI/MessageUI.h>
@@ -832,10 +832,10 @@
     cell.backgroundColor = [UIColor colorWithRed:227/255.f green:227/255.f blue:250/255.f alpha:1];
     
     if (![cell viewWithTag:kOLKiteSDKPromoOfferUnlockedLabelTag]){
-        [PromoOfferView constructPromoOfferViewOnSuperview:cell withTarget:self];
+        [OLPromoOfferView constructPromoOfferViewOnSuperview:cell withTarget:self];
     }
 
-    [PromoOfferView resetPromoOfferSubviewVisilibity:cell];
+    [OLPromoOfferView resetPromoOfferSubviewVisilibity:cell];
     
     return cell;
 }
