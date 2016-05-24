@@ -106,6 +106,11 @@ const NSInteger kOLKiteSDKPromoOfferLockedButtonTag = 79;
     UILabel *unlockedLabel = (UILabel *)[superview viewWithTag:kOLKiteSDKPromoOfferUnlockedLabelTag];
     UILabel *lockedLabel = (UILabel *)[superview viewWithTag:kOLKiteSDKPromoOfferLockedLabelTag];
     UIButton *lockedButton = (UIButton *)[superview viewWithTag:kOLKiteSDKPromoOfferLockedButtonTag];
+    
+    unlockedLabel.text = [OLKitePrintSDK topBannerUnlockedCopy];
+    lockedLabel.text = [OLKitePrintSDK topBannerLockedCopy];
+    [lockedButton setTitle:[OLKitePrintSDK topBannerLockedButtonCopy] forState:UIControlStateNormal];
+
     if ([OLKitePrintSDK promoOfferUnlocked]) {
         unlockedLabel.hidden = NO;
         lockedLabel.hidden = YES;

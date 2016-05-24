@@ -98,6 +98,7 @@
 @property (strong, nonatomic) NSString *bannerString;
 @property (strong, nonatomic) NSDate *countdownDate;
 
+@property (weak, nonatomic) UIView *topBannerView;
 @property (strong, nonatomic) MFMessageComposeViewController *composeVC;
 
 @end
@@ -436,6 +437,10 @@
         } else {
             self.navigationItem.leftBarButtonItem = questionBarItem;
         }
+    }
+    
+    if (self.topBannerView) {
+        [OLPromoOfferView resetPromoOfferSubviewVisilibity:self.topBannerView];
     }
 }
 
@@ -835,6 +840,7 @@
         [OLPromoOfferView constructPromoOfferViewOnSuperview:cell withTarget:self];
     }
 
+    self.topBannerView = cell;
     [OLPromoOfferView resetPromoOfferSubviewVisilibity:cell];
     
     return cell;

@@ -162,6 +162,8 @@ UIActionSheetDelegate, OLUpsellViewControllerDelegate>
 
 @property (assign, nonatomic) NSInteger sectionsForUpsell;
 
+@property (weak, nonatomic) UIView *topBannerView;
+
 @end
 
 @interface OLKiteViewController ()
@@ -239,6 +241,7 @@ UIActionSheetDelegate, OLUpsellViewControllerDelegate>
     [bannerCon addObjectsFromArray: [NSLayoutConstraint constraintsWithVisualFormat:@"V:|[topGuide][bannerView(40)]-(>=0)-|" options:0 metrics:nil views:views]];
     [bannerView.superview addConstraints:bannerCon];
     
+    self.topBannerView = bannerView;
     [OLPromoOfferView constructPromoOfferViewOnSuperview:bannerView withTarget:self];
     [OLPromoOfferView resetPromoOfferSubviewVisilibity:bannerView];
 }
@@ -298,6 +301,10 @@ UIActionSheetDelegate, OLUpsellViewControllerDelegate>
     }
     [self updateTitleBasedOnSelectedPhotoQuanitity];
     [self.collectionView reloadData];
+    
+    if (self.topBannerView) {
+        [OLPromoOfferView resetPromoOfferSubviewVisilibity:self.topBannerView];
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated{

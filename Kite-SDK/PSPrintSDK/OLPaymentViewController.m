@@ -228,6 +228,7 @@ UIActionSheetDelegate, UITextFieldDelegate, OLCreditCardCaptureDelegate, UINavig
 @property (assign, nonatomic) BOOL authorizedApplePay;
 @property (assign, nonatomic) BOOL usedContinueShoppingButton;
 
+@property (weak, nonatomic) UIView *topBannerView;
 @property (strong, nonatomic) MFMessageComposeViewController *composeVC;
 
 @end
@@ -422,6 +423,7 @@ UIActionSheetDelegate, UITextFieldDelegate, OLCreditCardCaptureDelegate, UINavig
     bannerView.frame = CGRectMake(0, 0, self.tableView.frame.size.width, kOLKiteSDKBannerHeight);
     self.tableView.tableHeaderView = bannerView;
     
+    self.topBannerView = bannerView;
     [OLPromoOfferView constructPromoOfferViewOnSuperview:bannerView withTarget:self];
     [OLPromoOfferView resetPromoOfferSubviewVisilibity:bannerView];
 }
@@ -641,6 +643,10 @@ UIActionSheetDelegate, UITextFieldDelegate, OLCreditCardCaptureDelegate, UINavig
                 [self costCalculationCompletedWithError:error];
             }];
         }
+    }
+    
+    if (self.topBannerView) {
+        [OLPromoOfferView resetPromoOfferSubviewVisilibity:self.topBannerView];
     }
 }
 

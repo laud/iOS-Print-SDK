@@ -99,6 +99,7 @@
 
 @property (strong, nonatomic) id<OLPrintJob> editingPrintJob;
 
+@property (weak, nonatomic) UIView *topBannerView;
 
 @end
 
@@ -194,6 +195,7 @@
     [bannerCon addObjectsFromArray: [NSLayoutConstraint constraintsWithVisualFormat:@"V:|[topGuide][bannerView(40)]-(>=0)-|" options:0 metrics:nil views:views]];
     [bannerView.superview addConstraints:bannerCon];
     
+    self.topBannerView = bannerView;
     [OLPromoOfferView constructPromoOfferViewOnSuperview:bannerView withTarget:self];
     [OLPromoOfferView resetPromoOfferSubviewVisilibity:bannerView];
 }
@@ -255,6 +257,10 @@
     }
     else{
         [self addBasketIconToTopRight];
+    }
+    
+    if (self.topBannerView) {
+        [OLPromoOfferView resetPromoOfferSubviewVisilibity:self.topBannerView];
     }
 }
 

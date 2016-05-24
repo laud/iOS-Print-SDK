@@ -64,6 +64,8 @@
 @property (strong, nonatomic) NSMutableArray *allPosterProducts;
 @property (assign, nonatomic) BOOL fromRotation;
 
+@property (weak, nonatomic) UIView *topBannerView;
+
 @end
 
 @implementation OLProductTypeSelectionViewController
@@ -125,6 +127,10 @@
     [self addBasketIconToTopRight];
     
     [self.collectionView.collectionViewLayout invalidateLayout];
+    
+    if (self.topBannerView) {
+        [OLPromoOfferView resetPromoOfferSubviewVisilibity:self.topBannerView];
+    }
 }
 
 - (void)viewDidLoad{
@@ -365,6 +371,7 @@
         [OLPromoOfferView constructPromoOfferViewOnSuperview:cell withTarget:self];
     }
     
+    self.topBannerView = cell;
     [OLPromoOfferView resetPromoOfferSubviewVisilibity:cell];
     
     return cell;

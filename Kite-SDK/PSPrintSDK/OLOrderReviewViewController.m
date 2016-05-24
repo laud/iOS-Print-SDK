@@ -109,6 +109,8 @@ UIViewControllerPreviewingDelegate>
 @property (assign, nonatomic) NSUInteger indexOfPhotoToDelete;
 @property (strong, nonatomic) UIButton *nextButton;
 
+@property (weak, nonatomic) UIView *topBannerView;
+
 @end
 
 @implementation OLOrderReviewViewController
@@ -206,6 +208,10 @@ UIViewControllerPreviewingDelegate>
     }
     else{
         [self addBasketIconToTopRight];
+    }
+    
+    if (self.topBannerView) {
+        [OLPromoOfferView resetPromoOfferSubviewVisilibity:self.topBannerView];
     }
 }
 
@@ -747,6 +753,7 @@ UIViewControllerPreviewingDelegate>
         [OLPromoOfferView constructPromoOfferViewOnSuperview:cell withTarget:self];
     }
     
+    self.topBannerView = cell;
     [OLPromoOfferView resetPromoOfferSubviewVisilibity:cell];
     
     return cell;
