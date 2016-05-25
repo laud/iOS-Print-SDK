@@ -419,7 +419,7 @@ UIActionSheetDelegate, UITextFieldDelegate, OLCreditCardCaptureDelegate, UINavig
     }
     
     UIView *bannerView = [[UIView alloc] init];
-    bannerView.backgroundColor = [UIColor colorWithRed:227/255.f green:227/255.f blue:250/255.f alpha:1];
+    bannerView.backgroundColor = [UIColor colorWithRed:227/255.f green:227/255.f blue:250/255.f alpha:0.7];
     bannerView.frame = CGRectMake(0, 0, self.tableView.frame.size.width, kOLKiteSDKBannerHeight);
     self.tableView.tableHeaderView = bannerView;
     

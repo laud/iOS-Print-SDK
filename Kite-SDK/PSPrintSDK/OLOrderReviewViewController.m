@@ -747,7 +747,7 @@ UIViewControllerPreviewingDelegate>
         return nil;
     }
     UICollectionReusableView *cell = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"headerView" forIndexPath:indexPath];
-    cell.backgroundColor = [UIColor colorWithRed:227/255.f green:227/255.f blue:250/255.f alpha:1];
+    cell.backgroundColor = [UIColor colorWithRed:227/255.f green:227/255.f blue:250/255.f alpha:0.7];
     
     if (![cell viewWithTag:kOLKiteSDKPromoOfferUnlockedLabelTag]){
         [OLPromoOfferView constructPromoOfferViewOnSuperview:cell withTarget:self];

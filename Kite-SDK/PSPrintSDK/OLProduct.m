@@ -321,7 +321,8 @@ typedef enum {
 
 - (NSString *)detailsString{
     if (self.productTemplate.productDescriptionMarkdown && ![self.productTemplate.productDescriptionMarkdown isEqualToString:@""]){
-        return [self.productTemplate.productDescriptionMarkdown stringByReplacingOccurrencesOfString:@"\\n" withString:@"\n"];
+        NSString *markdown = [self.productTemplate.productDescriptionMarkdown stringByReplacingOccurrencesOfString:@"\\n" withString:@"\n"];
+        return [markdown stringByReplacingOccurrencesOfString:@"7 x 7 cm" withString:@"2.8 x 2.8 inches"];
     }
 
     //Fall back to the old field
