@@ -183,7 +183,7 @@
     }
     
     UIView *bannerView = [[UIView alloc] init];
-    bannerView.backgroundColor = [UIColor colorWithRed:227/255.f green:227/255.f blue:250/255.f alpha:0.7];
+    bannerView.backgroundColor = [UIColor colorWithRed:235/255.f green:235/255.f blue:251/255.f alpha:1];
     [self.view addSubview:bannerView];
     [self.view bringSubviewToFront:bannerView];
     
