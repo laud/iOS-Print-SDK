@@ -90,7 +90,19 @@ UINavigationControllerDelegate, OLKiteDelegate>
     [OLKitePrintSDK setPromoCodeAvailable:YES];
 
     // Just short circuit testing
-    [self onButtonPrintLocalPhotos:nil];
+//    [self onButtonPrintLocalPhotos:nil];
+    PHFetchOptions *fetch = [[PHFetchOptions alloc] init];
+    fetch.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:NO]];
+    fetch.fetchLimit = 6;
+    PHFetchResult *fetchResult = [PHAsset fetchAssetsWithOptions:fetch];
+    NSMutableArray *assetObjects = [NSMutableArray array];
+    [fetchResult enumerateObjectsUsingBlock:^(id  _Nonnull asset, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ([asset isKindOfClass:[PHAsset class]]){
+            [assetObjects addObject:[OLAsset assetWithPHAsset:asset]];
+        }
+    }];
+    [self printWithAssets:assetObjects];
+
 }
 
 - (BOOL)shouldAutorotate {
