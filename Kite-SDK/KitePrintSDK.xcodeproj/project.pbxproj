@@ -479,12 +479,12 @@
 		681EA88A1CC9BF1000508132 /* OLPersonalizedProductPhotos.m in Sources */ = {isa = PBXBuildFile; fileRef = 681EA8891CC9BF1000508132 /* OLPersonalizedProductPhotos.m */; };
 		681EA8991CCD897300508132 /* ProductPhotoMaskManifest.json in Resources */ = {isa = PBXBuildFile; fileRef = 681EA8981CCD897300508132 /* ProductPhotoMaskManifest.json */; };
 		681EA89A1CCD897300508132 /* ProductPhotoMaskManifest.json in Resources */ = {isa = PBXBuildFile; fileRef = 681EA8981CCD897300508132 /* ProductPhotoMaskManifest.json */; };
-		6875515D1D06A26C000241FC /* UIImage+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6875515C1D06A26C000241FC /* UIImage+Extensions.m */; };
-		6875515E1D06A26C000241FC /* UIImage+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6875515C1D06A26C000241FC /* UIImage+Extensions.m */; };
-		6875515F1D06A26C000241FC /* UIImage+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6875515C1D06A26C000241FC /* UIImage+Extensions.m */; };
-		687551601D06A26C000241FC /* UIImage+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6875515C1D06A26C000241FC /* UIImage+Extensions.m */; };
-		687551611D06A26C000241FC /* UIImage+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6875515C1D06A26C000241FC /* UIImage+Extensions.m */; };
-		687551621D06A26C000241FC /* UIImage+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6875515C1D06A26C000241FC /* UIImage+Extensions.m */; };
+		687551651D06AF5C000241FC /* UIImage+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 687551641D06AF5C000241FC /* UIImage+Extensions.m */; };
+		687551661D06AF5C000241FC /* UIImage+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 687551641D06AF5C000241FC /* UIImage+Extensions.m */; };
+		687551671D06AF5C000241FC /* UIImage+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 687551641D06AF5C000241FC /* UIImage+Extensions.m */; };
+		687551681D06AF5C000241FC /* UIImage+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 687551641D06AF5C000241FC /* UIImage+Extensions.m */; };
+		687551691D06AF5C000241FC /* UIImage+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 687551641D06AF5C000241FC /* UIImage+Extensions.m */; };
+		6875516A1D06AF5C000241FC /* UIImage+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 687551641D06AF5C000241FC /* UIImage+Extensions.m */; };
 		68835B341CF3B58900ED5880 /* OLPromoOfferView.m in Sources */ = {isa = PBXBuildFile; fileRef = 68835B331CF3B58900ED5880 /* OLPromoOfferView.m */; };
 		68835B351CF3B58900ED5880 /* OLPromoOfferView.m in Sources */ = {isa = PBXBuildFile; fileRef = 68835B331CF3B58900ED5880 /* OLPromoOfferView.m */; };
 		68835B361CF3B58900ED5880 /* OLPromoOfferView.m in Sources */ = {isa = PBXBuildFile; fileRef = 68835B331CF3B58900ED5880 /* OLPromoOfferView.m */; };
@@ -1073,8 +1073,8 @@
 		681EA8881CC9BF1000508132 /* OLPersonalizedProductPhotos.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OLPersonalizedProductPhotos.h; sourceTree = "<group>"; };
 		681EA8891CC9BF1000508132 /* OLPersonalizedProductPhotos.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OLPersonalizedProductPhotos.m; sourceTree = "<group>"; };
 		681EA8981CCD897300508132 /* ProductPhotoMaskManifest.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ProductPhotoMaskManifest.json; sourceTree = "<group>"; };
-		6875515B1D06A26C000241FC /* UIImage+Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Extensions.h"; sourceTree = "<group>"; };
-		6875515C1D06A26C000241FC /* UIImage+Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Extensions.m"; sourceTree = "<group>"; };
+		687551631D06AF5C000241FC /* UIImage+Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImage+Extensions.h"; path = "PSPrintSDK/UIImage+Extensions.h"; sourceTree = "<group>"; };
+		687551641D06AF5C000241FC /* UIImage+Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImage+Extensions.m"; path = "PSPrintSDK/UIImage+Extensions.m"; sourceTree = "<group>"; };
 		68835B321CF3B58900ED5880 /* OLPromoOfferView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OLPromoOfferView.h; sourceTree = "<group>"; };
 		68835B331CF3B58900ED5880 /* OLPromoOfferView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OLPromoOfferView.m; sourceTree = "<group>"; };
 		68835B381CF3B65000ED5880 /* UIButton+Extended.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIButton+Extended.h"; path = "PSPrintSDK/Categories/UIButton+Extended.h"; sourceTree = "<group>"; };
@@ -1807,10 +1807,10 @@
 				2EE94D3E1B501D900086590C /* ALAssetsLibrary+Singleton.m */,
 				2EF53E391B55421A00BF936A /* UIImage+ColorAtPixel.h */,
 				2EF53E3A1B55421A00BF936A /* UIImage+ColorAtPixel.m */,
-				6875515B1D06A26C000241FC /* UIImage+Extensions.h */,
-				6875515C1D06A26C000241FC /* UIImage+Extensions.m */,
 				2E1067FE1B83335C00EB4C14 /* UIView+RoundRect.h */,
 				2E1067FF1B83335C00EB4C14 /* UIView+RoundRect.m */,
+				687551631D06AF5C000241FC /* UIImage+Extensions.h */,
+				687551641D06AF5C000241FC /* UIImage+Extensions.m */,
 				2EA13E1E1BBC2202005F3D71 /* UIImage+ImageNamedInKiteBundle.h */,
 				2EA13E1F1BBC2202005F3D71 /* UIImage+ImageNamedInKiteBundle.m */,
 				2E2E61E51C21826D005CB729 /* UIViewController+OLMethods.h */,
@@ -3111,7 +3111,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2E2632C21B97336700C7D879 /* KitePrintSDKUITests.m in Sources */,
-				687551601D06A26C000241FC /* UIImage+Extensions.m in Sources */,
+				687551681D06AF5C000241FC /* UIImage+Extensions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3240,7 +3240,7 @@
 				2E898CC31CC518180041CCD8 /* OLQRCodeUploadViewController.m in Sources */,
 				2E898CC41CC518180041CCD8 /* OLCountryPickerController.m in Sources */,
 				2E898CC51CC518180041CCD8 /* OLURLShortener.m in Sources */,
-				6875515E1D06A26C000241FC /* UIImage+Extensions.m in Sources */,
+				687551661D06AF5C000241FC /* UIImage+Extensions.m in Sources */,
 				2E898CC61CC518180041CCD8 /* OLBaseRequest.m in Sources */,
 				2E898CC71CC518180041CCD8 /* OLPhotobookPrintJob.m in Sources */,
 				2E898CC81CC518180041CCD8 /* OLPaymentLineItem.m in Sources */,
@@ -3359,7 +3359,7 @@
 				2EA3D3C01C9C04B500B99BCD /* OLAddressSelectionViewController.m in Sources */,
 				2EA3D3C11C9C04B500B99BCD /* OLProductTemplateOption.m in Sources */,
 				2EA3D3C21C9C04B500B99BCD /* ALAsset+OLAssetType.m in Sources */,
-				687551621D06A26C000241FC /* UIImage+Extensions.m in Sources */,
+				6875516A1D06AF5C000241FC /* UIImage+Extensions.m in Sources */,
 				2EA3D3C31C9C04B500B99BCD /* RMImageCropper.m in Sources */,
 				2EA3D3C41C9C04B500B99BCD /* OLAssetsViewController.m in Sources */,
 				2EA3D3C51C9C04B500B99BCD /* OLCountryPickerController.m in Sources */,
@@ -3400,7 +3400,7 @@
 				2E7F516D1BF5FBB100A78718 /* OLGreetingCardPrintJob.m in Sources */,
 				2EADD7F91BE79D6D0051CD31 /* OLPhotoSelectionButton.m in Sources */,
 				2EADD7FA1BE79D6D0051CD31 /* OLAddressEditViewController.m in Sources */,
-				6875515D1D06A26C000241FC /* UIImage+Extensions.m in Sources */,
+				687551651D06AF5C000241FC /* UIImage+Extensions.m in Sources */,
 				681EA88A1CC9BF1000508132 /* OLPersonalizedProductPhotos.m in Sources */,
 				68835B3A1CF3B65000ED5880 /* UIButton+Extended.m in Sources */,
 				2EADD7FB1BE79D6D0051CD31 /* OLKiteUtils.m in Sources */,
@@ -3512,7 +3512,7 @@
 				2E7483531BCD11F800360550 /* ViewControllerTests.m in Sources */,
 				2E924BE21BC6A0C80038938A /* OLKiteRequestTests.m in Sources */,
 				2E924BE51BC6A3A00038938A /* OLKiteTestHelper.m in Sources */,
-				6875515F1D06A26C000241FC /* UIImage+Extensions.m in Sources */,
+				687551671D06AF5C000241FC /* UIImage+Extensions.m in Sources */,
 				2ECC956A1BC6B88F00F44CE1 /* OLDocsObjcExampleCodeTests.m in Sources */,
 				CD73BF97186215790009DE03 /* OLSDKModelTests.m in Sources */,
 				2E7D1C8F1BC41C7D009227EE /* OLProductOrderTests.m in Sources */,
@@ -3760,7 +3760,7 @@
 				E29C85F91BE3B5C50041D4CF /* OLAddressPickerController.m in Sources */,
 				E29C85FB1BE3B5C50041D4CF /* main.m in Sources */,
 				E29C85FC1BE3B5C50041D4CF /* OLAssetsGroupViewCell.m in Sources */,
-				687551611D06A26C000241FC /* UIImage+Extensions.m in Sources */,
+				687551691D06AF5C000241FC /* UIImage+Extensions.m in Sources */,
 				E29C85FE1BE3B5C50041D4CF /* OLPostcardPrintJob.m in Sources */,
 				E29C86011BE3B5C50041D4CF /* NSObject+Utils.m in Sources */,
 				E29C86021BE3B5C50041D4CF /* OLAnalytics.m in Sources */,
