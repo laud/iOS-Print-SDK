@@ -21,8 +21,10 @@
 #import "UIImage+ImageNamedInKiteBundle.h"
 #import "OLKiteUtils.h"
 #import "OLKitePrintSDK.h"
+#import "UIImage+Extensions.h"
 
 static NSString *const kMaskURLPrefix = @"https://dimbno61n9ae1.cloudfront.net/";
+static NSString *const kCustomPhoneMaskId = @"custom_phone_masked";
 
 @interface OLPersonalizedProductPhotos ()
 
@@ -108,11 +110,17 @@ CGFloat DegreesToRadians(CGFloat degrees) {return degrees * M_PI / 180;};
 }
 
 - (void)classImageForProductGroup:(NSString *)templateClass withCustomImages:(NSArray *)customImages completion:(void (^)(UIImage *image))completion {
-    
-    NSString *maskId = [self.templateClassToPhotoMask objectForKey:templateClass];
-    [self buildCompositeImageWithMask:maskId customImages:customImages completion:^(UIImage *image) {
-        completion(image);
-    }];
+    if ([templateClass isEqualToString:@"Snap Cases"]) {
+        [self buildPhoneImageWithMask:kCustomPhoneMaskId customImages:customImages completion:^(UIImage *image) {
+            completion(image);
+        }];
+        
+    } else {
+        NSString *maskId = [self.templateClassToPhotoMask objectForKey:templateClass];
+        [self buildCompositeImageWithMask:maskId customImages:customImages completion:^(UIImage *image) {
+            completion(image);
+        }];
+    }
 }
 
 - (void)coverImageForProductIdentifier:(NSString *)identifier withCustomImages:(NSArray *)customImages completion:(void (^)(UIImage *image))completion {
@@ -239,6 +247,97 @@ CGFloat DegreesToRadians(CGFloat degrees) {return degrees * M_PI / 180;};
             });
         });
     }];
+}
+
+- (void)buildPhoneImageWithMask:(NSString *)maskId customImages:(NSArray *)customImages completion:(void (^)(UIImage *image))completion {
+    // Sanity checks and cacheing
+    if (maskId.length == 0) {
+        return completion(nil);
+    }
+    if (!customImages || customImages.count == 0) {
+        return completion(nil);
+    }
+    UIImage *cachedImage = [self.cachedMaskedImages objectForKey:maskId];
+    if (cachedImage) {
+        return completion(cachedImage);
+    }
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
+        NSUInteger customImagesStartIndex = arc4random_uniform(42);
+        CGFloat scale = [UIScreen mainScreen].scale;
+        UIImage *maskImage = [UIImage imageNamedInKiteBundle:@"phone-mask"];
+        UIImage *highlightImage = [UIImage imageNamedInKiteBundle:@"phone-effects"];
+        UIImage *backgroundImage = [UIImage imageNamedInKiteBundle:@"phone-background"];
+        
+        OLPrintPhoto *printPhoto = [customImages objectAtIndex:customImagesStartIndex % customImages.count];
+        if (printPhoto.type == kPrintPhotoAssetTypeOLAsset) {
+            PHAsset *phAsset = [((OLAsset *)printPhoto.asset) loadPHAsset];
+            if (phAsset) {
+                PHImageManager *imageManager = [PHImageManager defaultManager];
+                PHImageRequestOptions *options = [[PHImageRequestOptions alloc] init];
+                options.synchronous = YES;
+                options.deliveryMode = PHImageRequestOptionsDeliveryModeHighQualityFormat;
+                options.resizeMode = PHImageRequestOptionsResizeModeFast;
+                options.networkAccessAllowed = YES;
+                [imageManager requestImageForAsset:phAsset targetSize:CGSizeMake(maskImage.size.width * scale, maskImage.size.height * scale) contentMode:PHImageContentModeDefault options:options resultHandler:^(UIImage *result, NSDictionary *info) {
+                    UIImage *finalImage = [self constructPhoneImage:maskImage
+                                                          highlight:highlightImage
+                                                         background:backgroundImage
+                                                         foreground:result
+                                                          phoneSize:CGSizeMake(234, 472.5)
+                                                        phoneCenter:CGSizeMake(351, 290)
+                                                      phoneRotation:11.94];
+                    dispatch_async(dispatch_get_main_queue(), ^(void){
+                        if (finalImage) {
+                            [self.cachedMaskedImages setObject:finalImage forKey:maskId];
+                        }
+                        completion(finalImage);
+                    });
+                }];
+            } else {
+                NSLog(@"\tSkip Mask: PHAsset not found");
+                return completion(nil);
+            }
+        } else {
+            NSLog(@"\tSkip Mask: Not OLAsset");
+            return completion(nil);
+        }
+    });
+}
+
+- (UIImage *)constructPhoneImage:(UIImage *)phoneMask
+                       highlight:(UIImage *)highlight
+                      background:(UIImage *)background
+                      foreground:(UIImage *)foreground
+                       phoneSize:(CGSize)phoneSize
+                     phoneCenter:(CGSize)phoneCenter
+                   phoneRotation:(CGFloat)rotation {
+    
+    // Construct phone mask and then resize to original mask image size
+    UIImage *maskedImage = [foreground maskImageWithMask:phoneMask];
+    maskedImage = [maskedImage scaleImageToSize:phoneMask.size];
+    
+    // Add blended image on top of masked image
+    UIGraphicsBeginImageContextWithOptions(maskedImage.size, NO, 0);
+    [maskedImage drawAtPoint:CGPointZero blendMode:kCGBlendModeNormal alpha:1.0];
+    [highlight drawAtPoint:CGPointZero blendMode:kCGBlendModeNormal alpha:1.0];
+    UIImage *blendedImage = UIGraphicsGetImageFromCurrentImageContext();
+    blendedImage = [blendedImage scaleImageToSize:phoneSize];
+    UIGraphicsEndImageContext();
+    
+    // Add compound phone image to background image
+    UIGraphicsBeginImageContextWithOptions(background.size, NO, 0);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    [background drawAtPoint:CGPointZero blendMode:kCGBlendModeNormal alpha:1.0];
+    CGContextTranslateCTM(context, phoneCenter.width - blendedImage.size.width/2.f, phoneCenter.height - blendedImage.size.height/2.f);
+    CGContextTranslateCTM(context, blendedImage.size.width/2.f, blendedImage.size.height/2.f);
+    CGContextRotateCTM(context, DegreesToRadians(rotation));
+    CGContextTranslateCTM(context, -blendedImage.size.width/2.f, -blendedImage.size.height/2.f);
+    [blendedImage drawAtPoint:CGPointZero blendMode:kCGBlendModeNormal alpha:1.0];
+    UIImage *finalImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return finalImage;
 }
 
 - (void)clearCachedImages {
