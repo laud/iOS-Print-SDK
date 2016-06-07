@@ -284,7 +284,7 @@ CGFloat DegreesToRadians(CGFloat degrees) {return degrees * M_PI / 180;};
                                                           highlight:highlightImage
                                                          background:backgroundImage
                                                          foreground:result
-                                                          phoneSize:CGSizeMake(234, 472.5)
+                                                          phoneSize:CGSizeMake(235.2, 475)
                                                         phoneCenter:CGSizeMake(351, 290)
                                                       phoneRotation:11.94];
                     dispatch_async(dispatch_get_main_queue(), ^(void){
