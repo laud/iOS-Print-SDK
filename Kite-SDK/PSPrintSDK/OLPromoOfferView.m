@@ -97,6 +97,19 @@ const NSInteger kOLKiteSDKPromoOfferLockedButtonTag = 79;
     for (NSString *visual in visuals) {
         [con addObjectsFromArray: [NSLayoutConstraint constraintsWithVisualFormat:visual options:0 metrics:nil views:views]];
     }
+    
+    // Add additional width constraint for iPhone 5 & 4S -- makes the button large enough
+    CGFloat screenMaxLength = MAX([[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height);
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone && screenMaxLength <= 568.0) {
+        [con addObject:[NSLayoutConstraint constraintWithItem:lockedButton
+                                                    attribute:NSLayoutAttributeWidth
+                                                    relatedBy:NSLayoutRelationGreaterThanOrEqual
+                                                       toItem:nil
+                                                    attribute:NSLayoutAttributeNotAnAttribute
+                                                   multiplier:1.0
+                                                     constant:50]];
+    }
+    
     [lockedLabel.superview addConstraints:con];
 }
 
