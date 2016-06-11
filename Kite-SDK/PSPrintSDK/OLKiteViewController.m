@@ -445,7 +445,7 @@ static CGFloat fadeTime = 0.3;
         }
         
         if ([[OLProductTemplate templates] count] > 0){
-            [self.operationQueue addOperation:self.templateSyncOperation];
+            [self addOperation:self.templateSyncOperation ifNotInOperationQueue:self.operationQueue];
             return;
         }
         
@@ -475,8 +475,21 @@ static CGFloat fadeTime = 0.3;
     
     else{
         if (!self.templateSyncOperation.finished){
-            [self.operationQueue addOperation:self.templateSyncOperation];
+            [self addOperation:self.templateSyncOperation ifNotInOperationQueue:self.operationQueue];
         }
+    }
+}
+
+- (void)addOperation:(NSOperation *)op ifNotInOperationQueue:(NSOperationQueue *)queue {
+    BOOL addToOperationQueue = YES;
+    for (NSOperation *operation in queue.operations) {
+        if (operation == op) {
+            addToOperationQueue = NO;
+            break;
+        }
+    }
+    if (addToOperationQueue) {
+        [queue addOperation:op];
     }
 }
 
